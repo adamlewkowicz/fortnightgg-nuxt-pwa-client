@@ -1,7 +1,9 @@
 <template>
   <div>
     <the-navbar/>
-    <nuxt/>
+    <section>
+      <nuxt/>
+    </section>
   </div>
 </template>
 
@@ -15,7 +17,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "@/assets/css/index.scss";
+
 html {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 14px;
@@ -35,9 +39,17 @@ body {
   background-position: center top 40px;
 }
 
-/* *, *:before, *:after {
+section {
   box-sizing: border-box;
-  margin: 0;
-} */
+  margin: 0 auto;
+  @extend %rwd-sizing;
+}
+
+
+// *, *:before, *:after {
+//   box-sizing: border-box;
+//   margin: 0;
+// }
+
 
 </style>

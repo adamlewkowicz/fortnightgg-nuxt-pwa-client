@@ -1,25 +1,32 @@
 <template>
-  <div>
+  <article>
+
     <div v-if="error">
       {{ error }}
     </div>
-    <div v-else>
-      updated in: {{ updateTime }} ms
-      <p v-if="isUpdating">Updating stats...</p>
-      <p v-else>No action</p>
-      <general-stats :stats="stats.general" :updatedAt="updatedAt"/>
-      <div v-for="(platform, platformKey) in stats.all" :key="platformKey">
-        {{ platformKey}}
-        <div v-for="(mode, modeKey) in platform" :key="modeKey" class="modes">
-          {{ modeKey }}
-          <p v-for="(prop, propKey) in mode" :key="propKey">
-            {{ propKey }} : {{ prop }}
-          </p>
-        </div>
-      </div>
 
-    </div>
-  </div>
+    <section v-else id="stats">
+      <article id="general-stats">
+        updated in: {{ updateTime }} ms
+        <p v-if="isUpdating">Updating stats...</p>
+        <p v-else>No action</p>
+        <general-stats :stats="stats.general" :updatedAt="updatedAt"/>
+      </article>
+
+      <article id="all-stats">
+        <div v-for="(platform, platformKey) in stats.all" :key="platformKey">
+          {{ platformKey}}
+          <div v-for="(mode, modeKey) in platform" :key="modeKey" class="modes">
+            {{ modeKey }}
+            <p v-for="(prop, propKey) in mode" :key="propKey">
+              {{ propKey }} : {{ prop }}
+            </p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </article>
 </template>
 
 <script>
@@ -76,10 +83,33 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/css/index.scss";
+
 .modes {
   background-color: #23243b;
   margin-bottom: 50px;
   padding: 40px;
   box-sizing: border-box;
+}
+
+#stats {
+  margin-top: 120px;
+  display: flex;
+  @include tablet2 {
+    flex-direction: column;
+  }
+}
+
+#general-stats {
+  flex: 4;
+  flex-basis: 30px;
+  margin-right: 70px;
+  @include tablet2 {
+    margin: 0 0 40px 0;
+  }
+}
+
+#all-stats {
+  flex: 9;
 }
 </style>

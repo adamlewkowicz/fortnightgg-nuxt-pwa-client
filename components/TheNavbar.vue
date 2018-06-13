@@ -34,7 +34,6 @@ export default {
   methods: {
     findUser() {
       if (this.nickname != null) {
-        console.log(123)
         this.$router.push(`/stats/${this.nickname}`);
       }
     }
@@ -43,10 +42,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
+
 #header_wrapper {
   background-color: #1b1c2e;
   box-shadow: 0px 0px 70px 6px rgba(28, 30, 83, 1);
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 }
 
 header {
