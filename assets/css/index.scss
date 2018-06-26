@@ -62,7 +62,8 @@
 }
 
 
-$ff: 'Source Sans Pro', sans-serif;
+// $ff: 'Source Sans Pro', sans-serif;
+$ff: 'Open Sans';
 $fs: 16px;
 $fsp: 14px;
 
@@ -70,6 +71,14 @@ $fsp: 14px;
 	-webkit-appearance: none;
 	-moz-appearance: textfield;
   margin: 0;
+}
+
+button {
+  font-family: $ff;
+}
+
+input[type=text], input[type=number], input[type=password] {
+  font-family: $ff;
 }
 
 // USAGE

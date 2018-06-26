@@ -2,6 +2,7 @@
   <section>
     <h1>{{ stats.name }}</h1>
     <p>Last update: {{ updatedAt }}</p>
+    <h2>GENERAL STATS:</h2>
     <table class="general-stats">
       <tbody>
         <tr>
@@ -73,23 +74,4 @@ h1 {
 }
 .sword { background-image: url("~/assets/img/icons/sword-ico.png"); }
 .clock { background-image: url("~/assets/img/icons/clock-ico.png"); }
-
-.gradi {
-
-  //  background: linear-gradient(to top, rgba(150, 230, 161, 1)  , rgba(255,0,0,0));
-}
-
-.gradi2 {
-  // background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
-  // background-image: linear-gradient(120deg,rgba(212, 252, 121, 1), rgba(150, 230, 161, 1));
-  // background: linear-gradient(45deg , rgba(150, 230, 161, 1), rgba(212, 252, 121, 1));
-  color: #72a010;
-  background-color: #f6e58d;
-  // background-image: radial-gradient(circle 248px at center, #16d9e3 0%, #30c7ec 47%, #46aef7 100%);
-}
-
-.gradi3 {
-  // background-image: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);
-  // background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
-}
 </style>
