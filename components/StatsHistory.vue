@@ -44,8 +44,8 @@ export default {
 <style lang="scss" scoped>
 table {
   width: 100%;
-  border-collapse: collapse;
-  font-size: 13px;
+  border-collapse: separate;
+  border-spacing: 0px 10px
 }
 
 th {
@@ -58,7 +58,7 @@ th {
 td {
   text-align: center;
   background-color: #23243b;
-  padding: 12px;
+  padding: 16px 0;
   &:first-child {
     border-radius: 10px 0 0 10px;
   }
@@ -66,6 +66,7 @@ td {
     border-radius: 0 10px 10px 0;
   }
 }
+
 </style>
 
 

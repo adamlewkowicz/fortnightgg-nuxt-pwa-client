@@ -33,6 +33,10 @@ module.exports = {
   ** Build configuration
   */
   build: {
+    vendor: [
+      'vue-c3'
+    ],
+
     /*
     ** Run ESLint on save
     */

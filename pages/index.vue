@@ -1,14 +1,61 @@
 <template>
   <div>
+    <h3>Recently updated players</h3>
+    <table>
+      <thead>
+        <th>Nickname:</th>
+        <th>Kills:</th>
+        <th>Matches played:</th>
+      </thead>
+      <tbody>
+        <tr v-for="(record, recordKey) in lastRecords"
+          :key="recordKey"
+          @click="$router.push(`/stats/${record.name}`)"
+        >
+          <td>{{ record.name }}</td>
+          <td>{{ record.kills }}</td>
+          <td>{{ record.matchesplayed }}</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
-  components: {
+  data() {
+    return {
+      lastRecords: []
+    }
+  },
+  async asyncData() {
+    const { data: { lastRecords }} = await axios.get(`http://localhost:4000/stats/last-records`);
+    return { lastRecords };
   }
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+h3 {
+  text-align: center;
+  margin-top: 350px;
+  margin-bottom: 40px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  tbody {
+    td {
+      text-align: center;
+      padding: 15px;
+    }
+    tr:hover {
+      background-color: rgba(255,255,255,0.08);
+      cursor: pointer;
+    }
+  }
+}
 </style>
