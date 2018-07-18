@@ -1,5 +1,8 @@
 <template>
   <div>
+
+    <player-searcher />
+
     <h3>Recently updated players</h3>
     <table>
       <thead>
@@ -22,11 +25,16 @@
 </template>
 
 <script>
+import PlayerSearcher from '~/components/PlayerSearcher';
 import axios from 'axios';
 
 export default {
+  components: {
+    PlayerSearcher
+  },
   data() {
     return {
+      nickname: '',
       lastRecords: []
     }
   },
@@ -40,9 +48,11 @@ export default {
 <style lang="scss" scoped>
 h3 {
   text-align: center;
-  margin-top: 350px;
+  margin-top: 250px;
   margin-bottom: 40px;
 }
+
+
 
 table {
   width: 100%;
@@ -50,12 +60,13 @@ table {
   tbody {
     td {
       text-align: center;
-      padding: 15px;
+      padding: 15px 0;
     }
     tr:hover {
       background-color: rgba(255,255,255,0.08);
       cursor: pointer;
     }
   }
+  margin-bottom: 80px;
 }
 </style>

@@ -2,14 +2,10 @@
   <section>
     <h1>{{ stats.name }}</h1>
     <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p>
-      {{ nextUpdateComesIn }}
       <p>Next update in: {{ nextUpdateComesInText }}</p>
     <button @click="updateStats($route.params.playerName)">Update</button>
     <h2>GENERAL STATS:</h2>
-    {{ updateCalled }}
 
-  <br>
-    {{ isUpdating }}
 
     <table class="general-stats">
       <tbody>
@@ -123,7 +119,8 @@ export default {
 
 h1 {
   font-size: 40px;
-  margin: 20px 0;
+  margin: 0;
+  margin-bottom: 20px;
 }
 .general-stats {
   width: 100%;

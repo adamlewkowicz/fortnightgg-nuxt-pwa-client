@@ -1,0 +1,8 @@
+%button {
+  border-style: none;
+  outline: none;
+  user-select: none;
+  &:hover, &:focus {
+    cursor: pointer;
+  }
+}

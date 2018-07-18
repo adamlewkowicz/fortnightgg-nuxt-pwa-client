@@ -35,6 +35,7 @@ export default {
     findUser() {
       if (this.nickname != null) {
         this.$router.push(`/stats/${this.nickname}`);
+        this.nickname = '';
       }
     }
   }
