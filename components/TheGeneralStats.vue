@@ -1,11 +1,12 @@
 <template>
   <section>
     <h1>{{ stats.name }}</h1>
-    <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p>
+    <!-- <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p> -->
+    <transition name="slide-bottom">
       <p>Next update in: {{ nextUpdateComesInText }}</p>
+    </transition>
     <button @click="updateStats($route.params.playerName)">Update</button>
     <h2>GENERAL STATS:</h2>
-
 
     <table class="general-stats">
       <tbody>
@@ -92,7 +93,7 @@ export default {
       if (seconds < 0) {
         return 'Just now';
       } else if (minutes > 0) {
-        return `${minutes} minutes and ${secondsInMins} seconds`;
+        return `${minutes} min. and ${secondsInMins} sec.`;
       } else {
         return `${secondsInMins} seconds`;
       }

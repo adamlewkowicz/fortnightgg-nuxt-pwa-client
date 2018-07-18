@@ -6,19 +6,15 @@
       :active="pickedPlatform"
     />
 
-
-    <div v-if="!filteredStats.length">
-      No stats for choosen platform
-    </div>
-    <template v-else v-for="(stats, statsKey) in filteredStats">
-      {{ stats.mode }}
+    <template v-for="(stats, statsKey) in filteredStats">
+      <h3 :key="stats.mode">{{ stats.mode.toUpperCase() }}</h3>
       <div :key="statsKey" class="all-stats">
-        <p v-for="(statProp, statPropKey) in stats" :key="statPropKey">
-          {{ statPropKey}} : {{ statProp }}
+        <p v-for="(statProp, statPropKey) in orderedStatsProps" :key="statPropKey">
+          <i>{{ statProp | upperCaseFirstChar }}:</i>
+          {{ stats[statProp] }}
         </p>
       </div>
     </template>
-
 
   </div>
 </template>
@@ -33,13 +29,17 @@ export default {
   props: ['stats'],
   data() {
     return {
-      pickedPlatform: ''
+      pickedPlatform: '',
+      orderedStatsProps: [
+        'matchesplayed', 'kills', 'score', 'hoursplayed', 'top1', 'top3', 'top6', 'top10', 'top25'
+      ]
     }
   },
   computed: {
     filteredStats() {
       return this.stats
-        .filter(stat => stat.platform == this.pickedPlatform);
+        .map(stat => ({ ...stat, hoursplayed: Math.floor(stat.minutesplayed / 60) }))
+        .filter(stat => stat.platform == this.pickedPlatform)
     },
     availablePlatforms() {
       return this.stats
@@ -51,6 +51,11 @@ export default {
         }, []);
     }
   },
+  filters: {
+    upperCaseFirstChar(string) {
+      return string[0].toUpperCase() + string.substring(1);
+    }
+  },
   mounted() {
     if (this.stats.some(stat => stat.platform === 'pc')) this.pickedPlatform = 'pc';
     else this.pickedPlatform = this.stats[0].platform;
@@ -59,16 +64,24 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
 .all-stats {
   background-color: #23243b;
   padding: 30px;
   box-sizing: border-box;
   margin-bottom: 30px;
-  b {
-    font-weight: 300;
+  i {
+    font-style: normal;
+    color: rgba(255,255,255,0.2);
     color: #4b4d71;
+    // color: #525372;
   }
 }
+
+h3 {
+  margin: 20px 0 5px 5px;
+}
+
 p {
   margin: 4px;
 }

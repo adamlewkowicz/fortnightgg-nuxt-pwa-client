@@ -1,16 +1,24 @@
 <template>
   <div class="searcher-main-wrapper">
+    <p v-if="error.length" class="error-message">
+      {{ error }}
+    </p>
     <div class="searcher-wrapper">
       <input type="text"
         class="text"
         v-model="nickname"
-        @input="findPlayers"
+        @input="findPlayers()"
+        @keyup.enter="redirectToStats()"
       />
-      <button class="btn"></button>
+      <button
+        type="button"
+        class="btn"
+        @click="redirectToStats">
+      </button>
     </div>
     <div v-if="players.length" class="players-result">
       <ul v-for="(player, playerKey) in players" :key="playerKey">
-        <li @click="$router.push(`/stats/${player.name}`)">
+        <li @click="redirectToStats(player.name)">
           {{ player.name }}
         </li>
       </ul>
@@ -22,6 +30,12 @@
 import axios from 'axios';
 
 export default {
+  props:{
+    error: {
+      type: String,
+      default: ''
+    }
+  },
   data() {
     return {
       nickname: '',
@@ -40,6 +54,12 @@ export default {
       } else {
         this.players = [];
       }
+    },
+    redirectToStats(nickname = this.nickname) {
+      console.log(nickname)
+      if (nickname.length) {
+        this.$router.push(`/stats/${nickname}`);
+      }
     }
   }
 }
@@ -57,6 +77,16 @@ export default {
 .searcher-wrapper {
   display: flex;
   position: relative;
+}
+
+.error-message {
+  background-color: #ff4757;
+  border-left: 7px solid #ff6b81;
+  // border-radius: 12px;
+  font-weight: normal;
+  padding: 12px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 
 input[type=text] {

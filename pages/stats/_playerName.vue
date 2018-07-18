@@ -1,18 +1,15 @@
 <template>
   <article>
 
-
-
-    {{ showStats }}
-
-    {{ this.$route.params.playerName }}
-
-    <template v-if="!$route.params.playerName">
-      <h3>Enter your nickname</h3>
-      <input type="text" />
+    <template v-if="!showStats">
+      <player-searcher
+        :error="error"
+      />
     </template>
 
-    <section v-else-if="stats.all.length" id="stats">
+
+    <section v-else id="stats">
+
       <article id="general-stats">
         <general-stats :stats="stats.general" :isUpdating="stats.isUpdating"/>
         <stats-history v-if="stats.history.length" :stats="stats.history"/>
@@ -22,7 +19,6 @@
       <article id="all-stats">
         <all-stats :stats="stats.all"/>
       </article>
-
 
     </section>
 
@@ -37,13 +33,15 @@ import axios from 'axios';
 import TheGeneralStats from "~/components/TheGeneralStats";
 import StatsHistory from "~/components/StatsHistory";
 import AllStats from "~/components/AllStats";
+import PlayerSearcher from "~/components/PlayerSearcher";
 
 export default {
   watchQuery: ['playerName'],
   components: {
     'general-stats': TheGeneralStats,
     StatsHistory,
-    AllStats
+    AllStats,
+    PlayerSearcher
   },
   data () {
     return {
@@ -63,6 +61,10 @@ export default {
       else if (!this.stats.all.length) return false;
       else if (name && playerName.toLowerCase() !== name.toLowerCase()) return false;
       else return true;
+    },
+    error() {
+      const { playerName } = this.$route.params;
+      return playerName ? `No stats were found for ${playerName}` : ``;
     }
   },
   async fetch({ store, params }) {

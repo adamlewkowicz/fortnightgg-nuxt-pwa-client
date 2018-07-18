@@ -1,16 +1,13 @@
 <template>
   <div id="header_wrapper">
     <header>
-      <div id="logo">
-        <nuxt-link to="/">
-          <img src="@/assets/img/logo.jpg" alt="Fortnight website logo"/>
-        </nuxt-link>
-      </div>
+      <nuxt-link to="/" id="logo">
+        <img src="@/assets/img/logo.jpg" alt="Fortnight website logo"/>
+      </nuxt-link>
 
       <nav>
         <ul>
-          <li><nuxt-link to="/">Homepage</nuxt-link></li>
-          <li><nuxt-link to="/items">Items</nuxt-link></li>
+          <!-- <li><nuxt-link to="/items">Items</nuxt-link></li> -->
           <li><nuxt-link to="/stats">Stats</nuxt-link></li>
         </ul>
       </nav>
@@ -59,6 +56,14 @@ header {
   align-items: center;
 }
 
+#logo {
+  display: block;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+}
+
 #logo img {
   pointer-events: none;
   user-select: none;
@@ -92,6 +97,7 @@ li {
 
 #user_finder {
   display: flex;
+  margin-left: auto;
 }
 
 #user_finder input {

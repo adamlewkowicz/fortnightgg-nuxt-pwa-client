@@ -2,7 +2,9 @@
   <div>
     <the-navbar/>
     <section>
-      <nuxt/>
+      <transition name="fade">
+        <nuxt/>
+      </transition>
     </section>
   </div>
 </template>

@@ -1,0 +1,35 @@
+.fade-enter-active, .fade-leave-active {
+  transition: transform .7s ease;
+  transition: opacity .7s ease;
+}
+// .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+//   position: absolute;
+//   // opacity: 0;
+// }
+
+.fade-enter {
+  position: absolute;
+  transform: scale(.9);
+  opacity: 0;
+}
+
+
+.slide-bottom-active, .slide-bottom-leave-active {
+  transition: transform .3s ease;
+  transition: opacity .3s ease;
+}
+
+.slide-bottom-enter, .slide-bottom-leave-to {
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.slide-left-active, .slide-left-leave-active {
+  transition: transform .3s ease;
+  transition: opacity .3s ease;
+}
+
+.slide-left-enter, .slide-left-leave-to {
+  opacity: 0;
+  transform: translateX(50%);
+}
