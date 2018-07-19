@@ -43,7 +43,7 @@ const stats = {
       else await dispatch('updateStats', playerName);
 		},
 		async updateStats ({ commit,state }, playerName) {
-      console.log('UPDEJCIK', playerName)
+      console.log('CALLED UPDATE STATS: ', playerName)
       commit('CHANGE_UPDATING_STATUS', true);
       const { data: { stats }} = await axios.patch(`http://localhost:4000/stats/${playerName}`);
       commit('CHANGE_UPDATING_STATUS', false);
