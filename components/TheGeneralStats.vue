@@ -3,9 +3,9 @@
     <h1>{{ stats.name }}</h1>
     <!-- <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p> -->
     <transition name="slide-bottom">
-      <p>Next update in: {{ nextUpdateComesInText }}</p>
+    <p class="next-update">Next update in: {{ nextUpdateComesInText }}</p>
     </transition>
-    <button @click="updateStats($route.params.playerName)">Update</button>
+    <!-- <button @click="updateStats($route.params.playerName)">Update</button> -->
     <h2>GENERAL STATS:</h2>
 
     <table class="general-stats">
@@ -55,7 +55,7 @@ export default {
   methods: {
     updateTimer() {
       const { seconds } = this.nextUpdateComesIn;
-      if (seconds != null && seconds < 5 && !this.isUpdating) {
+      if (seconds != null && seconds < 1 && !this.isUpdating) {
         this.updateStats();
       }
       clearTimeout(this.timeout);
@@ -117,6 +117,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
+
+.next-update {
+  color: rgba(255,255,255,.4);
+  margin-bottom: 20px;
+}
 
 h1 {
   font-size: 40px;

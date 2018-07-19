@@ -46,11 +46,12 @@ export default {
   methods: {
     findPlayers() {
       clearTimeout(this.timeout);
+      const delay = this.nickname.length === 1 ? 0 : 300;
       if (this.nickname.length > 0) {
         this.timeout = setTimeout(async () => {
           const { data } = await axios.get(`http://localhost:4000/stats/players/${this.nickname}`);
           this.players = data.players;
-        }, 300);
+        }, delay);
       } else {
         this.players = [];
       }

@@ -17,6 +17,12 @@
 
 
       <article id="all-stats">
+        <div v-if="stats.history.length > 1 && !isUpdating" class="chart-wrapper">
+          <line-chart
+            :chartData="lineChartData"
+            :height="chartHeight"
+          />
+        </div>
         <all-stats :stats="stats.all"/>
       </article>
 
@@ -34,6 +40,7 @@ import TheGeneralStats from "~/components/TheGeneralStats";
 import StatsHistory from "~/components/StatsHistory";
 import AllStats from "~/components/AllStats";
 import PlayerSearcher from "~/components/PlayerSearcher";
+import LineChart from '~/components/LineChart';
 
 export default {
   watchQuery: ['playerName'],
@@ -41,10 +48,13 @@ export default {
     'general-stats': TheGeneralStats,
     StatsHistory,
     AllStats,
-    PlayerSearcher
+    PlayerSearcher,
+    LineChart
   },
   data () {
     return {
+      chartHeight: 150,
+      chartPropName: 'kills'
     }
   },
   methods: {
@@ -65,6 +75,23 @@ export default {
     error() {
       const { playerName } = this.$route.params;
       return playerName ? `No stats were found for ${playerName}` : ``;
+    },
+    isUpdating() {
+      return this.$store.state.stats.isUpdating;
+    },
+    lineChartData() {
+      const { history } = this.stats;
+      const dates = history.map(record => moment(record.date).format('DD-MM'));
+      const data = history.map(record => record[this.chartPropName]);
+      return {
+        labels: dates,
+        datasets: [{
+          borderColor: '#359add',
+          backgroundColor: 'rgba(176, 223, 255, .1)',
+          label: this.chartPropName,
+          data
+        }]
+      }
     }
   },
   async fetch({ store, params }) {
@@ -79,6 +106,12 @@ export default {
 
 <style lang="scss">
 @import "@/assets/css/index.scss";
+
+.chart-wrapper {
+  min-height: 235px;
+  overflow: hidden;
+  width: 100%;
+}
 
 h2 {
   font-size: 13px;
@@ -110,6 +143,7 @@ h2 {
 
 #all-stats {
   flex: 9;
+  margin-top: 55px;
   div {
     border-radius: 10px;
   }

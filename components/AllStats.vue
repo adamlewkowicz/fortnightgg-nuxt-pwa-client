@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <platform-switch
       :availablePlatforms="availablePlatforms"
       @switchPlatform="pickedPlatform=$event"
@@ -65,6 +65,11 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
+
+.wrapper {
+  margin-top: 50px;
+}
+
 .all-stats {
   background-color: #23243b;
   padding: 30px;

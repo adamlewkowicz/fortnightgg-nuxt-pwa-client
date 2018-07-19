@@ -50,10 +50,17 @@ export default {
 
 header {
   height: 70px;
-  max-width: 960px;
+  max-width: 1110px;
   margin: 0 auto;
   display: flex;
   align-items: center;
+  @include desktop {
+    padding: 0 20px;
+    max-width: 960px;
+  }
+  @include phone {
+    padding: 0 10px;
+  }
 }
 
 #logo {
@@ -98,6 +105,9 @@ li {
 #user_finder {
   display: flex;
   margin-left: auto;
+  @include small {
+    display: none;
+  }
 }
 
 #user_finder input {
