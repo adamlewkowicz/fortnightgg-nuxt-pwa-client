@@ -35,7 +35,7 @@ module.exports = {
   ],
 
   axios: {
-    baseURL: process.env.NODE_ENV == 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space/'
+    baseURL: process.env.NODE_ENV == 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space'
   },
   /*
   ** Build configuration
