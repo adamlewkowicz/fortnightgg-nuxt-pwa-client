@@ -19,6 +19,7 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
+
   css: [
     '@/assets/css/index.scss'
   ],
