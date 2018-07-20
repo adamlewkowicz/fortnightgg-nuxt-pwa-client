@@ -44,6 +44,7 @@ import LineChart from '~/components/LineChart';
 
 export default {
   watchQuery: ['playerName'],
+  scrollToTop: true,
   components: {
     'general-stats': TheGeneralStats,
     StatsHistory,
@@ -146,6 +147,9 @@ h2 {
   margin-top: 55px;
   div {
     border-radius: 10px;
+  }
+  @include tablet {
+    margin-top: 20px;
   }
 }
 </style>

@@ -13,7 +13,7 @@
       <button
         type="button"
         class="btn"
-        @click="redirectToStats">
+        @click="redirectToStats()">
       </button>
     </div>
     <div v-if="players.length" class="players-result">

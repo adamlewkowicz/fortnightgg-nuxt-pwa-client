@@ -1,10 +1,22 @@
-.fade-enter-active, .fade-leave-active {
+.fade-scale-enter-active, .fade-scale-leave-active {
   transition: transform .7s ease, opacity .7s ease;
 }
 
-.fade-enter {
+.fade-scale-enter {
   position: absolute;
   transform: scale(.9);
+  opacity: 0;
+}
+
+
+.fade-enter-active, .fade-leave-active {
+  opacity: 1;
+  transition: opacity .5s ease;
+}
+
+
+
+.fade-leave-to {
   opacity: 0;
 }
 

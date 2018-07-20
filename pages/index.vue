@@ -39,6 +39,9 @@ export default {
     }
   },
   async asyncData({ app }) {
+    // return new Promise((resolve) => {
+    //   setTimeout(() => resolve({}), 2000);
+    // });
     const { lastRecords } = await app.$axios.$get('/stats/last-records');
     return { lastRecords };
   }
