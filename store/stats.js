@@ -5,7 +5,6 @@ const delayAction = (fn, ms = 1000) => {
   setTimeout(() => fn(), ms);
 }
 
-
 const stats = {
 	state: {
     playerName: '',
