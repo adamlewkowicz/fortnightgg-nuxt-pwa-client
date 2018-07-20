@@ -1,6 +1,4 @@
 {
-  "name": "fortnight-client",
-  "alias": [
-    "fortnight.gg"
-  ]
+  "alias": "fortnight.gg",
+  "name": "fortnight-client"
 }
