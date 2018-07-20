@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 let timeout = null;
 
 const delayAction = (fn, ms = 1000) => {
@@ -37,9 +35,7 @@ const stats = {
 	actions: {
 		async getStats ({ dispatch, commit }, playerName) {
       const { stats } = await this.$axios.$get(`/stats/${playerName}`);
-
       console.log('CALLED GET STATS')
-
       if (Object.keys(stats).length && stats.all.length) commit('GET_STATS', stats);
       else await dispatch('updateStats', playerName);
 		},
