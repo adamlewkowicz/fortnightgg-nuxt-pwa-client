@@ -28,7 +28,7 @@ module.exports = {
   //   NODE_ENV: process.env.NODE_ENV
   // },
 
-  loading: { color: '#3B8070' },
+  loading: '~/components/LoadingBar.vue',
 
   modules: [
     '@nuxtjs/axios',

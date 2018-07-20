@@ -17,7 +17,7 @@
         <button type="button" @click="findUser">.GG</button>
       </div>
     </header>
-      <div id="stripe"></div>
+      <!-- <div id="stripe"></div> -->
   </div>
 </template>
 
@@ -49,17 +49,18 @@ export default {
 }
 
 header {
+  padding-bottom: 3px;
   height: 70px;
   max-width: 1110px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   @include desktop {
-    padding: 0 20px;
+    padding: 0 20px 3px 20px;
     max-width: 960px;
   }
-  @include phone {
-    padding: 0 10px;
+  @include small {
+    padding: 0 10px 3px 10px;
   }
 }
 

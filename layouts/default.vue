@@ -2,7 +2,7 @@
   <div>
     <the-navbar/>
     <section>
-      <transition name="fade">
+      <transition name="fade-scale">
         <nuxt/>
       </transition>
     </section>
