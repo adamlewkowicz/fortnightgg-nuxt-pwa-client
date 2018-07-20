@@ -1,4 +1,7 @@
 {
   "alias": "fortnight.gg",
-  "name": "fortnight-client"
+  "name": "fortnight-client",
+  "engines": {
+    "node": "7.4.0"
+  }
 }
