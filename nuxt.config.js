@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+
 module.exports = {
   /*
   ** Headers of the page
@@ -20,14 +23,19 @@ module.exports = {
     '@/assets/css/index.scss'
   ],
 
+  // env: {
+  //   NODE_ENV: process.env.NODE_ENV
+  // },
+
   loading: { color: '#3B8070' },
 
   modules: [
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    '@nuxtjs/dotenv'
   ],
 
   axios: {
-    baseURL: 'http://localhost:4000'
+    baseURL: process.env.NODE_ENV == 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space/'
   },
   /*
   ** Build configuration

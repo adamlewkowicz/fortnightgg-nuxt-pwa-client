@@ -38,8 +38,8 @@ export default {
       lastRecords: []
     }
   },
-  async asyncData() {
-    const { data: { lastRecords }} = await axios.get(`http://localhost:4000/stats/last-records`);
+  async asyncData({ app }) {
+    const { lastRecords } = await app.$axios.$get('/stats/last-records');
     return { lastRecords };
   }
 }

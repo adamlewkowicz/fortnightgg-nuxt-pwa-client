@@ -36,7 +36,8 @@ const stats = {
 	},
 	actions: {
 		async getStats ({ dispatch, commit }, playerName) {
-      const { data: { stats }} = await axios.get(`http://localhost:4000/stats/${playerName}`);
+      const { stats } = await this.$axios.$get(`/stats/${playerName}`);
+
       console.log('CALLED GET STATS')
 
       if (Object.keys(stats).length && stats.all.length) commit('GET_STATS', stats);
@@ -45,7 +46,7 @@ const stats = {
 		async updateStats ({ commit,state }, playerName) {
       console.log('CALLED UPDATE STATS: ', playerName)
       commit('CHANGE_UPDATING_STATUS', true);
-      const { data: { stats }} = await axios.patch(`http://localhost:4000/stats/${playerName}`);
+      const { stats } = await this.$axios.$patch(`/stats/${playerName}`);
       commit('CHANGE_UPDATING_STATUS', false);
       if (Object.keys(stats).length && state.playerName.toLowerCase() === stats.general.name.toLowerCase()) {
         commit('UPDATE_STATS', stats);
