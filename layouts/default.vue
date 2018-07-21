@@ -13,6 +13,7 @@
 import TheNavbar from '../components/TheNavbar';
 
 export default {
+  scrollToTop: true,
   components: {
     TheNavbar
   }
