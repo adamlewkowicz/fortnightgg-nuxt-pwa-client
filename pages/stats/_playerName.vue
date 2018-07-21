@@ -112,6 +112,7 @@ export default {
   min-height: 235px;
   overflow: hidden;
   width: 100%;
+  margin-bottom: 30px;
 }
 
 h2 {

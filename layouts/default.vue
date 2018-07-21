@@ -44,6 +44,7 @@ body {
 section {
   box-sizing: border-box;
   margin: 0 auto;
+  margin-top: 100px;
   @extend %rwd-sizing;
 }
 

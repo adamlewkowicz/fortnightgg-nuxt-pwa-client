@@ -2,8 +2,7 @@
   <div>
     <!-- <div class="bar"
       :class="barClass"
-      :style="styled"
-    >
+      :style="styled">
     </div> -->
     <transition name="fade">
       <div class="spinner-wrapper" v-if="loading">
@@ -66,7 +65,7 @@ export default {
       setTimeout(() => {
         this.styled = {
           WebkitTransitionProperty: 'width',
-          width: '100vw',
+          width: '100%',
           WebkitTransitionDuration: '5s'
         };
       }, 50);
@@ -134,14 +133,14 @@ export default {
   position: fixed;
   z-index: 11;
   width: 100vw;
-  height: calc(100vh - 73px);
-  top: 73px;
+  height: 100vh;
+  top: 0;
   display: flex;
   background-color: #1b1c2e;
   align-items: center;
   // justify-content: center;
   flex-direction: column;
-  padding-top: 30%;
+  padding-top: 40vh;
 }
 
 .playername {
