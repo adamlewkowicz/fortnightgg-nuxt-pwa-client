@@ -6,10 +6,10 @@
     </div> -->
     <transition name="fade">
       <div class="spinner-wrapper" v-if="loading">
-        <div v-if="playerName && !statsPath" class="playername">
+        <!-- <div v-if="playerName && !statsPath" class="playername">
           looking for..
           <h1>{{ playerName }}</h1>
-        </div>
+        </div> -->
         <div class="spinner">
           <div class="cube1"></div>
           <div class="cube2"></div>

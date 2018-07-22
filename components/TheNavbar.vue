@@ -2,7 +2,7 @@
   <div id="header-wrapper">
     <header>
       <nuxt-link to="/" id="logo">
-        <img src="@/assets/img/logo.jpg" alt="Fortnight website logo"/>
+        <img src="@/assets/img/logo.svg" alt="Fortnight website logo"/>
       </nuxt-link>
 
       <nav>

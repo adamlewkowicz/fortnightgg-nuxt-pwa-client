@@ -1,5 +1,3 @@
-
-
 const items = {
   state: {
     filters: {
@@ -30,7 +28,6 @@ const items = {
       for (const prop in payload) {
         state.filters[prop] = payload[prop];
       }
-      // state.filters[] =
     }
   },
   actions: {

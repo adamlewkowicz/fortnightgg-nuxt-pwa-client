@@ -1,7 +1,7 @@
 <template>
   <div>
     <the-navbar/>
-    <section>
+    <section class="page-wrapper">
       <transition name="fade-scale">
         <nuxt/>
       </transition>
@@ -42,7 +42,7 @@ body {
   background-position: center top 40px;
 }
 
-section {
+.page-wrapper {
   box-sizing: border-box;
   margin: 0 auto;
   margin-top: 100px;

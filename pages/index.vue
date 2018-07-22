@@ -44,6 +44,11 @@ export default {
     // });
     const { lastRecords } = await app.$axios.$get('/stats/last-records');
     return { lastRecords };
+  },
+  head() {
+    return {
+      title: 'Fortnight.gg - Homepage'
+    }
   }
 }
 </script>

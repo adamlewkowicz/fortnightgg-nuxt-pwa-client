@@ -45,19 +45,15 @@ export default {
     items() {
       return this.$store.state.items;
     },
-    // filteredItems() {
-    //   return this.items
-    //     .filter(item => item.weapon_name.toLowerCase().indexOf(this.itemPhrase) !== -1)
-    //     .filter(item => this.itemsTypes.some(type => item.type_name === type))
-    // },
-    // weaponsTypes() {
-    //   return this.items
-    //     .reduce((types, item) => types.some(type => type === item.type_name) ? types : [...types, item.type_name], []);
-    // }
   },
   async fetch({ store }) {
     store.commit('CLEAR_ITEMS_FILTERS');
     await store.dispatch('getItems');
+  },
+  head() {
+    return {
+      title: 'Fortnight.gg - Items explorer'
+    }
   }
 }
 </script>
@@ -86,13 +82,14 @@ export default {
 .list-enter, .list-leave-to {
   transform: scale(0) rotate(-30deg);
   opacity: 0;
+  flex: 0 0 auto;
 }
 .list-leave-active {
   position: absolute;
 }
 
 .list-move {
-  transition: transform .3s;
+  position: absolute;
 }
 
 @keyframes popIn {
@@ -107,14 +104,10 @@ export default {
   }
 }
 
-
-
-
 .items-wrapper {
   display: flex;
   flex: 9;
   padding: 20px;
-  // min-height: 100vh;
   // background-color: red;
   margin-left: 40px;
   box-sizing: border-box;
@@ -122,10 +115,12 @@ export default {
   justify-content: center;
   // align-items: flex-start;
   flex-wrap: wrap;
+  /*
   &:after {
-    // content: "";
-    // flex: auto;
+    content: "";
+    flex: auto;
   }
+  */
   @include tablet {
     margin-left: 0;
     min-height: 100vh;
