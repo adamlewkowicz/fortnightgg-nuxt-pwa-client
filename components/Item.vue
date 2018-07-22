@@ -35,12 +35,11 @@ $shadows:
   height: 150px;
   margin: 13px;
   position: relative;
-  transition: all .5s ease;
+  transition: all .3s ease;
   @for $index from 1 through 5 {
     &.#{nth($rarityNames, $index)} {
      background: radial-gradient(ellipse at center, #{nth($backgrounds, $index)});
      border: 2px solid #{nth($borders, $index)};
-    //  transition: transform .3s ease;
     //  transition: width .3s ease, height .3s ease;
      transition-delay: .05s;
      &:hover {

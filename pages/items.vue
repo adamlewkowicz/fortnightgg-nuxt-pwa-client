@@ -68,31 +68,28 @@ export default {
 .items-page-wrapper {
   margin-top: 300px;
   display: flex;
+  min-height: 80vh;
 }
 
 .items-nav {
   flex: 2;
 }
 
-.item-move {
-  transition: transform 1s;
-}
+// .item-move {
+//   transition: transform 1s;
+// }
 
 
-.list-enter, .list-leave-to
-/* .list-complete-leave-active below version 2.1.8 */ {
-
-
-  // animation: popIn .5s ease;
-
+.list-enter, .list-leave-to {
   transform: scale(0) rotate(-30deg);
-  // transform: rotate(-60deg);
   opacity: 0;
-  // transition: transform .5s ease;
-  // transform: translateY(30px);
 }
 .list-leave-active {
   position: absolute;
+}
+
+.list-move {
+  transition: transform .3s;
 }
 
 @keyframes popIn {
@@ -114,9 +111,12 @@ export default {
   display: flex;
   flex: 9;
   padding: 20px;
+  // min-height: 100vh;
+  // background-color: red;
+  margin-left: 40px;
   box-sizing: border-box;
-  // align-content: space-around;
-  justify-content: space-around;
+  align-content: flex-start;
+  justify-content: flex-start;
   // align-items: flex-start;
   flex-wrap: wrap;
   &:after {
