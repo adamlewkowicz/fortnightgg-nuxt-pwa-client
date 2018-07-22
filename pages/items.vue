@@ -3,12 +3,10 @@
 
     <items-nav
       class="items-nav"
-      @filterItems="itemPhrase = $event"
-      :weaponsTypes="weaponsTypes"
-      @sortByType="itemsTypes = $event"
+      :itemsTypes="itemsTypes"
+      :filters="items.filters"
     />
 
-      <!-- @sortByType="" -->
     <transition-group tag="div" name="list" class="items-wrapper">
       <item
         v-for="(item, itemKey) in filteredItems"
@@ -22,53 +20,58 @@
 
 
 <script>
+import { mapGetters } from 'vuex';
 import Item from '@/components/Item';
 import ItemsNav from '@/components/ItemsNav';
+import ItemsFilters from '@/components/ItemsFilters';
 
 export default {
   components: {
     Item,
-    ItemsNav
+    ItemsNav,
+    ItemsFilters
   },
   data() {
     return {
-      items: [],
-      itemPhrase: '',
-      itemsTypes: []
-    }
-  },
-  methods: {
-    sortByType(choosenTypes) {
-      this.itemsTypes = choosenTypes;
-      console.log(choosenTypes)
+      itemPhrase: ''
     }
   },
   computed: {
-    filteredItems() {
-      return this.items
-        .filter(item => item.weapon_name.toLowerCase().indexOf(this.itemPhrase) !== -1)
-        .filter(item => this.itemsTypes.some(type => item.type_name === type))
+    ...mapGetters([
+      'filteredItems',
+      'filteredTypes',
+      'itemsTypes'
+    ]),
+    items() {
+      return this.$store.state.items;
     },
-    weaponsTypes() {
-      return this.items
-        .reduce((types, item) => types.some(type => type === item.type_name) ? types : [...types, item.type_name], []);
-    }
+    // filteredItems() {
+    //   return this.items
+    //     .filter(item => item.weapon_name.toLowerCase().indexOf(this.itemPhrase) !== -1)
+    //     .filter(item => this.itemsTypes.some(type => item.type_name === type))
+    // },
+    // weaponsTypes() {
+    //   return this.items
+    //     .reduce((types, item) => types.some(type => type === item.type_name) ? types : [...types, item.type_name], []);
+    // }
   },
-  mounted() {
-    this.itemsTypes = this.weaponsTypes;
-  },
-  async asyncData({ app }) {
-    const { data: { items }} = await app.$axios.get(`/items`);
-    return { items }
+  async fetch({ store }) {
+    store.commit('CLEAR_ITEMS_FILTERS');
+    await store.dispatch('getItems');
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
+
 .items-page-wrapper {
   margin-top: 300px;
   display: flex;
   min-height: 80vh;
+  @include tablet {
+    flex-direction: column;
+  }
 }
 
 .items-nav {
@@ -116,13 +119,16 @@ export default {
   margin-left: 40px;
   box-sizing: border-box;
   align-content: flex-start;
-  justify-content: flex-start;
+  justify-content: center;
   // align-items: flex-start;
   flex-wrap: wrap;
   &:after {
-    content: "";
-    flex: auto;
-    // width: 100%;
+    // content: "";
+    // flex: auto;
+  }
+  @include tablet {
+    margin-left: 0;
+    min-height: 100vh;
   }
 }
 </style>

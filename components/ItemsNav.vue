@@ -1,5 +1,5 @@
 <template>
-  <div class="items-nav">
+  <div>
     <label for="name-searcher">
       <h3>ITEM NAME:</h3>
     </label>
@@ -7,66 +7,56 @@
       id="name-searcher"
       v-model="itemName"
       placeholder="enter name..."
-      @input="filterItems"
+      @input="filterByName"
     />
-    <h3>FILTER BY TYPE:</h3>
-    <select v-model="itemsTypes"
-      :size="weaponsTypes.length"
-      @change="$emit('sortByType', itemsTypes)"
+
+    <!-- <h3>FILTER BY TYPE:</h3>
+    <select v-model="filterItemsTypes"
+      :size="itemsTypes.length"
       multiple>
-      <option v-for="(weaponType, weaponTypeKey) in weaponsTypes"
-        :key="weaponTypeKey">
-        {{ weaponType }}
+      <option v-for="(itemType, itemTypeKey) in itemsTypes"
+        :key="itemTypeKey">
+        {{ itemType }}
       </option>
-    </select>
-    {{ itemsTypes }}
-    <!-- <div v-for="(weaponType, weaponTypeKey) in weaponsTypes"
-      :key="weaponTypeKey"
-      class="items-types">
-      <label :for="weaponType | htmlTag">
-        {{ weaponType }}
-      </label>
-      <input type="checkbox"
-        :id="weaponType | htmlTag"
-        v-model="itemsTypes"
-        :value="weaponType"
-        @change="sortByType(weaponType)"
-      />
-    </div> -->
-    <!-- {{ itemsTypes }} -->
+    </select> -->
+
+    <div class="items-types-filters-wrapper">
+      <div v-for="(itemType, itemTypeKey) in itemsTypes"
+        :key="itemTypeKey"
+        class="items-types">
+        <label :for="itemType | htmlTag">
+          {{ itemType }}
+        </label>
+        <input type="checkbox"
+          :id="itemType | htmlTag"
+          :value="itemType"
+          @change="filerItemsTypes(itemType)"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['weaponsTypes'],
+  props: [
+    'itemsTypes',
+    'filters'
+  ],
   data() {
     return {
       itemName: '',
       firstSort: true,
-      itemsTypes: this.weaponsTypes
+      filterItemsTypes: []
     }
   },
   methods: {
-    filterItems() {
-      this.$emit('filterItems', this.itemName.toLowerCase())
+    filerItemsTypes(itemType) {
+      const mutate = mutation => this.$store.commit(mutation, itemType);
+      this.filters.types.some(type => type === itemType) ? mutate('DELETE_ITEM_TYPE') : mutate('ADD_ITEM_TYPE');
     },
-    addType(weaponType) {
-      console.log(weaponType)
-      console.log(this.itemsTypes)
-      if (this.itemsTypes.some(type => type === weaponType)) {
-        this.itemsTypes.push(weaponType);
-        console.log(17827182)
-      }
-    },
-    sortByType(newType) {
-      if (this.firstSort) {
-        this.firstSort = false;
-        this.itemsTypes = [newType];
-        this.$emit('sortByType', [newType]);
-      } else {
-        this.$emit('sortByType', this.itemsTypes);
-      }
+    filterByName() {
+      this.$store.commit('FILTER_BY_NAME', this.itemName);
     }
   },
   filters: {
@@ -78,6 +68,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
+
 #name-searcher {
   border-style: none;
   padding: 14px 10px;
@@ -85,6 +77,7 @@ export default {
   border-radius: 6px;
   background-color: #373971;
   outline: none;
+  box-sizing: border-box;
   margin-bottom: 20px;
   // border: 1px solid #373971;
   transition: box-shadow .3s ease;
@@ -93,11 +86,24 @@ export default {
   &::placeholder {
     color: rgba(255,255,255,.3);
   }
+  @include tablet {
+    width: 100%;
+  }
 }
 
 h3 {
   font-size: 12px;
   margin: 6px 0;
+}
+
+.items-types-filters-wrapper {
+  @include tablet {
+    max-height: 135px;
+    overflow-y: auto;
+    background-color: #23243b;
+    border-radius: 6px;
+    padding: 5px 10px;
+  }
 }
 
 .items-types {
