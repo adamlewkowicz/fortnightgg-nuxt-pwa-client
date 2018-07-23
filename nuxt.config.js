@@ -17,6 +17,12 @@ module.exports = {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' }
     ]
   },
+
+  loadingIndicator: {
+    name: 'wandering-cubes',
+    color: '#1aa1eb',
+    background: '#1b1c2e'
+  },
   /*
   ** Customize the progress bar color
   */
