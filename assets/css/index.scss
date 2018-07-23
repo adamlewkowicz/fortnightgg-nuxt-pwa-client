@@ -8,7 +8,7 @@
 }
 
 @mixin tablet {
-	@media (min-width: 768px) and (max-width: 979px) {
+	@media (max-width: 979px) {
 		@content;
 	}
 }
@@ -33,16 +33,17 @@
 
 %rwd-sizing {
   max-width: 1100px;
-
+  box-sizing: border-box;
   @include desktop {
     max-width: 960px;
+    padding: 0 10px;
   }
   @include tablet {
     max-width: 720px;
   }
   @include phone {
     max-width: 540px;
-    padding: 0 10px;
+    // padding: 0 10px;
   }
   @include small {
     padding: 0 5px;

@@ -33,7 +33,7 @@ const stats = {
 	},
 	actions: {
 		async getStats ({ dispatch, commit }, playerName) {
-      const { stats } = await this.$axios.$get(`/stats/${playerName}`);
+      const { stats } = await this.$axios.$get(`/stats/${encodeURI(playerName)}`);
       console.log('CALLED GET STATS')
       if (Object.keys(stats).length && stats.all.length) commit('GET_STATS', stats);
       else await dispatch('updateStats', playerName);
@@ -41,7 +41,7 @@ const stats = {
 		async updateStats ({ commit,state }, playerName) {
       console.log('CALLED UPDATE STATS: ', playerName)
       commit('CHANGE_UPDATING_STATUS', true);
-      const { stats } = await this.$axios.$patch(`/stats/${playerName}`);
+      const { stats } = await this.$axios.$patch(`/stats/${encodeURI(playerName)}`);
       commit('CHANGE_UPDATING_STATUS', false);
       if (Object.keys(stats).length && state.playerName.toLowerCase() === stats.general.name.toLowerCase()) {
         commit('UPDATE_STATS', stats);

@@ -1,13 +1,13 @@
 <template>
-  <div id="header_wrapper">
+  <div id="header-wrapper">
     <header>
       <nuxt-link to="/" id="logo">
-        <img src="@/assets/img/logo.jpg" alt="Fortnight website logo"/>
+        <img src="@/assets/img/logo.svg" alt="Fortnight website logo"/>
       </nuxt-link>
 
       <nav>
         <ul>
-          <!-- <li><nuxt-link to="/items">Items</nuxt-link></li> -->
+          <li><nuxt-link to="/items">Items</nuxt-link></li>
           <li><nuxt-link to="/stats">Stats</nuxt-link></li>
         </ul>
       </nav>
@@ -42,10 +42,14 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
 
-#header_wrapper {
+#header-wrapper {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  box-sizing: border-box;
+  z-index: 50;
   background-color: #1b1c2e;
-  box-shadow: 0px 0px 70px 6px rgba(28, 30, 83, 1);
-  margin-bottom: 100px;
+  // box-shadow: 0px 0px 70px 6px rgba(28, 30, 83, 1);
 }
 
 header {
@@ -70,6 +74,8 @@ header {
   display: flex;
   align-items: center;
   margin-right: 20px;
+  user-select: none;
+  outline: none;
 }
 
 #logo img {

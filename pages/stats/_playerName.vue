@@ -1,5 +1,5 @@
 <template>
-  <article>
+  <article class="stats-wrapper">
 
     <template v-if="!showStats">
       <player-searcher
@@ -14,7 +14,6 @@
         <general-stats :stats="stats.general" :isUpdating="stats.isUpdating"/>
         <stats-history v-if="stats.history.length" :stats="stats.history"/>
       </article>
-
 
       <article id="all-stats">
         <div v-if="stats.history.length > 1 && !isUpdating" class="chart-wrapper">
@@ -101,6 +100,13 @@ export default {
       store.commit('CHANGE_PLAYERNAME', playerName);
       await store.dispatch('getStats', playerName);
     }
+  },
+  head() {
+    const { playerName } = this.$route.params;
+    const title = playerName ? ` - ${playerName}` : '';
+    return {
+      title: `Fortnight.gg - Stats${title}`
+    }
   }
 }
 </script>
@@ -108,10 +114,15 @@ export default {
 <style lang="scss">
 @import "@/assets/css/index.scss";
 
+.stats-wrapper {
+  margin-top: 250px;
+}
+
 .chart-wrapper {
   min-height: 235px;
   overflow: hidden;
   width: 100%;
+  margin-bottom: 30px;
 }
 
 h2 {
@@ -135,6 +146,11 @@ h2 {
 
 #general-stats {
   flex: 3.5;
+  // flex: 3;
+  max-width: 300px;
+  @include tablet {
+    max-width: 100%;
+  }
   flex-basis: 30px;
   margin-right: 70px;
   @include tablet2 {

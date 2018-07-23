@@ -1,7 +1,7 @@
 <template>
   <div>
     <the-navbar/>
-    <section>
+    <section class="page-wrapper">
       <transition name="fade-scale">
         <nuxt/>
       </transition>
@@ -13,6 +13,7 @@
 import TheNavbar from '../components/TheNavbar';
 
 export default {
+  scrollToTop: true,
   components: {
     TheNavbar
   }
@@ -41,9 +42,10 @@ body {
   background-position: center top 40px;
 }
 
-section {
+.page-wrapper {
   box-sizing: border-box;
   margin: 0 auto;
+  margin-top: 100px;
   @extend %rwd-sizing;
 }
 

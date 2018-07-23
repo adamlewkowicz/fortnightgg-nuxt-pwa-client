@@ -72,6 +72,7 @@ export default {
 .searcher-main-wrapper {
   max-width: 700px;
   margin: 200px auto;
+  margin-top: 300px;
   position: relative;
 }
 
