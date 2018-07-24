@@ -20,7 +20,6 @@
   opacity: 0;
 }
 
-
 .slide-bottom-active, .slide-bottom-leave-active {
   // transition: transform 1s ease, opacity 1s ease;
   height: 620px;
@@ -34,12 +33,7 @@
 
 }
 
-.slide-left-active, .slide-left-leave-active {
-  transition: transform .3s ease;
-  transition: opacity .3s ease;
-}
-
 .slide-left-enter, .slide-left-leave-to {
   opacity: 0;
-  transform: translateX(50%);
+  transform: translateX(25%);
 }
