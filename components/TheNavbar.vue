@@ -17,7 +17,7 @@
         <button type="button" @click="findUser">.GG</button>
       </div>
     </header>
-      <!-- <div id="stripe"></div> -->
+      <div id="stripe"></div>
   </div>
 </template>
 
