@@ -95,7 +95,7 @@ td {
     opacity: 0;
     transform: scale(.3);
   }
-  65% {
+  60% {
     opacity: 1;
     transform: scale(1.1);
   }

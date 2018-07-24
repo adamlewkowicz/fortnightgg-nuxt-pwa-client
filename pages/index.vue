@@ -44,7 +44,7 @@ export default {
   computed: {
     recordsStyle() {
       return this.lastRecords.map((record, index) => ({
-        transition: `transform 1s ease ${index/10}s, opacity 1s ease ${index/10}s`
+        transition: `transform 1s ease ${(index - 1) * 1.5 / 15}s, opacity 1s ease ${index/15}s`
       }));
     }
   },
