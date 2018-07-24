@@ -1,6 +1,8 @@
 <template>
   <div class="item"
+    @click="$emit('choosenItem', item)"
     :class="item.rarity_name.toLowerCase()">
+    <img :src="'http://localhost:4000/' + item.weapon_img">
     <div class="overlap-set">
       {{ item.weapon_name }}
     </div>
@@ -9,7 +11,13 @@
 
 <script>
 export default {
-  props: ['item']
+  props: ['item'],
+  data() {
+    return {
+      smallProps: ['damage', 'headshot', 'dps', 'magazine_size'],
+      showDetails: -1
+    }
+  }
 }
 </script>
 
@@ -40,26 +48,39 @@ $shadows:
     &.#{nth($rarityNames, $index)} {
      background: radial-gradient(ellipse at center, #{nth($backgrounds, $index)});
      border: 2px solid #{nth($borders, $index)};
-    //  transition: width .3s ease, height .3s ease;
      transition-delay: .05s;
      &:hover {
+       position: relative;
+       z-index: 10;
        box-shadow: 0px 0px 35px -4px #{nth($shadows, $index)};
        cursor: pointer;
        transform: scale(1.2);
-      //  width: 200px;
-      //  height: 200px;
+       img {
+        transform: scale(1.5) rotate(20deg);
+       }
+       .overlap-set {
+         transform: translateY(calc(100% + 2px));
+         background-color: rgba(1,1,1,.8);
+       }
      }
     }
   }
+}
+
+img {
+  transition: transform .3s ease;
+  width: 80%;
+  padding: 10%;
+  user-select: none;
 }
 
 .overlap-set {
   bottom: 0;
   left: 0;
   position: absolute;
-  background-color: rgba(1,1,1,.4);
+  background-color: rgba(1,1,1,.3);
   width: 100%;
-  // height: 25%;
+  transition: transform .3s ease, background-color .3s ease;
   font-size: 13px;
   padding: 7px;
   box-sizing: border-box;

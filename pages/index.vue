@@ -4,23 +4,26 @@
     <player-searcher />
 
     <h3>Recently updated players</h3>
-    <table>
-      <thead>
-        <th>Nickname:</th>
-        <th>Kills:</th>
-        <th>Matches played:</th>
-      </thead>
-      <tbody>
-        <tr v-for="(record, recordKey) in lastRecords"
-          :key="recordKey"
-          @click="$router.push(`/stats/${record.name}`)"
-        >
-          <td>{{ record.name }}</td>
-          <td>{{ record.kills }}</td>
-          <td>{{ record.matchesplayed }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <th>Nickname:</th>
+          <th>Kills:</th>
+          <th>Matches played:</th>
+        </thead>
+        <transition-group tag="tbody" name="slide-left" appear>
+          <tr v-for="(record, recordKey) in lastRecords"
+            :key="recordKey"
+            :style="recordsStyle[recordKey]"
+            @click="$router.push(`/stats/${record.name}`)"
+          >
+            <td>{{ record.name }}</td>
+            <td>{{ record.kills }}</td>
+            <td>{{ record.matchesplayed }}</td>
+          </tr>
+        </transition-group>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -36,6 +39,13 @@ export default {
     return {
       nickname: '',
       lastRecords: []
+    }
+  },
+  computed: {
+    recordsStyle() {
+      return this.lastRecords.map((record, index) => ({
+        transition: `transform 1s ease ${(index - 1) * 1.5 / 15}s, opacity 1s ease ${index/15}s`
+      }));
     }
   },
   async asyncData({ app }) {
@@ -60,7 +70,9 @@ h3 {
   margin-bottom: 40px;
 }
 
-
+.table-wrapper {
+  overflow: hidden;
+}
 
 table {
   width: 100%;
@@ -71,6 +83,7 @@ table {
       padding: 15px 0;
     }
     tr:hover {
+      transition-delay: 0 !important;
       background-color: rgba(255,255,255,0.08);
       cursor: pointer;
     }

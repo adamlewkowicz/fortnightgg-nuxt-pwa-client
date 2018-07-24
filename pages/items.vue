@@ -11,9 +11,16 @@
       <item
         v-for="(item, itemKey) in filteredItems"
         :key="itemKey"
-        :item="item">
+        :item="item"
+        @choosenItem="choosenItem = $event">
       </item>
     </transition-group>
+
+    <item-details
+      v-if="choosenItem"
+      :item="choosenItem"
+      @closeDetails="choosenItem = null"
+    />
 
   </div>
 </template>
@@ -24,16 +31,21 @@ import { mapGetters } from 'vuex';
 import Item from '@/components/Item';
 import ItemsNav from '@/components/ItemsNav';
 import ItemsFilters from '@/components/ItemsFilters';
+import ItemDetails from '@/components/ItemDetails';
 
 export default {
   components: {
     Item,
     ItemsNav,
-    ItemsFilters
+    ItemsFilters,
+    ItemDetails
   },
   data() {
     return {
-      itemPhrase: ''
+      itemPhrase: '',
+      showDetails: -1,
+      id: 0,
+      choosenItem: null
     }
   },
   computed: {
