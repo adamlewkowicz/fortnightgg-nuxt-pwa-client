@@ -17,8 +17,9 @@
       </button>
     </div>
     <div v-if="players.length" class="players-result">
-      <ul v-for="(player, playerKey) in players" :key="playerKey">
-        <li @click="redirectToStats(player.name)">
+      <ul>
+        <li v-for="(player, playerKey) in players" :key="playerKey"
+          @click="redirectToStats(player.name)">
           {{ player.name }}
         </li>
       </ul>
