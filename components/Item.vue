@@ -1,10 +1,10 @@
 <template>
   <div class="item"
     @click="$emit('choosenItem', item)"
-    :class="item.rarity_name.toLowerCase()">
-    <img :src="'http://localhost:4000/' + item.weapon_img">
+    :class="item.rarity.toLowerCase()">
+    <img :src="'http://localhost:4000/static/' + item.img">
     <div class="overlap-set">
-      {{ item.weapon_name }}
+      {{ item.name }}
     </div>
   </div>
 </template>

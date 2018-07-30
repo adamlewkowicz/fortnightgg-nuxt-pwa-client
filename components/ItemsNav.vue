@@ -20,11 +20,11 @@
       </option>
     </select> -->
 
-    <div class="items-types-filters-wrapper">
+    <!-- <div class="items-types-filters-wrapper">
       <div v-for="(itemType, itemTypeKey) in itemsTypes"
         :key="itemTypeKey"
         class="items-types">
-        <label :for="itemType | htmlTag">
+        <label :for="type | htmlTag">
           {{ itemType }}
         </label>
         <input type="checkbox"
@@ -33,7 +33,8 @@
           @change="filerItemsTypes(itemType)"
         />
       </div>
-    </div>
+    </div> -->
+
   </div>
 </template>
 

@@ -58,7 +58,6 @@ export default {
       }
     },
     redirectToStats(nickname = this.nickname) {
-      console.log(nickname)
       if (nickname.length) {
         this.$router.push(`/stats/${nickname}`);
       }

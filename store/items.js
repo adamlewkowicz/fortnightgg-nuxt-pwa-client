@@ -38,15 +38,15 @@ const items = {
   getters: {
     itemsTypes: state => {
       return state.items
-        .reduce((types, item) => types.some(type => type === item.type_name) ? types : [...types, item.type_name], []);
+        .reduce((types, item) => types.some(type => type === item.type) ? types : [...types, item.type], []);
     },
     filteredTypes: (state, getters) => {
       return !state.filters.types.length ? getters.itemsTypes : state.filters.types
     },
     filteredItems: (state, getters) => {
       return state.items
-        .filter(item => item.weapon_name.toLowerCase().indexOf(state.filters.name) !== -1)
-        .filter(item => getters.filteredTypes.some(type => item.type_name === type))
+        .filter(item => item.name.toLowerCase().indexOf(state.filters.name) !== -1)
+        .filter(item => getters.filteredTypes.some(type => item.type === type))
     }
   }
 }

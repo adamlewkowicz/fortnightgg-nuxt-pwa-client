@@ -3,8 +3,8 @@
     <div class="item-details">
       <button @click="$emit('closeDetails')">
       </button>
-      <p>{{ item.weapon_name }}</p>
-      <img :src="'http://localhost:4000/' + item.weapon_img">
+      <p>{{ item.name }}</p>
+      <img :src="'http://localhost:4000/static/' + item.img">
       <table>
         <tbody>
           <tr v-for="(itemProp, itemPropKey) in itemsProps" :key="itemPropKey">
@@ -23,10 +23,10 @@ export default {
   data() {
     return {
       itemsProps: [
-        ['Rarity', 'rarity_name'],
+        ['Rarity', 'rarity'],
         ['Damage', 'damage'],
-        ['Type', 'type_name'],
-        ['Ammo', 'ammo_name'],
+        ['Type', 'type'],
+        ['Ammo', 'ammoName'],
         ['Headshot', 'headshot']
       ]
     }

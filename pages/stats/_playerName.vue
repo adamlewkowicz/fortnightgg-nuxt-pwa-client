@@ -12,7 +12,7 @@
 
       <article id="general-stats">
         <general-stats :stats="stats.general" :isUpdating="stats.isUpdating"/>
-        <stats-history v-if="stats.history.length" :stats="stats.history"/>
+        <stats-history v-if="stats.history.length" :history="stats.history" :live="stats.live"/>
       </article>
 
       <article id="all-stats">

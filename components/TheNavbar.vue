@@ -7,7 +7,7 @@
 
       <nav>
         <ul>
-          <!-- <li><nuxt-link to="/items">Items</nuxt-link></li> -->
+          <li><nuxt-link to="/items">Items</nuxt-link></li>
           <li><nuxt-link to="/stats">Stats</nuxt-link></li>
         </ul>
       </nav>

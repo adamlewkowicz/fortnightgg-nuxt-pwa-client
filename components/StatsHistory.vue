@@ -1,24 +1,42 @@
 <template>
   <article>
-    <h2>STATS HISTORY:</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Matches:</th>
-          <th>Wins:</th>
-          <th>Kills:</th>
-          <th>Date:</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(record, recordKey) in formattedStats" :key="recordKey">
-          <td>{{ record.matchesplayed }}</td>
-          <td>{{ record.score }}</td>
-          <td>{{ record.kills }}</td>
-          <td>{{ record.date }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <h2>MATCH HISTORY:
+      <button :class="{ active: showLiveStats }" @click="showLiveStats = true">Live</button>
+      <button :class="{ active: !showLiveStats }" @click="showLiveStats = false">Daily</button>
+    </h2>
+
+    <section v-show="showLiveStats">
+      <transition-group tag="ul">
+        <li v-for="(match, matchKey) in limitedStats"
+          :key="matchKey"
+          :class="match.place.toLowerCase()">
+          {{ match.place }}
+          <div>+{{ match.score }} - {{ match.timeAgo }}</div>
+        </li>
+      </transition-group>
+    </section>
+
+    <section v-show="!showLiveStats">
+      <table>
+        <thead>
+          <tr>
+            <th>Matches:</th>
+            <th>Wins:</th>
+            <th>Kills:</th>
+            <th>Date:</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(record, recordKey) in formattedStats" :key="recordKey">
+            <td>{{ record.matchesplayed }}</td>
+            <td>{{ record.score }}</td>
+            <td>{{ record.kills }}</td>
+            <td>{{ record.date }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
   </article>
 </template>
 
@@ -26,22 +44,118 @@
 import moment from "moment";
 
 export default {
-  props: ['stats'],
+  name: 'StatsHistory',
+  props: ['history', 'live'],
+  data() {
+    return {
+      showLiveStats: true,
+      actualTime: moment()
+    }
+  },
   computed: {
     formattedStats() {
-      return this.stats.map(record => {
-        const date = moment(record.date, 'YYYY-MM-DD');
+      return this.history.map(record => {
+        const date = moment(record.datedOn, 'YYYY-MM-DD');
         return {
           ...record,
           date: `${date.format('DD')} ${(date.format('MMMM')).substring(0,3)}`
        }
       });
+    },
+    liveStats() {
+      return this.live.map(record => {
+        const timeAgo = moment(record.date).from(this.actualTime)
+        const getPlace = () => {
+          if (record.top1) return 'Winner';
+          else if (record.top10) return 'Top 10';
+          else if (record.top25) return 'Top 25';
+          else return 'Defeat';
+        }
+        return {
+          ...record,
+          place: getPlace(),
+          timeAgo
+        }
+      })
+    },
+    limitedStats() {
+      return this.liveStats.length < 8 ? this.liveStats : this.liveStats.slice(0, 8);
     }
+  },
+  methods: {
+    updateActualTime() {
+      setInterval(() => {
+        this.actualTime = moment();
+      }, 1000);
+    }
+  },
+  mounted() {
+    this.updateActualTime()
   }
 }
 </script>
 
 <style lang="scss" scoped>
+button {
+  min-width: 42px;
+  min-height: 42px;
+  width: 80px;
+  border-style: none;
+  background-color: transparent;
+  color: #fff;
+  border-bottom: 3px solid transparent;
+  position: relative;
+  &:hover, &:focus {
+    cursor: pointer;
+    outline: none;
+  }
+  &:first-child {
+    margin-left: auto;
+    &:after {
+      content: "";
+      background-color: #eb4d4b;
+      border-radius: 9px;
+      position: absolute;
+      width: 9px;
+      height: 9px;
+      right: 6px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  &.active {
+    border-color: #1aa1eb;
+  }
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  background-color: #23243b;
+  padding: 13px;
+  margin-bottom: 7px;
+  display: flex;
+  border: 1px solid transparent;
+  div {
+    display: inline-block;
+    margin-left: auto;
+    font-size: 12px;
+  }
+  &.defeat {
+    background: linear-gradient(45deg, rgba(237, 76, 103, .7), #23243b);
+    border-color:rgb(237, 76, 103);
+  }
+  &.winner {
+    background: linear-gradient(45deg, rgba(196, 229, 56, .7), #23243b);
+    border-color: rgb(196, 229, 56);
+  }
+}
+
+
 table {
   width: 100%;
   border-collapse: separate;

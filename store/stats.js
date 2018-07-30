@@ -11,6 +11,7 @@ const stats = {
     general: {},
     all: [],
     history: [],
+    live: [],
     isUpdating: false
 	},
 	mutations: {
@@ -18,6 +19,7 @@ const stats = {
       state.general = payload.general;
       state.all = payload.all;
       state.history = payload.history;
+      state.live = payload.live;
     },
     UPDATE_STATS (state, payload) {
       for (const prop in payload) {
