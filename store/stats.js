@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 let timeout = null;
 
 const delayAction = (fn, ms = 1000) => {
@@ -25,6 +27,9 @@ const stats = {
       for (const prop in payload) {
         state[prop] = payload[prop];
       }
+    },
+    ADD_LIVE_MATCH (state) {
+      state.live.unshift({ data: moment().format('YYYY-MM-DD HH:mm:ss'), place: 'Winner', score: 333 });
     },
     CHANGE_PLAYERNAME (state, playerName) {
       state.playerName = playerName;

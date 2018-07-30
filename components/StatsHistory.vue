@@ -1,41 +1,44 @@
 <template>
   <article>
     <h2>MATCH HISTORY:
-      <button :class="{ active: showLiveStats }" @click="showLiveStats = true">Live</button>
+      <button :class="{ active: showLiveStats }" @click="showLiveStats = !showLiveStats">Live</button>
       <button :class="{ active: !showLiveStats }" @click="showLiveStats = false">Daily</button>
     </h2>
 
-    <section v-show="showLiveStats">
-      <transition-group tag="ul">
-        <li v-for="(match, matchKey) in limitedStats"
-          :key="matchKey"
-          :class="match.place.toLowerCase()">
-          {{ match.place }}
-          <div>+{{ match.score }} - {{ match.timeAgo }}</div>
-        </li>
-      </transition-group>
-    </section>
+    <div class="history-components">
+      <section :style="transitionStyle">
+        <transition-group tag="ul" name="match">
+          <li v-for="(match, matchKey) in limitedStats"
+            :key="matchKey*2"
+            :class="match.place.toLowerCase()"
+            @click="$store.commit('ADD_LIVE_MATCH')">
+            {{ match.place }}
+            <div>{{ match.timeAgo }}</div>
+          </li>
+        </transition-group>
+      </section>
 
-    <section v-show="!showLiveStats">
-      <table>
-        <thead>
-          <tr>
-            <th>Matches:</th>
-            <th>Wins:</th>
-            <th>Kills:</th>
-            <th>Date:</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="(record, recordKey) in formattedStats" :key="recordKey">
-            <td>{{ record.matchesplayed }}</td>
-            <td>{{ record.score }}</td>
-            <td>{{ record.kills }}</td>
-            <td>{{ record.date }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
+      <section :style="transitionStyle">
+        <table>
+          <thead>
+            <tr>
+              <th>Matches:</th>
+              <th>Wins:</th>
+              <th>Kills:</th>
+              <th>Date:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(record, recordKey) in formattedStats" :key="recordKey">
+              <td>{{ record.matchesplayed }}</td>
+              <td>{{ record.score }}</td>
+              <td>{{ record.kills }}</td>
+              <td>{{ record.date }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
 
   </article>
 </template>
@@ -49,10 +52,16 @@ export default {
   data() {
     return {
       showLiveStats: true,
-      actualTime: moment()
+      actualTime: moment(),
+      style: {
+        transform: "translateX(-100%)"
+      }
     }
   },
   computed: {
+    transitionStyle() {
+      return this.showLiveStats ? {} : this.style;
+    },
     formattedStats() {
       return this.history.map(record => {
         const date = moment(record.datedOn, 'YYYY-MM-DD');
@@ -96,6 +105,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+h2 {
+  margin-bottom: 25px;
+}
+
+.history-components {
+  display: flex;
+  overflow: hidden;
+  section {
+    flex-basis: 100%;
+    flex-shrink: 0;
+    transition: transform .3s ease;
+  }
+}
+
 button {
   min-width: 42px;
   min-height: 42px;
@@ -135,24 +158,38 @@ ul {
 }
 
 li {
+  border-radius: 6px;
   background-color: #23243b;
   padding: 13px;
   margin-bottom: 7px;
   display: flex;
   border: 1px solid transparent;
+  transition: transform 1s;
   div {
     display: inline-block;
     margin-left: auto;
     font-size: 12px;
   }
   &.defeat {
-    background: linear-gradient(45deg, rgba(237, 76, 103, .7), #23243b);
-    border-color:rgb(237, 76, 103);
+    border-image: linear-gradient(to left, #fbc2eb, transparent);
+    border-image-slice: 1;
   }
   &.winner {
-    background: linear-gradient(45deg, rgba(196, 229, 56, .7), #23243b);
-    border-color: rgb(196, 229, 56);
+    border-left-width: 5px;
+    border-image: linear-gradient(to left, #d4fc79, #96e6a1);
+    border-image-slice: 1;
+    box-shadow: 0 0 30px 0px rgba(150, 230, 161, .1);
   }
+}
+
+.match-enter, .match-leave-to {
+  opacity: 0;
+  transform: translateX(30px);
+}
+
+.match-leave-active, .match-enter-active {
+  position: absolute;
+  background-color: blue;
 }
 
 
