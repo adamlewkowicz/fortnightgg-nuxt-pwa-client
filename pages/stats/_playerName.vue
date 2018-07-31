@@ -62,7 +62,7 @@ export default {
   },
   computed: {
     stats() {
-      return this.$store.state.stats;
+      return this.$store.state.stats
     },
     showStats() {
       const { playerName } = this.$route.params;

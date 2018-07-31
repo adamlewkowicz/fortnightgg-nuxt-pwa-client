@@ -1,7 +1,7 @@
 <template>
   <article>
     <h2>MATCH HISTORY:
-      <button :class="{ active: showLiveStats }" @click="showLiveStats = !showLiveStats">Live</button>
+      <button :class="{ active: showLiveStats }" @click="showLiveStats = true">Live</button>
       <button :class="{ active: !showLiveStats }" @click="showLiveStats = false">Daily</button>
     </h2>
 
@@ -54,7 +54,7 @@ export default {
       showLiveStats: true,
       actualTime: moment(),
       style: {
-        transform: "translateX(-100%)"
+        transform: "translateX(calc(-100% - 20px))"
       }
     }
   },
@@ -107,6 +107,8 @@ export default {
 <style lang="scss" scoped>
 h2 {
   margin-bottom: 25px;
+  display: flex;
+  align-items: center;
 }
 
 .history-components {
@@ -116,6 +118,9 @@ h2 {
     flex-basis: 100%;
     flex-shrink: 0;
     transition: transform .3s ease;
+    &:first-child {
+      margin-right: 20px;
+    }
   }
 }
 
@@ -128,23 +133,12 @@ button {
   color: #fff;
   border-bottom: 3px solid transparent;
   position: relative;
+  &:first-child {
+    margin-left: auto;
+  }
   &:hover, &:focus {
     cursor: pointer;
     outline: none;
-  }
-  &:first-child {
-    margin-left: auto;
-    &:after {
-      content: "";
-      background-color: #eb4d4b;
-      border-radius: 9px;
-      position: absolute;
-      width: 9px;
-      height: 9px;
-      right: 6px;
-      top: 50%;
-      transform: translateY(-50%);
-    }
   }
   &.active {
     border-color: #1aa1eb;
@@ -163,7 +157,7 @@ li {
   padding: 13px;
   margin-bottom: 7px;
   display: flex;
-  border: 1px solid transparent;
+  border: 2px solid transparent;
   transition: transform 1s;
   div {
     display: inline-block;
@@ -171,7 +165,9 @@ li {
     font-size: 12px;
   }
   &.defeat {
-    border-image: linear-gradient(to left, #fbc2eb, transparent);
+    border-width: 1px;
+    border-image: linear-gradient(to right, #fbc2eb, transparent);
+    // border-image: linear-gradient(to right, #FC427B, transparent);
     border-image-slice: 1;
   }
   &.winner {

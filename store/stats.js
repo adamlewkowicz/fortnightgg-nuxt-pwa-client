@@ -54,7 +54,7 @@ const stats = {
         commit('UPDATE_STATS', stats);
       }
 		}
-	}
+  }
 }
 
 export default stats;

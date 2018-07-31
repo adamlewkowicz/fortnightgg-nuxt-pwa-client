@@ -9,10 +9,10 @@
     <template v-for="(stats, statsKey) in filteredStats">
       <h3 :key="stats.mode">{{ stats.mode.toUpperCase() }}</h3>
       <div :key="statsKey" class="all-stats">
-        <p v-for="(statProp, statPropKey) in orderedStatsProps" :key="statPropKey">
-          <i>{{ statProp | upperCaseFirstChar }}:</i>
+        <div v-for="(statProp, statPropKey) in orderedStatsProps" :key="statPropKey">
+        <p>{{ statProp.toUpperCase() }}</p>
           {{ stats[statProp] }}
-        </p>
+        </div>
       </div>
     </template>
 
@@ -71,6 +71,19 @@ export default {
   padding: 30px;
   box-sizing: border-box;
   margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 250px;
+  div {
+    font-size: 20px;
+    margin-right: 30px;
+    width: 25%;
+  }
+  p {
+    color: rgba(255,255,255,0.3);
+    margin: 0 0 5px 0;
+    font-size: 12px;
+  }
   i {
     font-style: normal;
     color: rgba(255,255,255,0.2);
