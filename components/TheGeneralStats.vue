@@ -119,7 +119,8 @@ export default {
 @import "@/assets/css/index.scss";
 
 .next-update {
-  color: rgba(255,255,255,.4);
+  font-size: 12px;
+  color: #b2b2d5;
   margin-bottom: 20px;
 }
 

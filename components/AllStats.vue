@@ -10,8 +10,8 @@
       <h3 :key="stats.mode">{{ stats.mode.toUpperCase() }}</h3>
       <div :key="statsKey" class="all-stats">
         <div v-for="(statProp, statPropKey) in orderedStatsProps" :key="statPropKey">
-        <p>{{ statProp.toUpperCase() }}</p>
-          {{ stats[statProp] }}
+          <b>{{ stats[statProp.name] }}</b>
+          <p>{{ statProp.title }}</p>
         </div>
       </div>
     </template>
@@ -31,15 +31,26 @@ export default {
     return {
       pickedPlatform: '',
       orderedStatsProps: [
-        'matchesplayed', 'kills', 'score', 'hoursplayed', 'top1', 'top3', 'top6', 'top10', 'top25'
+        { name: 'matchesplayed', title: 'Matches' },
+        { name: 'kills', title: 'Kills' },
+        { name: 'score', title: 'Score' },
+        { name: 'top1', title: 'Wins' },
+        { name: 'winratio', title: 'Winratio' },
+        { name: 'kdratio', title: 'K/D ratio' },
+        { name: 'scorepermatch', title: 'Score / Match' },
+        { name: 'killspermatch', title: 'Kills / Match' },
+        { name: 'top3', title: 'Top 3' },
+        { name: 'top6', title: 'Top 6' },
+        { name: 'top10', title: 'Top 10' },
+        { name: 'top25', title: 'Top 25' }
       ]
     }
   },
   computed: {
     filteredStats() {
       return this.stats
-        .map(stat => ({ ...stat, hoursplayed: Math.floor(stat.minutesplayed / 60) }))
-        .filter(stat => stat.platform == this.pickedPlatform)
+        .map(stats => ({ ...stats, hoursplayed: Math.floor(stats.minutesplayed / 60) }))
+        .filter(stats => stats.platform == this.pickedPlatform)
     },
     availablePlatforms() {
       return this.stats
@@ -54,6 +65,9 @@ export default {
   filters: {
     upperCaseFirstChar(string) {
       return string[0].toUpperCase() + string.substring(1);
+    },
+    addCommasToValue(val) {
+      return val
     }
   },
   mounted() {
@@ -73,15 +87,18 @@ export default {
   margin-bottom: 30px;
   display: flex;
   flex-wrap: wrap;
-  min-height: 250px;
+  justify-content: space-between;
+  // min-height: 250px;
   div {
-    font-size: 20px;
-    margin-right: 30px;
+    font-size: 24px;
     width: 25%;
+    &:not(:nth-child(n+9)) {
+      margin-bottom: 20px;
+    }
   }
   p {
-    color: rgba(255,255,255,0.3);
-    margin: 0 0 5px 0;
+    color: #b2b2d5;
+    margin: 3px 0 0 0;
     font-size: 12px;
   }
   i {

@@ -159,22 +159,51 @@ li {
   display: flex;
   border: 2px solid transparent;
   transition: transform 1s;
+  position: relative;
   div {
     display: inline-block;
     margin-left: auto;
     font-size: 12px;
   }
   &.defeat {
-    border-width: 1px;
-    border-image: linear-gradient(to right, #fbc2eb, transparent);
+    // color: rgb(255, 76, 76);
+    // border-image: linear-gradient(to right, #fbc2eb, transparent);
+    // background-color: rgba(251, 194, 235, .3);
+    // background-color: rgba(255, 71, 87, .1);
+    // border-bottom: 2px solid #eb3b5a;
+    // border-image: linear-gradient(to right, #b2b2d5, transparent);
+    // border-image: linear-gradient(to right, #FC427B, transparent);
     // border-image: linear-gradient(to right, #FC427B, transparent);
     border-image-slice: 1;
+    // color: #9090af;
   }
   &.winner {
-    border-left-width: 5px;
-    border-image: linear-gradient(to left, #d4fc79, #96e6a1);
+    &:before {
+      content: "1";
+      position: absolute;
+      height: calc(100% + 4px);
+      width: 50px;
+      top: -2px;
+      left: -2px;
+      border-radius: 6px 0 0 6px;
+      background: linear-gradient(120deg, #b4ec51, #429321);
+      text-align: center;
+      padding: 10px 0;
+      box-sizing: border-box;
+      color: rgba(1,1,1,.5);
+      font-weight: bold;
+      font-size: 20px;
+    }
+    padding-left: 60px;
+    // border-left-width: 5px;
+    // background-image: linear-gradient(90deg,#b4ec51,#429321);
+    // border-image: linear-gradient(to left, #d4fc79, #96e6a1);
+    // border-image: linear-gradient(90deg, #b4ec51, #429321);
     border-image-slice: 1;
-    box-shadow: 0 0 30px 0px rgba(150, 230, 161, .1);
+    // color: #b4ec51;
+    // color: rgb(102, 187, 106);
+    // box-shadow: 0 0 30px 0px rgba(150, 230, 161, .1);
+    // background: linear-gradient(90deg, #b4ec51, #429321) !important;
   }
 }
 
@@ -197,7 +226,8 @@ table {
 
 th {
   width: 25%;
-  color: #4b4d71;
+  color: #b2b2d5;
+  font-size: 13px;
   padding-bottom: 10px;
   font-weight: 400;
 }
