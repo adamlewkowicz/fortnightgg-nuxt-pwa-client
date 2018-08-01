@@ -2,6 +2,7 @@
   <div class="item"
     @click="$emit('choosenItem', item)"
     :class="item.rarity.toLowerCase()">
+    <div class="damage-snippet">{{ item.damage }}</div>
     <img :src="'http://localhost:4000/static/' + item.img">
     <div class="overlap-set">
       {{ item.name }}
@@ -55,6 +56,10 @@ $shadows:
        box-shadow: 0px 0px 35px -4px #{nth($shadows, $index)};
        cursor: pointer;
        transform: scale(1.2);
+       .damage-snippet {
+         transform: translateY(100%);
+         opacity: 1;
+        }
        img {
         transform: scale(1.5) rotate(20deg);
        }
@@ -65,6 +70,14 @@ $shadows:
      }
     }
   }
+}
+
+.damage-snippet {
+  position: absolute;
+  left: 10px;
+  top: -10px;
+  opacity: 0;
+  transition: opacity .3s ease, transform .3s ease;
 }
 
 img {

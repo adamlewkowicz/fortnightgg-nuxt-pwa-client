@@ -1,11 +1,5 @@
 <template>
   <div class="filters-wrapper">
-    <!-- <select>
-      <option v-for="(sort, sortKey) in sortTypes"
-        :key="sortKey">
-        {{ sort }}
-      </option>
-    </select> -->
     <div v-show="filters.name || filters.types.length">
       <h3>FILTERED BY:</h3>
       <div>
@@ -30,11 +24,6 @@ import { mapMutations } from 'vuex';
 
 export default {
   props: ['filters'],
-  data() {
-    return {
-      sortTypes: ['name', 'rarity', 'damage', 'magazine_size', 'dps', 'headshot']
-    }
-  },
   methods: {
     ...mapMutations([
       'FILTER_BY_NAME',

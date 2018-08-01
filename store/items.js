@@ -4,6 +4,10 @@ const items = {
       name: '',
       types: [],
     },
+    sortOptions: {
+      prop: 'name',
+      desc: false
+    },
     items: []
   },
   mutations: {
@@ -31,6 +35,12 @@ const items = {
       for (const prop in payload) {
         state.filters[prop] = payload[prop];
       }
+    },
+    SORT_ITEMS_BY (state, sortProp) {
+      state.sortOptions.prop = sortProp;
+    },
+    SORT_ITEMS_DIRECTION (state) {
+      state.sortOptions.desc = !state.sortOptions.desc;
     }
   },
   actions: {
@@ -46,10 +56,38 @@ const items = {
     filteredTypes: (state, getters) => {
       return !state.filters.types.length ? getters.itemsTypes : state.filters.types
     },
+    normalizedItems: state => {
+      return state.items.map(item => ({
+        ...item,
+        dps: parseFloat(item.dps),
+        fireRate: parseFloat(item.fireRate)
+      }));
+    },
     filteredItems: (state, getters) => {
-      return state.items
-        .filter(item => item.name.toLowerCase().indexOf(state.filters.name) !== -1)
+      const { prop: sortProp, desc } = state.sortOptions;
+      const sortValues = (a, b) => a > b ? (desc ? -1 : 1) : (desc ? 1 : -1);
+      const rarityOrder = [
+        'Common',
+        'Uncommon',
+        'Rare',
+        'Epic',
+        'Legendary'
+      ];
+
+      return getters.normalizedItems
+        .map(item => ({...item, dps: parseFloat(item.dps) }))
+        .filter(item => item.name.toLowerCase().indexOf(state.filters.name.toLowerCase()) !== -1)
         .filter(item => getters.filteredTypes.some(type => item.type === type))
+        .sort((a, b) => {
+          switch(sortProp) {
+            case 'rarity':
+              const aIndex = rarityOrder.indexOf(a.rarity);
+              const bIndex = rarityOrder.indexOf(b.rarity);
+              return sortValues(aIndex, bIndex);
+            default:
+              return sortValues(a[sortProp], b[sortProp]);
+          }
+        });
     }
   }
 }

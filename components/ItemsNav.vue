@@ -71,11 +71,11 @@ export default {
   margin-bottom: 20px;
   transition: box-shadow .3s ease;
   font-family: $ff;
-  font-size: $fs;
+  font-size: 13px;
   &:hover { box-shadow: 0px 0px 30px 6px rgba(18, 19, 56, .5); }
   &:focus { background-color: #363a94; }
   &::placeholder {
-    color: rgba(255,255,255,.3);
+    color: #b2b2d5;
   }
   @include tablet {
     width: 100%;

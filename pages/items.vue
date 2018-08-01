@@ -10,11 +10,25 @@
 
 
     <div class="items-filters-container">
-      <items-filters :filters="filters"/>
+      <!-- <items-filters :filters="filters"/> -->
+      <h3>SORT BY</h3>
+      <div class="sort-wrapper">
+        <select @change="SORT_ITEMS_BY($event.target.value)">
+          <option v-for="(sort, sortKey) in sortTypes"
+            :key="sortKey"
+            :value="sort">
+            {{ sort === 'magSize' ? 'Magazine size' : sort | upperFirstChar }}
+          </option>
+        </select>
+        <checkbox-arrow
+          :value="sortOptions.desc"
+          @checkboxClick="SORT_ITEMS_DIRECTION"
+        />
+      </div>
       <transition-group tag="div" v-if="filteredItems.length" name="list" class="items-wrapper">
         <item
-          v-for="(item, itemKey) in filteredItems"
-          :key="itemKey"
+          v-for="item in filteredItems"
+          :key="item.id"
           :item="item"
           @choosenItem="choosenItem = $event">
         </item>
@@ -41,23 +55,30 @@ import Item from '@/components/Item';
 import ItemsNav from '@/components/ItemsNav';
 import ItemsFilters from '@/components/ItemsFilters';
 import ItemDetails from '@/components/ItemDetails';
+import CheckboxArrow from '@/components/CheckboxArrow';
 
 export default {
   components: {
     Item,
     ItemsNav,
     ItemsFilters,
-    ItemDetails
+    ItemDetails,
+    CheckboxArrow
   },
   data() {
     return {
       itemPhrase: '',
       id: 0,
-      choosenItem: null
+      choosenItem: null,
+      sortTypes: ['name', 'damage', 'rarity', 'magSize', 'headshot', 'dps']
     }
   },
   methods: {
-    ...mapMutations(['CLEAR_ITEMS_FILTERS'])
+    ...mapMutations([
+      'CLEAR_ITEMS_FILTERS',
+      'SORT_ITEMS_BY',
+      'SORT_ITEMS_DIRECTION'
+    ])
   },
   computed: {
     ...mapGetters([
@@ -65,8 +86,16 @@ export default {
       'filteredTypes',
       'itemsTypes'
     ]),
+    sortOptions() {
+      return this.$store.state.items.sortOptions;
+    },
     filters() {
       return this.$store.state.items.filters;
+    }
+  },
+  filters: {
+    upperFirstChar(val) {
+      return val[0].toUpperCase() + val.substring(1);
     }
   },
   async fetch({ store }) {
@@ -83,6 +112,30 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
+
+.sort-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+select {
+  font-family: $ff;
+  color: #fff;
+  background-color: #373971;
+  // background-color: #b2b2d5;
+  border: none;
+  height: 42px;
+  width: 130px;
+  border-radius: 6px;
+  padding: 0 5px;
+  margin-right: 5px;
+}
+
+h3 {
+  font-size: 13px;
+  margin: 0 0 10px 0;
+}
 
 .items-page-wrapper {
   margin-top: 300px;
