@@ -10,8 +10,8 @@
       @input="filterByName"
     />
 
-    <div class="items-types-filters-wrapper">
-      <div v-for="itemType in itemsTypes"
+    <ul class="items-types-filters-wrapper">
+      <li v-for="itemType in itemsTypes"
         :key="itemType"
         class="items-types">
         <label :for="itemType | htmlTag">
@@ -23,8 +23,8 @@
           :checked="!!filters.types.find(type => type === itemType)"
           @change="filerItemsTypes(itemType)"
         />
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -83,11 +83,14 @@ export default {
 }
 
 h3 {
-  font-size: 12px;
-  margin: 6px 0;
+  font-size: 13px;
+  margin: 0 0 5px 0;
 }
 
 .items-types-filters-wrapper {
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style-type: none;
   @include tablet {
     max-height: 135px;
     overflow-y: auto;

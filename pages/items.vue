@@ -11,7 +11,7 @@
 
     <div class="items-filters-container">
       <!-- <items-filters :filters="filters"/> -->
-      <h3>SORT BY</h3>
+      <h3>SORT BY:</h3>
       <div class="sort-wrapper">
         <select @change="SORT_ITEMS_BY($event.target.value)">
           <option v-for="(sort, sortKey) in sortTypes"
@@ -25,7 +25,8 @@
           @checkboxClick="SORT_ITEMS_DIRECTION"
         />
       </div>
-      <transition-group tag="div" v-if="filteredItems.length" name="list" class="items-wrapper">
+
+      <transition-group tag="div" v-show="filteredItems.length" name="list" class="items-wrapper">
         <item
           v-for="item in filteredItems"
           :key="item.id"
@@ -33,10 +34,11 @@
           @choosenItem="choosenItem = $event">
         </item>
       </transition-group>
-      <div v-else class="filters-fail">
+      <div v-show="!filteredItems.length" class="filters-fail">
         <p>No items were found for your filters</p>
         <button @click="CLEAR_ITEMS_FILTERS">Clear filters</button>
       </div>
+
     </div>
 
     <item-details
@@ -116,14 +118,13 @@ export default {
 .sort-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 }
 
 select {
   font-family: $ff;
   color: #fff;
   background-color: #373971;
-  // background-color: #b2b2d5;
   border: none;
   height: 42px;
   width: 130px;
@@ -134,7 +135,7 @@ select {
 
 h3 {
   font-size: 13px;
-  margin: 0 0 10px 0;
+  margin: 0 0 5px 0;
 }
 
 .items-page-wrapper {
@@ -148,6 +149,9 @@ h3 {
 
 .items-nav {
   flex: 2;
+  @include tablet {
+    flex: 0;
+  }
 }
 
 .list-enter, .list-leave-to {
@@ -178,6 +182,10 @@ h3 {
 .items-filters-container {
   flex: 9;
   margin-left: 40px;
+  min-height: 70vh;
+  @include tablet {
+    margin: 20px 0 0 0;
+  }
 }
 
 .items-wrapper {
@@ -190,12 +198,13 @@ h3 {
   flex-wrap: wrap;
   @include tablet {
     margin-left: 0;
-    min-height: 100vh;
+    margin-bottom: 70px;
   }
 }
 
 .filters-fail {
   margin-top: 50px;
+  // box-sizing: border-box;
   text-align: center;
 }
 </style>

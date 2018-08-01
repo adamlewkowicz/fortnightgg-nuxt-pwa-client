@@ -1,12 +1,12 @@
 <template>
-  <span>
+  <div>
     <input type="checkbox"
       :id="id"
       :value="value"
       @change="$emit('checkboxClick')"
     />
     <label :for="id"></label>
-  </span>
+  </div>
 </template>
 
 <script>
