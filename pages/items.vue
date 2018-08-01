@@ -4,17 +4,26 @@
     <items-nav
       class="items-nav"
       :itemsTypes="itemsTypes"
-      :filters="items.filters"
+      :filters="filters"
     />
 
-    <transition-group tag="div" name="list" class="items-wrapper">
-      <item
-        v-for="(item, itemKey) in filteredItems"
-        :key="itemKey"
-        :item="item"
-        @choosenItem="choosenItem = $event">
-      </item>
-    </transition-group>
+
+
+    <div class="items-filters-container">
+      <items-filters :filters="filters"/>
+      <transition-group tag="div" v-if="filteredItems.length" name="list" class="items-wrapper">
+        <item
+          v-for="(item, itemKey) in filteredItems"
+          :key="itemKey"
+          :item="item"
+          @choosenItem="choosenItem = $event">
+        </item>
+      </transition-group>
+      <div v-else class="filters-fail">
+        <p>No items were found for your filters</p>
+        <button @click="CLEAR_ITEMS_FILTERS">Clear filters</button>
+      </div>
+    </div>
 
     <item-details
       v-if="choosenItem"
@@ -27,7 +36,7 @@
 
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Item from '@/components/Item';
 import ItemsNav from '@/components/ItemsNav';
 import ItemsFilters from '@/components/ItemsFilters';
@@ -43,10 +52,12 @@ export default {
   data() {
     return {
       itemPhrase: '',
-      showDetails: -1,
       id: 0,
       choosenItem: null
     }
+  },
+  methods: {
+    ...mapMutations(['CLEAR_ITEMS_FILTERS'])
   },
   computed: {
     ...mapGetters([
@@ -54,9 +65,9 @@ export default {
       'filteredTypes',
       'itemsTypes'
     ]),
-    items() {
-      return this.$store.state.items;
-    },
+    filters() {
+      return this.$store.state.items.filters;
+    }
   },
   async fetch({ store }) {
     store.commit('CLEAR_ITEMS_FILTERS');
@@ -86,11 +97,6 @@ export default {
   flex: 2;
 }
 
-// .item-move {
-//   transition: transform 1s;
-// }
-
-
 .list-enter, .list-leave-to {
   transform: scale(0) rotate(-30deg);
   opacity: 0;
@@ -116,27 +122,28 @@ export default {
   }
 }
 
+.items-filters-container {
+  flex: 9;
+  margin-left: 40px;
+}
+
 .items-wrapper {
   display: flex;
   flex: 9;
   padding: 20px;
-  // background-color: red;
-  margin-left: 40px;
   box-sizing: border-box;
   align-content: flex-start;
   justify-content: center;
-  // align-items: flex-start;
   flex-wrap: wrap;
-  /*
-  &:after {
-    content: "";
-    flex: auto;
-  }
-  */
   @include tablet {
     margin-left: 0;
     min-height: 100vh;
   }
+}
+
+.filters-fail {
+  margin-top: 50px;
+  text-align: center;
 }
 </style>
 

@@ -14,6 +14,9 @@ const items = {
       state.filters.name = '';
       state.filters.types = [];
     },
+    CLEAR_ITEMS_TYPES_FILTERS (state) {
+      state.filters.types = [];
+    },
     FILTER_BY_NAME (state, name) {
       state.filters.name = name;
     },

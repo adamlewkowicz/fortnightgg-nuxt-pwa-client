@@ -88,7 +88,6 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  // min-height: 250px;
   div {
     font-size: 24px;
     width: 25%;

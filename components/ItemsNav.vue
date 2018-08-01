@@ -5,36 +5,26 @@
     </label>
     <input type="text"
       id="name-searcher"
-      v-model="itemName"
-      placeholder="enter name..."
+      :value="filters.name"
+      placeholder="Item name..."
       @input="filterByName"
     />
 
-    <!-- <h3>FILTER BY TYPE:</h3>
-    <select v-model="filterItemsTypes"
-      :size="itemsTypes.length"
-      multiple>
-      <option v-for="(itemType, itemTypeKey) in itemsTypes"
-        :key="itemTypeKey">
-        {{ itemType }}
-      </option>
-    </select> -->
-
-    <!-- <div class="items-types-filters-wrapper">
-      <div v-for="(itemType, itemTypeKey) in itemsTypes"
-        :key="itemTypeKey"
+    <div class="items-types-filters-wrapper">
+      <div v-for="itemType in itemsTypes"
+        :key="itemType"
         class="items-types">
-        <label :for="type | htmlTag">
+        <label :for="itemType | htmlTag">
           {{ itemType }}
         </label>
         <input type="checkbox"
           :id="itemType | htmlTag"
           :value="itemType"
+          :checked="!!filters.types.find(type => type === itemType)"
           @change="filerItemsTypes(itemType)"
         />
       </div>
-    </div> -->
-
+    </div>
   </div>
 </template>
 
@@ -47,8 +37,7 @@ export default {
   data() {
     return {
       itemName: '',
-      firstSort: true,
-      filterItemsTypes: []
+      checkedItemsTypes: []
     }
   },
   methods: {
@@ -56,8 +45,8 @@ export default {
       const mutate = mutation => this.$store.commit(mutation, itemType);
       this.filters.types.some(type => type === itemType) ? mutate('DELETE_ITEM_TYPE') : mutate('ADD_ITEM_TYPE');
     },
-    filterByName() {
-      this.$store.commit('FILTER_BY_NAME', this.itemName);
+    filterByName(event) {
+      this.$store.commit('FILTER_BY_NAME', event.target.value);
     }
   },
   filters: {
@@ -80,8 +69,9 @@ export default {
   outline: none;
   box-sizing: border-box;
   margin-bottom: 20px;
-  // border: 1px solid #373971;
   transition: box-shadow .3s ease;
+  font-family: $ff;
+  font-size: $fs;
   &:hover { box-shadow: 0px 0px 30px 6px rgba(18, 19, 56, .5); }
   &:focus { background-color: #363a94; }
   &::placeholder {

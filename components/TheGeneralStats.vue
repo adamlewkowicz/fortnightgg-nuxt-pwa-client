@@ -16,7 +16,7 @@
         </tr>
         <tr class="gradi">
           <td class="clock">Hours:</td>
-          <td>{{ parseInt(stats.minutesplayed/60) }}</td>
+          <td>{{ Math.floor(stats.minutesplayed/60) }}</td>
         </tr>
         <tr class="gradi2">
           <td class="sword">K/D ratio:</td>
