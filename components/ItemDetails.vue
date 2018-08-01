@@ -3,8 +3,12 @@
     <div class="item-details">
       <button @click="$emit('closeDetails')">
       </button>
-      <p>{{ item.name }}</p>
-      <img :src="'http://localhost:4000/static/' + item.img">
+      <h2>{{ item.name }}</h2>
+      <p>{{ item.type }}</p>
+      <img
+        :src="item.imgUrl"
+        :class="item.className"
+        :alt="item.imgAlt">
       <table>
         <tbody>
           <tr v-for="(itemProp, itemPropKey) in itemsProps" :key="itemPropKey">
@@ -25,9 +29,11 @@ export default {
       itemsProps: [
         ['Rarity', 'rarity'],
         ['Damage', 'damage'],
-        ['Type', 'type'],
-        ['Ammo', 'ammoName'],
-        ['Headshot', 'headshot']
+        ['DPS', 'dps'],
+        ['Headshot', 'headshot'],
+        ['Fire rate', 'fireRate'],
+        ['Magazine size', 'magSize'],
+        ['Ammo', 'ammoName']
       ]
     }
   }
@@ -36,6 +42,8 @@ export default {
 
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
+
 .details-wrapper {
   position: fixed;
   width: 100%;
@@ -49,6 +57,12 @@ export default {
   justify-content: center;
 }
 
+h2 {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 0;
+}
+
 .item-details {
   padding: 20px;
   box-sizing: border-box;
@@ -60,6 +74,13 @@ export default {
 img {
   margin: 0 auto;
   display: block;
+  width: 220px;
+  height: 220px;
+  @for $index from 1 through 5 {
+    &.#{nth($rarityNames, $index)} {
+      filter: drop-shadow(0px 0px 90px #{nth($rarityColors, $index)});
+    }
+  }
 }
 
 button {
@@ -82,12 +103,20 @@ p {
 
 table {
   margin: 20px 0;
+  border-collapse: collapse;
 }
 
 td {
   width: 160px;
   padding: 5px;
   text-align: center;
+  &:first-child {
+    color: #b2b2d5;
+  }
+}
+
+tr:nth-child(even) {
+  background-color: rgba(255,255,255,.05);
 }
 
 @keyframes popIn {

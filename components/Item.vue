@@ -1,9 +1,9 @@
 <template>
   <div class="item"
     @click="$emit('choosenItem', item)"
-    :class="item.rarity.toLowerCase()">
+    :class="item.className">
     <div class="damage-snippet">{{ item.damage }}</div>
-    <img :src="'http://localhost:4000/static/' + item.img">
+    <img :src="item.imgUrl" :alt="item.imgAlt">
     <div class="overlap-set">
       {{ item.name }}
     </div>
@@ -23,15 +23,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
 
-$rarityNames: common, uncommon, rare, epic, legendary;
 $backgrounds:
   (#a9b0b6 0%, #5f6569 100%),
   (#60aa3a 0%,#1d5819 100%),
   (#3da1e8 0%,#143775 100%),
   (#b55de4 0%,#4c2484 100%),
   (#e78245 0%,#78371d 100%);
-$borders: #e6e6e6, #66bb30, #38d3ff, #f959ff, #ff7826;
 $shadows:
   rgba(202, 202, 202, 0.54),
   rgba(102,233,19,0.54),
@@ -48,7 +47,7 @@ $shadows:
   @for $index from 1 through 5 {
     &.#{nth($rarityNames, $index)} {
      background: radial-gradient(ellipse at center, #{nth($backgrounds, $index)});
-     border: 2px solid #{nth($borders, $index)};
+     border: 2px solid #{nth($rarityColors, $index)};
      transition-delay: .05s;
      &:hover {
        position: relative;

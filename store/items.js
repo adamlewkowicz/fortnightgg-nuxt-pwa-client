@@ -60,7 +60,10 @@ const items = {
       return state.items.map(item => ({
         ...item,
         dps: parseFloat(item.dps),
-        fireRate: parseFloat(item.fireRate)
+        fireRate: parseFloat(item.fireRate),
+        className: item.rarity.toLowerCase(),
+        imgUrl: process.env.baseURL + '/static/' + item.img,
+        imgAlt: 'Fortnite ' + item.rarity + ' ' + item.name + ' - ' + item.type
       }));
     },
     filteredItems: (state, getters) => {
