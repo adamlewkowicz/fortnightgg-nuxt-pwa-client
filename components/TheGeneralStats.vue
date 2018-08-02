@@ -1,11 +1,10 @@
 <template>
   <section>
-    <h1>{{ stats.name }}</h1>
-    <!-- <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p> -->
+    <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p>
     <transition name="slide-bottom">
     <p class="next-update">Next update in: {{ nextUpdateComesInText }}</p>
     </transition>
-    <!-- <button @click="updateStats($route.params.playerName)">Update</button> -->
+    <button @click="updateStats($route.params.playerName)">Update</button>
     <h2>GENERAL STATS:</h2>
 
     <table class="general-stats">
@@ -124,11 +123,6 @@ export default {
   margin-bottom: 20px;
 }
 
-h1 {
-  font-size: 40px;
-  margin: 0;
-  margin-bottom: 20px;
-}
 .general-stats {
   width: 100%;
   font-size: 15px;

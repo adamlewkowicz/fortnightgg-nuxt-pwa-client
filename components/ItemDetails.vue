@@ -78,7 +78,7 @@ img {
   height: 220px;
   @for $index from 1 through 5 {
     &.#{nth($rarityNames, $index)} {
-      filter: drop-shadow(0px 0px 90px #{nth($rarityColors, $index)});
+      filter: drop-shadow(0px 0px 60px #{nth($rarityColors, $index)});
     }
   }
 }

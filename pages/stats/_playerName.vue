@@ -7,23 +7,25 @@
       />
     </template>
 
+    <section v-else>
 
-    <section v-else id="stats">
+      <h1>{{ stats.general.name }}</h1>
+      <div id="stats">
+        <article id="general-stats">
+          <general-stats :stats="stats.general" :isUpdating="stats.isUpdating"/>
+          <stats-history v-if="stats.history.length" :history="stats.history" :live="stats.live"/>
+        </article>
 
-      <article id="general-stats">
-        <general-stats :stats="stats.general" :isUpdating="stats.isUpdating"/>
-        <stats-history v-if="stats.history.length" :history="stats.history" :live="stats.live"/>
-      </article>
-
-      <article id="all-stats">
-        <div v-if="stats.history.length > 1 && !isUpdating" class="chart-wrapper">
-          <line-chart
-            :chartData="lineChartData"
-            :height="chartHeight"
-          />
-        </div>
-        <all-stats :stats="stats.all"/>
-      </article>
+        <article id="all-stats">
+          <div v-if="stats.history.length > 1 && !isUpdating" class="chart-wrapper">
+            <line-chart
+              :chartData="lineChartData"
+              :height="chartHeight"
+            />
+          </div>
+          <all-stats :stats="stats.all"/>
+        </article>
+      </div>
 
     </section>
 
@@ -81,8 +83,9 @@ export default {
     },
     lineChartData() {
       const { history } = this.stats;
-      const dates = history.map(record => moment(record.date).format('DD-MM'));
-      const data = history.map(record => record[this.chartPropName]);
+      const historyStats = history.reverse();
+      const dates = historyStats.map(record => moment(record.datedOn).format('DD-MM'));
+      const data = historyStats.map(record => record[this.chartPropName]);
       return {
         labels: dates,
         datasets: [{
@@ -129,6 +132,11 @@ h2 {
   font-size: 13px;
 }
 
+h1 {
+  margin: 120px 0 10px 0;
+  font-size: 40px;
+}
+
 .modes {
   background-color: #23243b;
   margin-bottom: 50px;
@@ -137,7 +145,6 @@ h2 {
 }
 
 #stats {
-  margin-top: 120px;
   display: flex;
   @include tablet2 {
     flex-direction: column;

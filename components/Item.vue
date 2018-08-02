@@ -42,6 +42,7 @@ $shadows:
   width: 150px;
   height: 150px;
   margin: 13px;
+  user-select: none;
   position: relative;
   transition: all .3s ease;
   @for $index from 1 through 5 {

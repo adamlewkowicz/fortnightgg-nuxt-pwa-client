@@ -29,7 +29,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(record, recordKey) in formattedStats" :key="recordKey">
+            <tr v-for="(record, recordKey) in dailyStats" :key="recordKey">
               <td>{{ record.matchesplayed }}</td>
               <td>{{ record.score }}</td>
               <td>{{ record.kills }}</td>
@@ -62,9 +62,9 @@ export default {
     transitionStyle() {
       return this.showLiveStats ? {} : this.style;
     },
-    formattedStats() {
+    dailyStats() {
       return this.history.map(record => {
-        const date = moment(record.datedOn, 'YYYY-MM-DD');
+        const date = moment(record.datedOn)
         return {
           ...record,
           date: `${date.format('DD')} ${(date.format('MMMM')).substring(0,3)}`
