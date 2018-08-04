@@ -83,7 +83,7 @@ export default {
     },
     lineChartData() {
       const { history } = this.stats;
-      const historyStats = history.reverse();
+      const historyStats = [...history].reverse();
       const dates = historyStats.map(record => moment(record.datedOn).format('DD-MM'));
       const data = historyStats.map(record => record[this.chartPropName]);
       return {
@@ -174,5 +174,9 @@ h1 {
   @include tablet {
     margin-top: 20px;
   }
+}
+
+section {
+  margin-bottom: 60px;
 }
 </style>
