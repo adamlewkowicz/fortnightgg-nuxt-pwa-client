@@ -152,6 +152,7 @@ h1 {
 
 .ranking-options {
   display: flex;
+  flex-wrap: wrap;
   div:first-child {
     margin-right: 35px;
   }

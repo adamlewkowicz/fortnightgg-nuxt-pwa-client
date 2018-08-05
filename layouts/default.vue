@@ -6,16 +6,19 @@
         <nuxt/>
       </transition>
     </section>
+    <phone-menu />
   </div>
 </template>
 
 <script>
-import TheNavbar from '../components/TheNavbar';
+import TheNavbar from '@/components/TheNavbar';
+import PhoneMenu from '@/components/PhoneMenu';
 
 export default {
   scrollToTop: true,
   components: {
-    TheNavbar
+    TheNavbar,
+    PhoneMenu
   }
 }
 </script>

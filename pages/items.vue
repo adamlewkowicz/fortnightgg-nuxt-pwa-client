@@ -67,8 +67,6 @@ export default {
   },
   data() {
     return {
-      itemPhrase: '',
-      id: 0,
       choosenItem: null,
       sortCategories: [
         { text: 'Name', value: 'name' },
@@ -77,8 +75,7 @@ export default {
         { text: 'Magazine size', value: 'magSize' },
         { text: 'Headshot', value: 'headshot' },
         { text: 'DPS', value: 'dps' }
-      ],
-      filterson: 'damage'
+      ]
     }
   },
   methods: {
@@ -100,9 +97,6 @@ export default {
     },
     filters() {
       return this.$store.state.items.filters;
-    },
-    indexes() {
-      return this.filteredItems.map(item => ({ id: item.id, name: item.name }))
     }
   },
   filters: {

@@ -84,6 +84,9 @@ header {
   user-select: none;
   position: relative;
   top: 3px;
+  @include phone {
+    width: 190px;
+  }
 }
 
 nav {
@@ -93,6 +96,9 @@ nav {
     margin: 0;
     display: flex;
     align-content: center;
+  }
+  @include phone {
+    display: none;
   }
 }
 
@@ -105,7 +111,6 @@ li {
     height: 100%;
     &:hover {
       background-color: rgba(255,255,255,0.1);
-
     }
   }
 }
