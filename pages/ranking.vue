@@ -59,6 +59,7 @@ import LoadingCubes from '@/components/LoadingCubes';
 
 export default {
   components: { LoadingCubes },
+  scrollToTop: true,
   data() {
     return {
       categories: [

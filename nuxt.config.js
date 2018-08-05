@@ -26,6 +26,11 @@ module.exports = {
   /*
   ** Customize the progress bar color
   */
+  router: {
+    scrollBehavior: function(to, from, savedPosition) {
+      return { x: 0, y: 0 };
+    }
+  },
 
   css: [
     '@/assets/css/index.scss'

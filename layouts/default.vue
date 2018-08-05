@@ -47,16 +47,7 @@ body {
 
 .page-wrapper {
   box-sizing: border-box;
-  margin: 0 auto;
-  margin-top: 100px;
+  margin: 100px auto;
   @extend %rwd-sizing;
 }
-
-
-// *, *:before, *:after {
-//   box-sizing: border-box;
-//   margin: 0;
-// }
-
-
 </style>
