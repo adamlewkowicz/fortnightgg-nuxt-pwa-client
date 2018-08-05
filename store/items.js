@@ -12,7 +12,14 @@ const items = {
   },
   mutations: {
     GET_ITEMS (state, payload) {
-      state.items = payload.items;
+      state.items = payload.items.map(item => ({
+        ...item,
+        dps: parseFloat(item.dps),
+        fireRate: parseFloat(item.fireRate),
+        className: item.rarity.toLowerCase(),
+        imgUrl: process.env.baseURL + '/static/' + item.img,
+        imgAlt: 'Fortnite ' + item.rarity + ' ' + item.name + ' - ' + item.type
+      }));
     },
     CLEAR_ITEMS_FILTERS (state) {
       state.filters.name = '';
@@ -56,19 +63,9 @@ const items = {
     filteredTypes: (state, getters) => {
       return !state.filters.types.length ? getters.itemsTypes : state.filters.types
     },
-    normalizedItems: state => {
-      return state.items.map(item => ({
-        ...item,
-        dps: parseFloat(item.dps),
-        fireRate: parseFloat(item.fireRate),
-        className: item.rarity.toLowerCase(),
-        imgUrl: process.env.baseURL + '/static/' + item.img,
-        imgAlt: 'Fortnite ' + item.rarity + ' ' + item.name + ' - ' + item.type
-      }));
-    },
     filteredItems: (state, getters) => {
       const { prop: sortProp, desc } = state.sortOptions;
-      const sortValues = (a, b) => a > b ? (desc ? -1 : 1) : (desc ? 1 : -1);
+      const sortValues = (a, b) => a > b ? (desc ? -1 : 1) : b > a ? (desc ? 1 : -1)  : 0;
       const rarityOrder = [
         'Common',
         'Uncommon',
@@ -77,18 +74,17 @@ const items = {
         'Legendary'
       ];
 
-      return getters.normalizedItems
+      return state.items
         .map(item => ({...item, dps: parseFloat(item.dps) }))
         .filter(item => item.name.toLowerCase().indexOf(state.filters.name.toLowerCase()) !== -1)
         .filter(item => getters.filteredTypes.some(type => item.type === type))
         .sort((a, b) => {
-          switch(sortProp) {
-            case 'rarity':
-              const aIndex = rarityOrder.indexOf(a.rarity);
-              const bIndex = rarityOrder.indexOf(b.rarity);
-              return sortValues(aIndex, bIndex);
-            default:
-              return sortValues(a[sortProp], b[sortProp]);
+          if (sortProp === 'rarity') {
+            const aIndex = rarityOrder.indexOf(a.rarity);
+            const bIndex = rarityOrder.indexOf(b.rarity);
+            return sortValues(aIndex, bIndex);
+          } else {
+            return sortValues(a[sortProp], b[sortProp]);
           }
         });
     }

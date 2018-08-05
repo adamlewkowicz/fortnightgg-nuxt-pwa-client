@@ -13,20 +13,18 @@
       <!-- <items-filters :filters="filters"/> -->
       <h3>SORT BY:</h3>
       <div class="sort-wrapper">
-        <select @change="SORT_ITEMS_BY($event.target.value)">
-          <option v-for="(sort, sortKey) in sortTypes"
-            :key="sortKey"
-            :value="sort">
-            {{ sort === 'magSize' ? 'Magazine size' : sort | upperFirstChar }}
-          </option>
-        </select>
+        <fg-list
+          :options="sortCategories"
+          @selected="SORT_ITEMS_BY($event)"
+        />
         <checkbox-arrow
           :value="sortOptions.desc"
           @checkboxClick="SORT_ITEMS_DIRECTION"
         />
       </div>
 
-      <transition-group tag="div" v-show="filteredItems.length" name="list" class="items-wrapper">
+      <!-- {{ indexes }} -->
+      <transition-group name="item" tag="ul" class="items-wrapper">
         <item
           v-for="item in filteredItems"
           :key="item.id"
@@ -72,7 +70,15 @@ export default {
       itemPhrase: '',
       id: 0,
       choosenItem: null,
-      sortTypes: ['name', 'damage', 'rarity', 'magSize', 'headshot', 'dps']
+      sortCategories: [
+        { text: 'Name', value: 'name' },
+        { text: 'Damage', value: 'damage' },
+        { text: 'Rarity', value: 'rarity' },
+        { text: 'Magazine size', value: 'magSize' },
+        { text: 'Headshot', value: 'headshot' },
+        { text: 'DPS', value: 'dps' }
+      ],
+      filterson: 'damage'
     }
   },
   methods: {
@@ -82,6 +88,7 @@ export default {
       'SORT_ITEMS_DIRECTION'
     ])
   },
+
   computed: {
     ...mapGetters([
       'filteredItems',
@@ -93,6 +100,9 @@ export default {
     },
     filters() {
       return this.$store.state.items.filters;
+    },
+    indexes() {
+      return this.filteredItems.map(item => ({ id: item.id, name: item.name }))
     }
   },
   filters: {
@@ -114,10 +124,28 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
+.item-move {
+  transition: all 1s !important;
+}
+
+.item-enter {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.item-leave-active {
+  position: absolute !important;
+  opacity: 0;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
 
 .sort-wrapper {
   display: flex;
-  align-items: center;
   margin-bottom: 30px;
 }
 
@@ -154,19 +182,6 @@ h3 {
   }
 }
 
-.list-enter, .list-leave-to {
-  transform: scale(0) rotate(-30deg);
-  opacity: 0;
-  flex: 0 0 auto;
-}
-.list-leave-active {
-  position: absolute;
-}
-
-.list-move {
-  position: absolute;
-}
-
 @keyframes popIn {
   0% {
     transform: scale(0);
@@ -189,6 +204,7 @@ h3 {
 }
 
 .items-wrapper {
+  list-style-type: none;
   display: flex;
   flex: 9;
   padding: 20px;
@@ -204,7 +220,6 @@ h3 {
 
 .filters-fail {
   margin-top: 50px;
-  // box-sizing: border-box;
   text-align: center;
 }
 </style>

@@ -1,13 +1,14 @@
 <template>
-  <div class="item"
+  <li
     @click="$emit('choosenItem', item)"
+    class="item"
     :class="item.className">
     <div class="damage-snippet">{{ item.damage }}</div>
     <img :src="item.imgUrl" :alt="item.imgAlt">
     <div class="overlap-set">
       {{ item.name }}
     </div>
-  </div>
+  </li>
 </template>
 
 <script>
@@ -15,8 +16,7 @@ export default {
   props: ['item'],
   data() {
     return {
-      smallProps: ['damage', 'headshot', 'dps', 'magazine_size'],
-      showDetails: -1
+      smallProps: ['damage', 'headshot', 'dps', 'magazine_size']
     }
   }
 }
@@ -45,29 +45,30 @@ $shadows:
   user-select: none;
   position: relative;
   transition: all .3s ease;
-  @for $index from 1 through 5 {
-    &.#{nth($rarityNames, $index)} {
-     background: radial-gradient(ellipse at center, #{nth($backgrounds, $index)});
-     border: 2px solid #{nth($rarityColors, $index)};
-     transition-delay: .05s;
-     &:hover {
-       position: relative;
-       z-index: 10;
-       box-shadow: 0px 0px 35px -4px #{nth($shadows, $index)};
-       cursor: pointer;
-       transform: scale(1.2);
-       .damage-snippet {
-         transform: translateY(100%);
-         opacity: 1;
-        }
-       img {
-        transform: scale(1.5) rotate(20deg);
-       }
-       .overlap-set {
-         transform: translateY(calc(100% + 2px));
-         background-color: rgba(1,1,1,.8);
-       }
-     }
+}
+
+@for $index from 1 through 5 {
+  &.#{nth($rarityNames, $index)} {
+    background: radial-gradient(ellipse at center, #{nth($backgrounds, $index)});
+    border: 2px solid #{nth($rarityColors, $index)};
+    &:hover {
+    //  transition-delay: .5s;
+      position: relative;
+      z-index: 10;
+      box-shadow: 0px 0px 35px -4px #{nth($shadows, $index)};
+      cursor: pointer;
+      transform: scale(1.2);
+      .damage-snippet {
+        transform: translateY(100%);
+        opacity: 1;
+      }
+      img {
+      transform: scale(1.5) rotate(20deg);
+      }
+      .overlap-set {
+        transform: translateY(calc(100% + 2px));
+        background-color: rgba(1,1,1,.8);
+      }
     }
   }
 }

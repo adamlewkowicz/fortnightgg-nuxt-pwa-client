@@ -55,12 +55,10 @@
 </template>
 
 <script>
-import FgMenu from '@/components/FgMenu';
-import FgList from '@/components/FgList';
 import LoadingCubes from '@/components/LoadingCubes';
 
 export default {
-  components: { FgMenu, FgList, LoadingCubes },
+  components: { LoadingCubes },
   data() {
     return {
       categories: [
@@ -182,7 +180,6 @@ tr {
   &:hover {
     box-shadow: 0px 0px 40px 6px rgba(28, 30, 83, 0.8);
     background: linear-gradient(to right, rgba(26, 161, 235, .2), transparent);
-    border-color: #1aa1eb;
     background-color: #373971;
   }
 }

@@ -24,7 +24,7 @@ select {
   background-color: #373971;
   color: #fff;
   border-radius: 6px;
-  height: 40px;
+  height: 42px;
   padding: 0 8px;
   min-width: 160px;
   font-family: $ff;

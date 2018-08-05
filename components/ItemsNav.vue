@@ -3,11 +3,12 @@
     <label for="name-searcher">
       <h3>ITEM NAME:</h3>
     </label>
-    <input type="text"
+
+    <fg-text
       id="name-searcher"
-      :value="filters.name"
       placeholder="Item name..."
-      @input="filterByName"
+      :value="filters.name"
+      @input="FILTER_BY_NAME($event)"
     />
 
     <ul class="items-types-filters-wrapper">
@@ -29,6 +30,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   props: [
     'itemsTypes',
@@ -41,12 +44,10 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['FILTER_BY_NAME']),
     filerItemsTypes(itemType) {
       const mutate = mutation => this.$store.commit(mutation, itemType);
       this.filters.types.some(type => type === itemType) ? mutate('DELETE_ITEM_TYPE') : mutate('ADD_ITEM_TYPE');
-    },
-    filterByName(event) {
-      this.$store.commit('FILTER_BY_NAME', event.target.value);
     }
   },
   filters: {
@@ -61,25 +62,7 @@ export default {
 @import "@/assets/css/index.scss";
 
 #name-searcher {
-  border-style: none;
-  padding: 14px 10px;
-  color: #fff;
-  border-radius: 6px;
-  background-color: #373971;
-  outline: none;
-  box-sizing: border-box;
   margin-bottom: 20px;
-  transition: box-shadow .3s ease;
-  font-family: $ff;
-  font-size: 13px;
-  &:hover { box-shadow: 0px 0px 30px 6px rgba(18, 19, 56, .5); }
-  &:focus { background-color: #363a94; }
-  &::placeholder {
-    color: #b2b2d5;
-  }
-  @include tablet {
-    width: 100%;
-  }
 }
 
 h3 {
