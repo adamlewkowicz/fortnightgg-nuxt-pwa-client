@@ -1,9 +1,6 @@
 <template>
   <div>
-    <!-- <div class="bar"
-      :class="barClass"
-      :style="styled">
-    </div> -->
+    <div class="bar" :style="styled">e</div>
     <transition name="fade">
       <div class="spinner-wrapper" v-if="loading">
         <!-- <div v-if="playerName && !statsPath" class="playername">
@@ -56,66 +53,53 @@ export default {
   },
   methods: {
     start() {
-      // this.width = '0';
-      this.styled = {
-        width: '0'
-      }
-      // this.styled = { WebkitTransition: 'width 5s', width: '100vw' };
-      // this.styled = { WebkitTransition: 'width 5s', width: '100vw' };
+      this.styled = { width: '0' };
       setTimeout(() => {
         this.styled = {
-          WebkitTransitionProperty: 'width',
-          width: '100%',
-          WebkitTransitionDuration: '5s'
+          TransitionProperty: 'width',
+          width: '80%',
+          TransitionDuration: '5s'
         };
-      }, 50);
-
-      this.finished = false;
+      }, 100);
       this.loading = true;
     },
     finish() {
-      // this.styled = {
-      //   ...this.styled,
-      //   WebkitTransitionDuration: '1s',
-      //   width: '100vw'
-      // };
-      this.finished = true;
+      setTimeout(() => {
+        this.styled = {
+          ...this.styled,
+          TransitionDuration: '1s',
+          width: '100vw'
+        };
+      }, 100);
       this.loading = false;
     }
   },
   watch: {
     routePath(val) {
       // console.log(val)
-      // console.log(val.path)
-      // console.log(this.playerName)
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
+
 .bar {
   height: 3px;
-  width: 0;
+  max-width: 100%;
   position: absolute;
   top: 70px;
-  left: -17px;
-  z-index: 10;
+  left: 0;
+  z-index: 100;
   background-color: #1aa1eb;
   box-sizing: border-box;
-  // transition: all 5s ease;
-  // background: linear-gradient(to right, #1cb1ef 0%, #1aa1eb 26%, #490cbd 61%, #4d0dbf 100%);
+  @include phone {
+    position: fixed;
+    top: calc(100vh - 70px);
+    z-index: 201;
+  }
 }
-
-.loading {
-  // width: 100vw;
-  // transition: all 5s ease;
-}
-
-// .loaded {
-//   transition-duration: .5s;
-// }
-
 
 @keyframes loading {
   0% {
@@ -138,7 +122,6 @@ export default {
   display: flex;
   background-color: #1b1c2e;
   align-items: center;
-  // justify-content: center;
   flex-direction: column;
   padding-top: 40vh;
 }

@@ -144,6 +144,7 @@ li {
 }
 
 #user_finder button {
+  text-decoration: none;
   border: none;
   background-color: transparent;
   font-family: 'Open Sans';
@@ -156,5 +157,9 @@ li {
 #stripe {
   height: 3px;
   background: linear-gradient(to right, #1cb1ef 0%,#1aa1eb 26%,#490cbd 61%,#4d0dbf 100%);
+  display: none;
+  @include phone {
+    display: block;
+  }
 }
 </style>
