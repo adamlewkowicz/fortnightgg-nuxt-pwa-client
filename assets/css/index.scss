@@ -1,5 +1,6 @@
 @import "./elements.scss";
 @import "./animations.scss";
+@import "./classes.scss";
 
 @mixin desktop {
 	@media (max-width: 1200px) {

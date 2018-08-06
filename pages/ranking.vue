@@ -31,22 +31,24 @@
         <div v-else-if="!ranking.length">
           <p>No rankings were found for your settings</p>
         </div>
-        <table v-else>
-          <thead>
-            <th>RANK</th>
-            <th>PLAYER</th>
-            <th>{{ categoryText.toUpperCase() }}</th>
-            <th>MATCHES</th>
-          </thead>
-          <tbody>
-            <tr v-for="(record, recordKey) in ranking" :key="recordKey">
-              <td>{{ offset + recordKey + 1}} </td>
-              <td><nuxt-link :to="`/stats/${record.player}`">{{ record.player }}</nuxt-link></td>
-              <td>{{ record[category] }}</td>
-              <td>{{ record.matchesplayed }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <div v-else>
+          <table class="players-table">
+            <thead>
+              <th>RANK</th>
+              <th>PLAYER</th>
+              <th>{{ categoryText.toUpperCase() }}</th>
+              <th>MATCHES</th>
+            </thead>
+            <tbody>
+              <tr v-for="(record, recordKey) in ranking" :key="recordKey">
+                <td>{{ offset + recordKey + 1}} </td>
+                <td><nuxt-link :to="`/stats/${record.player}`">{{ record.player }}</nuxt-link></td>
+                <td>{{ record[category] }}</td>
+                <td>{{ record.matchesplayed }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </transition>
     </div>
     <div class="ad-panel">
@@ -92,7 +94,7 @@ export default {
       mode: 'solo',
       category: 'top1',
       season: 5,
-      page: 0,
+      page: 1,
       isLoading: false
     }
   },
@@ -111,7 +113,7 @@ export default {
     }
   },
   async asyncData({ app }) {
-    const { ranking, offset, category } = await app.$axios.$get(`/stats/ranking/pc/solo/top1/season/5/page/0`);
+    const { ranking, offset, category } = await app.$axios.$get(`/stats/ranking/pc/solo/top1/season/5/page/1`);
     return { ranking, offset, category };
   }
 }
@@ -162,52 +164,6 @@ h1 {
 
 .modes-menu {
   margin-bottom: 30px;
-}
-
-th {
-  text-align: left;
-  padding: 15px 0;
-  color: #b2b2d5;
-  font-size: 13px;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-tr {
-  transition: all .12s ease;
-  border-left: 3px solid transparent;
-  &:hover {
-    box-shadow: 0px 0px 40px 6px rgba(28, 30, 83, 0.8);
-    background: linear-gradient(to right, rgba(26, 161, 235, .2), transparent);
-    background-color: #373971;
-  }
-}
-
-tr:nth-child(even) td {
-  background-color: rgba(255,255,255,.011);
-}
-
-th, td {
-  &:nth-child(3), &:last-child {
-    text-align: right;
-  }
-  &:first-child, &:last-child {
-    padding: 10px 20px;
-  }
-}
-
-td {
-  padding: 15px 0;
-  a {
-    color: #fff;
-    text-decoration: none;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
 }
 
 .ad-panel {

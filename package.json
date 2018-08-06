@@ -19,6 +19,7 @@
     "chart.js": "^2.7.2",
     "moment": "^2.22.2",
     "node-sass": "^4.9.0",
+    "npm": "^6.3.0",
     "nuxt": "^1.0.0",
     "pleeease-filters": "^3.0.1",
     "sass-loader": "^7.0.3",
