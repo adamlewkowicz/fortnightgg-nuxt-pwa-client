@@ -6,15 +6,17 @@
       :active="pickedPlatform"
     />
 
-    <template v-for="(stats, statsKey) in filteredStats">
-      <h3 :key="stats.mode">{{ stats.mode.toUpperCase() }}</h3>
-      <div :key="statsKey" class="all-stats">
-        <div v-for="(statProp, statPropKey) in orderedStatsProps" :key="statPropKey">
-          <b>{{ stats[statProp.name] }}</b>
-          <p>{{ statProp.title }}</p>
+    <transition-group name="fade">
+      <div v-for="(stats, statsKey) in filteredStats" :key="statsKey">
+        <h3>{{ stats.mode.toUpperCase() }}</h3>
+        <div class="all-stats">
+          <div v-for="(statProp, statPropKey) in orderedStatsProps" :key="statPropKey">
+            <b>{{ stats[statProp.name] }}</b>
+            <p>{{ statProp.title }}</p>
+          </div>
         </div>
       </div>
-    </template>
+    </transition-group>
 
   </div>
 </template>

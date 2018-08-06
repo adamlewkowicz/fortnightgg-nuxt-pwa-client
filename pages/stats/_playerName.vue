@@ -14,6 +14,7 @@
         <article id="general-stats">
           <general-stats :stats="stats.general" :isUpdating="stats.isUpdating"/>
           <stats-history v-if="stats.history.length" :history="stats.history" :live="stats.live"/>
+          <p v-else class="track-message">Keep this page open to track your progress</p>
         </article>
 
         <article id="all-stats">
@@ -126,6 +127,11 @@ export default {
   overflow: hidden;
   width: 100%;
   margin-bottom: 30px;
+}
+
+.track-message {
+  text-align: center;
+  color: $colorRose;
 }
 
 h2 {

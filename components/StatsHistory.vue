@@ -10,8 +10,7 @@
         <transition-group tag="ul" name="match">
           <li v-for="(match, matchKey) in limitedStats"
             :key="matchKey*2"
-            :class="match.place.toLowerCase()"
-            @click="$store.commit('ADD_LIVE_MATCH')">
+            :class="match.place.toLowerCase()">
             {{ match.place }}
             <div>{{ match.timeAgo }}</div>
           </li>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bar" :style="styled">e</div>
+    <div class="bar" :style="styled"></div>
     <transition name="fade">
       <div class="spinner-wrapper" v-if="loading">
         <!-- <div v-if="playerName && !statsPath" class="playername">
@@ -23,7 +23,7 @@ export default {
       loading: false,
       finished: false,
       width: '0',
-      styled: {},
+      styled: { width: '100%' },
       transition: false
     }
   },

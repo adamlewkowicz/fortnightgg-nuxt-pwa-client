@@ -1,10 +1,10 @@
 <template>
   <section>
-    <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p>
+    <!-- <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p> -->
     <transition name="slide-bottom">
     <p class="next-update">Next update in: {{ nextUpdateComesInText }}</p>
     </transition>
-    <button @click="updateStats($route.params.playerName)">Update</button>
+    <!-- <button @click="updateStats()">Update</button> -->
     <h2>GENERAL STATS:</h2>
 
     <table class="general-stats">
