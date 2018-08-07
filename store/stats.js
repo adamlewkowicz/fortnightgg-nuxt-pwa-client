@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 let timeout = null;
 
 const delayAction = (fn, ms = 1000) => {
@@ -11,6 +13,7 @@ const stats = {
     general: {},
     all: [],
     history: [],
+    live: [],
     isUpdating: false
 	},
 	mutations: {
@@ -18,11 +21,15 @@ const stats = {
       state.general = payload.general;
       state.all = payload.all;
       state.history = payload.history;
+      state.live = payload.live;
     },
     UPDATE_STATS (state, payload) {
       for (const prop in payload) {
         state[prop] = payload[prop];
       }
+    },
+    ADD_LIVE_MATCH (state) {
+      state.live.unshift({ data: moment().format('YYYY-MM-DD HH:mm:ss'), place: 'Winner', score: 333 });
     },
     CHANGE_PLAYERNAME (state, playerName) {
       state.playerName = playerName;
@@ -47,7 +54,7 @@ const stats = {
         commit('UPDATE_STATS', stats);
       }
 		}
-	}
+  }
 }
 
 export default stats;

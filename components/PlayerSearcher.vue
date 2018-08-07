@@ -5,8 +5,8 @@
     </p>
     <div class="searcher-wrapper">
       <input type="text"
-        class="text"
         v-model="nickname"
+        placeholder="Fortnite nickname"
         @input="findPlayers()"
         @keyup.enter="redirectToStats()"
       />
@@ -17,8 +17,9 @@
       </button>
     </div>
     <div v-if="players.length" class="players-result">
-      <ul v-for="(player, playerKey) in players" :key="playerKey">
-        <li @click="redirectToStats(player.name)">
+      <ul>
+        <li v-for="(player, playerKey) in players" :key="playerKey"
+          @click="redirectToStats(player.name)">
           {{ player.name }}
         </li>
       </ul>
@@ -49,7 +50,7 @@ export default {
       const delay = this.nickname.length === 1 ? 0 : 300;
       if (this.nickname.length > 0) {
         this.timeout = setTimeout(async () => {
-          const { data } = await axios.get(`http://localhost:4000/stats/players/${this.nickname}`);
+          const { data } = await this.$axios.$get(`/stats/players/${this.nickname}`);
           this.players = data.players;
         }, delay);
       } else {
@@ -57,7 +58,6 @@ export default {
       }
     },
     redirectToStats(nickname = this.nickname) {
-      console.log(nickname)
       if (nickname.length) {
         this.$router.push(`/stats/${nickname}`);
       }
@@ -69,6 +69,11 @@ export default {
 
 
 <style lang="scss" scoped>
+.nickname-title {
+  font-size: 20px;
+  font-weight: 200;
+}
+
 .searcher-main-wrapper {
   max-width: 700px;
   margin: 200px auto;
@@ -84,7 +89,6 @@ export default {
 .error-message {
   background-color: #ff4757;
   border-left: 7px solid #ff6b81;
-  // border-radius: 12px;
   font-weight: normal;
   padding: 12px;
   box-sizing: border-box;
@@ -102,6 +106,9 @@ input[type=text] {
   color: #fff;
   padding: 25px;
   transition: background-color .2s ease;
+  &::placeholder {
+    color: rgba(199, 201, 255, 0.5);
+  }
   &:focus, &:focus {
     background-color: rgba(63, 66, 170, 0.815);
     box-shadow: 0px 0px 40px 6px rgba(28, 30, 83, 0.5);

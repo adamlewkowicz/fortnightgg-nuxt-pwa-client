@@ -8,17 +8,38 @@
   opacity: 0;
 }
 
+// .fade-scale-leave-to {
+//   opacity: 0;
+//   transform: scale(0);
+// }
 
-.fade-enter-active, .fade-leave-active {
+.fade-abs-enter-active, .fade-abs-leave-active {
   opacity: 1;
   transition: opacity .5s ease;
 }
 
-
-
-.fade-leave-to {
+.fade-abs-leave-to {
   opacity: 0;
 }
+
+
+.fade-enter-active, .fade-leave-active {
+  transition: all .4s ease;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  // transform: scale(0.95);
+  transform: translateX(30px);
+}
+
+// .fade-enter-active, .fade-leave-active {
+//   opacity: 1;
+//   transition: opacity .5s ease;
+// }
+
+// .fade-leave-to {
+//   opacity: 0;
+// }
 
 .slide-bottom-active, .slide-bottom-leave-active {
   // transition: transform 1s ease, opacity 1s ease;

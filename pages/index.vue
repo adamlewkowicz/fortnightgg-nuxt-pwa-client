@@ -5,21 +5,24 @@
 
     <h3>Recently updated players</h3>
     <div class="table-wrapper">
-      <table>
+      <table class="players-table">
         <thead>
           <th>Nickname:</th>
           <th>Kills:</th>
           <th>Matches played:</th>
+          <th>Updated:</th>
         </thead>
         <transition-group tag="tbody" name="slide-left" appear>
-          <tr v-for="(record, recordKey) in lastRecords"
+          <tr v-for="(record, recordKey) in normalizedRecords"
             :key="recordKey"
             :style="recordsStyle[recordKey]"
-            @click="$router.push(`/stats/${record.name}`)"
           >
-            <td>{{ record.name }}</td>
+            <td>
+              <nuxt-link :to="`/stats/${record.name}`">{{ record.name }}</nuxt-link>
+            </td>
             <td>{{ record.kills }}</td>
             <td>{{ record.matchesplayed }}</td>
+            <td>{{ record.updatedAt }}</td>
           </tr>
         </transition-group>
       </table>
@@ -28,6 +31,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import PlayerSearcher from '~/components/PlayerSearcher';
 import axios from 'axios';
 
@@ -44,14 +48,18 @@ export default {
   computed: {
     recordsStyle() {
       return this.lastRecords.map((record, index) => ({
-        transition: `transform 1s ease ${(index - 1) * 1.5 / 15}s, opacity 1s ease ${index/15}s`
+        transition: `transform 1s ease ${index/15}s, opacity 1s ease ${index/15}s`,
       }));
+    },
+    normalizedRecords() {
+      return this.lastRecords.map((record, index) => ({
+          ...record,
+          updatedAt: moment(record.updatedAt).fromNow()
+        })
+      );
     }
   },
   async asyncData({ app }) {
-    // return new Promise((resolve) => {
-    //   setTimeout(() => resolve({}), 2000);
-    // });
     const { lastRecords } = await app.$axios.$get('/stats/last-records');
     return { lastRecords };
   },
@@ -74,20 +82,8 @@ h3 {
   overflow: hidden;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  tbody {
-    td {
-      text-align: center;
-      padding: 15px 0;
-    }
-    tr:hover {
-      transition-delay: 0 !important;
-      background-color: rgba(255,255,255,0.08);
-      cursor: pointer;
-    }
-  }
-  margin-bottom: 80px;
+.players-table {
+  max-width: 700px;
+  margin: 0 auto;
 }
 </style>

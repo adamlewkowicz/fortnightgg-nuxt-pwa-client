@@ -4,17 +4,40 @@
     <items-nav
       class="items-nav"
       :itemsTypes="itemsTypes"
-      :filters="items.filters"
+      :filters="filters"
     />
 
-    <transition-group tag="div" name="list" class="items-wrapper">
-      <item
-        v-for="(item, itemKey) in filteredItems"
-        :key="itemKey"
-        :item="item"
-        @choosenItem="choosenItem = $event">
-      </item>
-    </transition-group>
+
+
+    <div class="items-filters-container">
+      <!-- <items-filters :filters="filters"/> -->
+      <h3>SORT BY:</h3>
+      <div class="sort-wrapper">
+        <fg-list
+          :options="sortCategories"
+          @selected="SORT_ITEMS_BY($event)"
+        />
+        <checkbox-arrow
+          :value="sortOptions.desc"
+          @checkboxClick="SORT_ITEMS_DIRECTION"
+        />
+      </div>
+
+      <!-- {{ indexes }} -->
+      <transition-group name="item" tag="ul" class="items-wrapper">
+        <item
+          v-for="item in filteredItems"
+          :key="item.id"
+          :item="item"
+          @choosenItem="choosenItem = $event">
+        </item>
+      </transition-group>
+      <div v-show="!filteredItems.length" class="filters-fail">
+        <p>No items were found for your filters</p>
+        <button @click="CLEAR_ITEMS_FILTERS">Clear filters</button>
+      </div>
+
+    </div>
 
     <item-details
       v-if="choosenItem"
@@ -27,36 +50,59 @@
 
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 import Item from '@/components/Item';
 import ItemsNav from '@/components/ItemsNav';
 import ItemsFilters from '@/components/ItemsFilters';
 import ItemDetails from '@/components/ItemDetails';
+import CheckboxArrow from '@/components/CheckboxArrow';
 
 export default {
   components: {
     Item,
     ItemsNav,
     ItemsFilters,
-    ItemDetails
+    ItemDetails,
+    CheckboxArrow
   },
   data() {
     return {
-      itemPhrase: '',
-      showDetails: -1,
-      id: 0,
-      choosenItem: null
+      choosenItem: null,
+      sortCategories: [
+        { text: 'Name', value: 'name' },
+        { text: 'Damage', value: 'damage' },
+        { text: 'Rarity', value: 'rarity' },
+        { text: 'Magazine size', value: 'magSize' },
+        { text: 'Headshot', value: 'headshot' },
+        { text: 'DPS', value: 'dps' }
+      ]
     }
   },
+  methods: {
+    ...mapMutations([
+      'CLEAR_ITEMS_FILTERS',
+      'SORT_ITEMS_BY',
+      'SORT_ITEMS_DIRECTION'
+    ])
+  },
+
   computed: {
     ...mapGetters([
       'filteredItems',
       'filteredTypes',
       'itemsTypes'
     ]),
-    items() {
-      return this.$store.state.items;
+    sortOptions() {
+      return this.$store.state.items.sortOptions;
     },
+    filters() {
+      return this.$store.state.items.filters;
+    }
+  },
+  filters: {
+    upperFirstChar(val) {
+      return val[0].toUpperCase() + val.substring(1);
+    }
   },
   async fetch({ store }) {
     store.commit('CLEAR_ITEMS_FILTERS');
@@ -72,6 +118,47 @@ export default {
 
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
+.item-move {
+  transition: all 1s !important;
+}
+
+.item-enter {
+  transform: scale(0);
+  opacity: 0;
+}
+
+.item-leave-active {
+  position: absolute !important;
+  opacity: 0;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.sort-wrapper {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+select {
+  font-family: $ff;
+  color: #fff;
+  background-color: #373971;
+  border: none;
+  height: 42px;
+  width: 130px;
+  border-radius: 6px;
+  padding: 0 5px;
+  margin-right: 5px;
+}
+
+h3 {
+  font-size: 13px;
+  margin: 0 0 5px 0;
+}
 
 .items-page-wrapper {
   margin-top: 300px;
@@ -84,24 +171,9 @@ export default {
 
 .items-nav {
   flex: 2;
-}
-
-// .item-move {
-//   transition: transform 1s;
-// }
-
-
-.list-enter, .list-leave-to {
-  transform: scale(0) rotate(-30deg);
-  opacity: 0;
-  flex: 0 0 auto;
-}
-.list-leave-active {
-  position: absolute;
-}
-
-.list-move {
-  position: absolute;
+  @include tablet {
+    flex: 0;
+  }
 }
 
 @keyframes popIn {
@@ -116,27 +188,33 @@ export default {
   }
 }
 
+.items-filters-container {
+  flex: 9;
+  margin-left: 40px;
+  min-height: 70vh;
+  @include tablet {
+    margin: 20px 0 0 0;
+  }
+}
+
 .items-wrapper {
+  list-style-type: none;
   display: flex;
   flex: 9;
   padding: 20px;
-  // background-color: red;
-  margin-left: 40px;
   box-sizing: border-box;
   align-content: flex-start;
   justify-content: center;
-  // align-items: flex-start;
   flex-wrap: wrap;
-  /*
-  &:after {
-    content: "";
-    flex: auto;
-  }
-  */
   @include tablet {
     margin-left: 0;
-    min-height: 100vh;
+    margin-bottom: 70px;
   }
+}
+
+.filters-fail {
+  margin-top: 50px;
+  text-align: center;
 }
 </style>
 

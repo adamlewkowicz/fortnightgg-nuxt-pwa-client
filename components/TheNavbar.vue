@@ -7,13 +7,14 @@
 
       <nav>
         <ul>
-          <!-- <li><nuxt-link to="/items">Items</nuxt-link></li> -->
+          <li><nuxt-link to="/items">Items</nuxt-link></li>
           <li><nuxt-link to="/stats">Stats</nuxt-link></li>
+          <li><nuxt-link to="/ranking">Ranking</nuxt-link></li>
         </ul>
       </nav>
 
       <div id="user_finder">
-        <input type="text" v-model="nickname" @keyup.enter="findUser">
+        <input type="text" v-model="nickname" placeholder="Nickname..." @keyup.enter="findUser">
         <button type="button" @click="findUser">.GG</button>
       </div>
     </header>
@@ -83,6 +84,9 @@ header {
   user-select: none;
   position: relative;
   top: 3px;
+  @include phone {
+    width: 190px;
+  }
 }
 
 nav {
@@ -92,6 +96,9 @@ nav {
     margin: 0;
     display: flex;
     align-content: center;
+  }
+  @include phone {
+    display: none;
   }
 }
 
@@ -104,7 +111,6 @@ li {
     height: 100%;
     &:hover {
       background-color: rgba(255,255,255,0.1);
-
     }
   }
 }
@@ -131,6 +137,9 @@ li {
   border-radius: 25px;
   outline: none;
   float: right;
+  &::placeholder {
+    color: rgba(199, 201, 255, 0.5);
+  }
   &:hover, &:focus {
     background-color: #444798;
 	  box-shadow: 0px 0px 25px -4px rgba(68,51,233,0.54);
@@ -138,6 +147,7 @@ li {
 }
 
 #user_finder button {
+  text-decoration: none;
   border: none;
   background-color: transparent;
   font-family: 'Open Sans';
@@ -150,5 +160,9 @@ li {
 #stripe {
   height: 3px;
   background: linear-gradient(to right, #1cb1ef 0%,#1aa1eb 26%,#490cbd 61%,#4d0dbf 100%);
+  display: none;
+  @include phone {
+    display: block;
+  }
 }
 </style>

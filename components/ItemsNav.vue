@@ -3,26 +3,17 @@
     <label for="name-searcher">
       <h3>ITEM NAME:</h3>
     </label>
-    <input type="text"
+
+    <fg-text
       id="name-searcher"
-      v-model="itemName"
-      placeholder="enter name..."
-      @input="filterByName"
+      placeholder="Item name..."
+      :value="filters.name"
+      @input="FILTER_BY_NAME($event)"
     />
 
-    <!-- <h3>FILTER BY TYPE:</h3>
-    <select v-model="filterItemsTypes"
-      :size="itemsTypes.length"
-      multiple>
-      <option v-for="(itemType, itemTypeKey) in itemsTypes"
-        :key="itemTypeKey">
-        {{ itemType }}
-      </option>
-    </select> -->
-
-    <div class="items-types-filters-wrapper">
-      <div v-for="(itemType, itemTypeKey) in itemsTypes"
-        :key="itemTypeKey"
+    <ul class="items-types-filters-wrapper">
+      <li v-for="itemType in itemsTypes"
+        :key="itemType"
         class="items-types">
         <label :for="itemType | htmlTag">
           {{ itemType }}
@@ -30,14 +21,17 @@
         <input type="checkbox"
           :id="itemType | htmlTag"
           :value="itemType"
+          :checked="!!filters.types.find(type => type === itemType)"
           @change="filerItemsTypes(itemType)"
         />
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   props: [
     'itemsTypes',
@@ -46,17 +40,14 @@ export default {
   data() {
     return {
       itemName: '',
-      firstSort: true,
-      filterItemsTypes: []
+      checkedItemsTypes: []
     }
   },
   methods: {
+    ...mapMutations(['FILTER_BY_NAME']),
     filerItemsTypes(itemType) {
       const mutate = mutation => this.$store.commit(mutation, itemType);
       this.filters.types.some(type => type === itemType) ? mutate('DELETE_ITEM_TYPE') : mutate('ADD_ITEM_TYPE');
-    },
-    filterByName() {
-      this.$store.commit('FILTER_BY_NAME', this.itemName);
     }
   },
   filters: {
@@ -71,32 +62,18 @@ export default {
 @import "@/assets/css/index.scss";
 
 #name-searcher {
-  border-style: none;
-  padding: 14px 10px;
-  color: #fff;
-  border-radius: 6px;
-  background-color: #373971;
-  outline: none;
-  box-sizing: border-box;
   margin-bottom: 20px;
-  // border: 1px solid #373971;
-  transition: box-shadow .3s ease;
-  &:hover { box-shadow: 0px 0px 30px 6px rgba(18, 19, 56, .5); }
-  &:focus { background-color: #363a94; }
-  &::placeholder {
-    color: rgba(255,255,255,.3);
-  }
-  @include tablet {
-    width: 100%;
-  }
 }
 
 h3 {
-  font-size: 12px;
-  margin: 6px 0;
+  font-size: 13px;
+  margin: 0 0 5px 0;
 }
 
 .items-types-filters-wrapper {
+  margin: 0 0 10px 0;
+  padding: 0;
+  list-style-type: none;
   @include tablet {
     max-height: 135px;
     overflow-y: auto;

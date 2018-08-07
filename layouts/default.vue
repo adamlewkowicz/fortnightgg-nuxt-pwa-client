@@ -6,16 +6,19 @@
         <nuxt/>
       </transition>
     </section>
+    <phone-menu />
   </div>
 </template>
 
 <script>
-import TheNavbar from '../components/TheNavbar';
+import TheNavbar from '@/components/TheNavbar';
+import PhoneMenu from '@/components/PhoneMenu';
 
 export default {
   scrollToTop: true,
   components: {
-    TheNavbar
+    TheNavbar,
+    PhoneMenu
   }
 }
 </script>
@@ -44,16 +47,7 @@ body {
 
 .page-wrapper {
   box-sizing: border-box;
-  margin: 0 auto;
-  margin-top: 100px;
+  margin: 100px auto;
   @extend %rwd-sizing;
 }
-
-
-// *, *:before, *:after {
-//   box-sizing: border-box;
-//   margin: 0;
-// }
-
-
 </style>

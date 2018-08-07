@@ -1,5 +1,6 @@
 @import "./elements.scss";
 @import "./animations.scss";
+@import "./classes.scss";
 
 @mixin desktop {
 	@media (max-width: 1200px) {
@@ -68,11 +69,15 @@
   }
 }
 
+$rarityNames: common, uncommon, rare, epic, legendary;
+$rarityColors: #e6e6e6, #66bb30, #38d3ff, #f959ff, #ff7826;
 
 // $ff: 'Source Sans Pro', sans-serif;
 $ff: 'Open Sans';
-$fs: 16px;
-$fsp: 14px;
+$fs: 14px;
+$fsp: 16px;
+
+$colorRose:#b2b2d5;
 
 .no-spinners {
 	-webkit-appearance: none;

@@ -1,0 +1,43 @@
+.players-table {
+  width: 100%;
+  border-collapse: collapse;
+  th {
+    text-align: left;
+    padding: 15px 0;
+    color: #b2b2d5;
+    font-size: 13px;
+  }
+  tr {
+    transition: all .12s ease;
+    border-left: 3px solid transparent;
+    &:hover {
+      box-shadow: 0px 0px 40px 6px rgba(28, 30, 83, 0.8);
+      background: linear-gradient(to right, rgba(26, 161, 235, .2), transparent);
+      background-color: #373971;
+    }
+  }
+
+  tr:nth-child(even) td {
+    background-color: rgba(255,255,255,.011);
+  }
+
+  th, td {
+    &:nth-child(3), &:last-child {
+      text-align: right;
+    }
+    &:first-child, &:last-child {
+      padding: 10px 20px;
+    }
+  }
+
+  td {
+    padding: 15px 0;
+    a {
+      color: #fff;
+      text-decoration: none;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
