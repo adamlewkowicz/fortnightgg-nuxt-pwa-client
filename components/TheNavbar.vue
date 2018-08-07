@@ -14,7 +14,7 @@
       </nav>
 
       <div id="user_finder">
-        <input type="text" v-model="nickname" @keyup.enter="findUser">
+        <input type="text" v-model="nickname" placeholder="Nickname..." @keyup.enter="findUser">
         <button type="button" @click="findUser">.GG</button>
       </div>
     </header>
@@ -137,6 +137,9 @@ li {
   border-radius: 25px;
   outline: none;
   float: right;
+  &::placeholder {
+    color: rgba(199, 201, 255, 0.5);
+  }
   &:hover, &:focus {
     background-color: #444798;
 	  box-shadow: 0px 0px 25px -4px rgba(68,51,233,0.54);
