@@ -96,7 +96,7 @@ export default {
   box-sizing: border-box;
   @include phone {
     position: fixed;
-    top: calc(100vh - 70px);
+    top: calc(100% - 70px);
     z-index: 201;
   }
 }

@@ -31,7 +31,7 @@
         <div v-else-if="!ranking.length">
           <p>No rankings were found for your settings</p>
         </div>
-        <div v-else>
+        <div v-else class="ranking-table-wrapper">
           <table class="players-table">
             <thead>
               <th>RANK</th>
@@ -127,6 +127,11 @@ export default {
   margin-bottom: 100px;
   max-width: 800px;
   margin: 50px auto;
+}
+
+.ranking-table-wrapper {
+  overflow-x: auto;
+  max-width: 100vw;
 }
 
 .ranking-wrapper {
