@@ -44,7 +44,8 @@ module.exports = {
 
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/dotenv'
+    '@nuxtjs/dotenv',
+    '@nuxtjs/pwa'
   ],
 
   plugins: [
