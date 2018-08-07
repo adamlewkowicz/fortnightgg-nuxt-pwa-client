@@ -50,8 +50,8 @@ export default {
       const delay = this.nickname.length === 1 ? 0 : 300;
       if (this.nickname.length > 0) {
         this.timeout = setTimeout(async () => {
-          const { data } = await this.$axios.$get(`/stats/players/${this.nickname}`);
-          this.players = data.players;
+          const { players } = await this.$axios.$get(`/stats/players/${this.nickname}`);
+          this.players = players;
         }, delay);
       } else {
         this.players = [];

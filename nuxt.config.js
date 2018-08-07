@@ -61,8 +61,13 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
+    '@nuxtjs/google-analytics'
   ],
+
+  'google-analytics': {
+    id: 'UA-113730992-1'
+  },
 
   plugins: [
     '~/plugins/global.js'
