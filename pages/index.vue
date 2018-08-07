@@ -72,6 +72,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
+
 h3 {
   text-align: center;
   margin-top: 250px;
@@ -80,6 +82,9 @@ h3 {
 
 .table-wrapper {
   overflow: hidden;
+  @include small {
+    font-size: 12px;
+  }
 }
 
 .players-table {

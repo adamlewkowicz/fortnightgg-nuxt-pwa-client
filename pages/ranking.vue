@@ -131,7 +131,10 @@ export default {
 
 .ranking-table-wrapper {
   overflow-x: auto;
-  max-width: 100vw;
+}
+
+.players-table {
+  table-layout: fixed;
 }
 
 .ranking-wrapper {
@@ -139,6 +142,9 @@ export default {
   flex: 9;
   min-height: 100vh;
   position: relative;
+  @include small {
+    font-size: 12px;
+  }
 }
 
 p {

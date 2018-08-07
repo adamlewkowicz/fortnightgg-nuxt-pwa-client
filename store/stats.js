@@ -50,7 +50,7 @@ const stats = {
       commit('CHANGE_UPDATING_STATUS', true);
       const { stats } = await this.$axios.$patch(`/stats/${encodeURI(playerName)}`);
       commit('CHANGE_UPDATING_STATUS', false);
-      if (Object.keys(stats).length && state.playerName.toLowerCase() === stats.general.name.toLowerCase()) {
+      if (stats && Object.keys(stats).length && state.playerName.toLowerCase() === stats.general.name.toLowerCase()) {
         commit('UPDATE_STATS', stats);
       }
 		}

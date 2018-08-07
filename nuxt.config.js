@@ -1,20 +1,38 @@
 require('dotenv').config();
-
+const cdnURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space';
 
 module.exports = {
-  /*
-  ** Headers of the page
-  */
   head: {
-    title: 'client',
+    title: 'Fortnite stats, rankings, items - Fortnight.gg',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Fornight pwa client made in vue, vuex, nuxt' }
+      { hid: 'description', name: 'description', content: 'Fortnite stats, rankings, items explorer - Fortnight.gg' },
+      { name: 'theme_color', content: '#20213A' },
+      { name: 'author', content: 'Fortnight.gg' },
+      { name: 'ogDescription', content: 'Fortnite stats, rankings, items explorer - Fortnight.gg' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' }
+    ]
+  },
+
+  manifest: {
+    name: 'Fortnight.gg',
+    short_name: 'Fortnight.gg',
+    lang: 'en',
+    background_color: '#20213A',
+    description: 'Fortnite statistics, items, rankings - Fortnight.gg'
+  },
+
+  workbox: {
+    runtimeCaching: [
+      {
+        urlPattern: 'https://fortnite-api.space/.*',
+        handler: 'cacheFirst',
+        method: 'GET'
+      }
     ]
   },
 
@@ -23,9 +41,7 @@ module.exports = {
     color: '#1aa1eb',
     background: '#1b1c2e'
   },
-  /*
-  ** Customize the progress bar color
-  */
+
   router: {
     scrollBehavior: function(to, from, savedPosition) {
       return { x: 0, y: 0 };
@@ -37,7 +53,7 @@ module.exports = {
   ],
 
   env: {
-    baseURL: process.env.NODE_ENV == 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space'
+    baseURL: cdnURL
   },
 
   loading: '~/components/LoadingBar.vue',
@@ -53,16 +69,14 @@ module.exports = {
   ],
 
   axios: {
-    baseURL: process.env.NODE_ENV == 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space'
+    baseURL: cdnURL
   },
-  /*
-  ** Build configuration
-  */
+
+
   build: {
     vendor: [
       'vue-c3'
     ],
-
     /*
     ** Run ESLint on save
     */
