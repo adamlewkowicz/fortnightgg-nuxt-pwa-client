@@ -1,10 +1,9 @@
 <template>
   <section>
     <!-- <p>Last update: {{ updatedAt.format('YYYY-MM-DD hh:mm:ss') }}</p> -->
-    <transition name="slide-bottom">
-    <p class="next-update">Next update in: {{ nextUpdateComesInText }}</p>
-    </transition>
     <!-- <button @click="updateStats()">Update</button> -->
+
+    <p class="next-update">Next update in: {{ nextUpdateIn }}</p>
     <h2>GENERAL STATS:</h2>
 
     <table class="general-stats">
@@ -14,16 +13,16 @@
           <td>{{ stats.matchesplayed }}</td>
         </tr>
         <tr class="gradi">
-          <td class="clock">Hours:</td>
-          <td>{{ Math.floor(stats.minutesplayed/60) }}</td>
+          <td class="clock">{{ timePlayed.text }}:</td>
+          <td>{{ timePlayed.time }}</td>
         </tr>
         <tr class="gradi2">
           <td class="sword">K/D ratio:</td>
-          <td>{{ parseInt(stats.kdratio) }}</td>
+          <td>{{ stats.kdratio }}</td>
         </tr>
         <tr class="gradi3">
           <td class="sword">Winratio:</td>
-          <td>{{ Math.round(stats.winratio * 100) / 100}}%</td>
+          <td>{{ stats.winratio }}%</td>
         </tr>
         <tr>
           <td class="sword">Kills:</td>
@@ -35,61 +34,37 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import moment from 'moment';
-
 export default {
   props: ['stats', 'isUpdating'],
   data() {
     return {
       timer: 0,
-      actualTime: moment(),
-      nextUpdateAt: moment(this.updatedAt).add(3, 'minutes'),
-      timeDiff: null,
-      actualMoment: moment(),
-      timeout: null,
-      updateCalled: false
+      timeout: null
     }
   },
   methods: {
     updateTimer() {
-      const { seconds } = this.nextUpdateComesIn;
-      if (seconds != null && seconds < 1 && !this.isUpdating) {
+      if (this.timer < 1 && !this.isUpdating) {
         this.updateStats();
       }
       clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => {
-        this.actualMoment = moment();
+      this.timeout = setInterval(() => {
+        this.timer--;
         this.updateTimer();
-      }, 1000)
+      }, 1000);
     },
     async updateStats() {
+      this.timer = 180;
       await this.$store.dispatch('updateStats', this.$route.params.playerName);
     }
   },
   computed: {
-    updatedAt() {
-      return moment(this.stats.updatedAt);
-    },
     nextUpdateIn() {
-      return Math.floor(moment(this.actualMoment).diff(this.updatedAt) / 1000);
-    },
-    nextUpdateInText() {
-      return moment(this.updatedAt).add(178, 'seconds')
-    },
-    nextUpdateComesIn() {
-      const seconds = Math.floor(moment(this.actualMoment).diff(this.nextUpdateInText) / 1000) * -1;
+      const seconds = this.timer;
       const minutes = Math.floor(seconds / 60);
       const secondsInMins = seconds - minutes * 60;
-      return {
-        seconds,
-        minutes,
-        secondsInMins
-      }
-    },
-    nextUpdateComesInText() {
-      const { seconds, minutes, secondsInMins } = this.nextUpdateComesIn;
-      if (seconds < 0) {
+
+      if (seconds < 1) {
         return 'Just now';
       } else if (minutes > 0) {
         return `${minutes} min. and ${secondsInMins} sec.`;
@@ -97,15 +72,12 @@ export default {
         return `${secondsInMins} seconds`;
       }
     },
-    lastUpdateTime() {
-      return moment(this.updatedAt).fromNow();
-    },
-    updateFormatted() {
-      return this.updatedAt.format('YYYY-MM-DD hh:mm:ss')
+    timePlayed() {
+      const { minutesplayed } = this.stats;
+      return minutesplayed < 60 ? { text: 'Minutes', time: minutesplayed } : { text: 'Hours', time: Math.floor(minutesplayed/60) }
     }
   },
   mounted() {
-    clearTimeout(this.timeout);
     this.updateTimer();
   },
   beforeDestroy() {

@@ -12,13 +12,13 @@
       <h1>{{ stats.general.name }}</h1>
       <div id="stats">
         <article id="general-stats">
-          <general-stats :stats="stats.general" :isUpdating="stats.isUpdating"/>
+          <general-stats :stats="stats.general" :isUpdating="stats.isUpdating" :actualTime="actualTime"/>
           <stats-history v-if="stats.history.length" :history="stats.history" :live="stats.live"/>
           <p v-else class="track-message">Keep this page open to track your progress</p>
         </article>
 
         <article id="all-stats">
-          <div v-if="stats.history.length > 1 && !isUpdating" class="chart-wrapper">
+          <div v-if="stats.history.length > 1" class="chart-wrapper">
             <line-chart
               :chartData="lineChartData"
               :height="chartHeight"
@@ -57,11 +57,15 @@ export default {
   data () {
     return {
       chartHeight: 150,
-      chartPropName: 'kills'
+      chartPropName: 'kills',
+      actualTime: null
     }
   },
   methods: {
-    ...mapActions(['updateStats'])
+    ...mapActions(['updateStats']),
+    timer() {
+      setInterval(() => this.actualTime = moment(), 1000);
+    },
   },
   computed: {
     stats() {
