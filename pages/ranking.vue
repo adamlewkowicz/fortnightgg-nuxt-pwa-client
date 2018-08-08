@@ -29,7 +29,7 @@
       @clicked="mode=$event; getRanking()"
     />
 
-    <transition name="fade">
+    <transition name="fade-slide">
       <loading-cubes v-if="isLoading"/>
       <section v-else-if="!ranking.length">
         <p>No rankings were found for your settings</p>
@@ -118,6 +118,11 @@ export default {
   async asyncData({ app }) {
     const { ranking, offset, category } = await app.$axios.$get(`/stats/ranking/pc/solo/top1/season/5/page/1`);
     return { ranking, offset, category };
+  },
+  head() {
+    return {
+      title: 'Fortnite Players Ranking - Fortnight.gg'
+    }
   }
 }
 </script>
@@ -131,6 +136,7 @@ export default {
   flex: 9;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
   @include small {
     font-size: 12px;
   }

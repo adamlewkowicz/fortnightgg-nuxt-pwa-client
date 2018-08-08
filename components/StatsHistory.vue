@@ -105,6 +105,7 @@ export default {
 
 <style lang="scss" scoped>
 h2 {
+  font-size: 13px;
   margin-bottom: 25px;
   display: flex;
   align-items: center;

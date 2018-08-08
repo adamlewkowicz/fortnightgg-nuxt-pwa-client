@@ -90,6 +90,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  border-radius: 9px;
   div {
     font-size: 24px;
     width: 25%;

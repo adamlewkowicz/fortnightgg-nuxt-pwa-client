@@ -80,6 +80,9 @@ $fsp: 16px;
 h1 {
   font-size: 40px;
   margin: 30px 0 10px 0;
+  @include phone {
+    font-size: 34px;
+  }
 }
 
 $colorRose:#b2b2d5;

@@ -49,5 +49,8 @@ body {
   box-sizing: border-box;
   margin: 250px auto 100px auto;
   @extend %rwd-sizing;
+  @include phone {
+    margin-top: 130px;
+  }
 }
 </style>

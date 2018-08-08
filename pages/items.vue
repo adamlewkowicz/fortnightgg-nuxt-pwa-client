@@ -113,7 +113,7 @@ export default {
   },
   head() {
     return {
-      title: 'Fortnight.gg - Items explorer'
+      title: 'Fortnite Items Explorer - Fortnight.gg'
     }
   }
 }

@@ -70,11 +70,6 @@ export default {
   async asyncData({ app }) {
     const { lastRecords } = await app.$axios.$get('/stats/last-records');
     return { lastRecords };
-  },
-  head() {
-    return {
-      title: 'Fortnight.gg - Homepage'
-    }
   }
 }
 </script>
@@ -87,6 +82,9 @@ h2 {
   margin-top: 250px;
   margin-bottom: 40px;
   font-size: 15px;
+  @include phone {
+    margin-top: 100px;
+  }
 }
 
 .table-wrapper {

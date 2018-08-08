@@ -109,9 +109,9 @@ export default {
   },
   head() {
     const { playerName } = this.$route.params;
-    const title = playerName ? ` - ${playerName}` : '';
+    const player = playerName ? `${playerName} - ` : '';
     return {
-      title: `Fortnight.gg - Stats${title}`
+      title: `${player}Fortnite Stats and Ranking - Fortnight.gg`
     }
   }
 }
