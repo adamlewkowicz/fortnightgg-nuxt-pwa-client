@@ -48,10 +48,12 @@ export default {
   position: fixed;
   width: 100%;
   height: 100%;
+  max-height: 100vh;
   left: 0;
   top: 0;
   background-color: rgba(1,1,1,.4);
-  z-index: 50;
+  // overflow-y: hidden;
+  z-index: 250;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -80,6 +82,10 @@ img {
     &.#{nth($rarityNames, $index)} {
       filter: drop-shadow(0px 0px 60px #{nth($rarityColors, $index)});
     }
+  }
+  @include small {
+    width: 150px;
+    height: 150px;
   }
 }
 

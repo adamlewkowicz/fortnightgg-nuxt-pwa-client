@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <section>
     <platform-switch
       :availablePlatforms="availablePlatforms"
       @switchPlatform="pickedPlatform=$event"
@@ -18,7 +18,7 @@
       </div>
     </transition-group>
 
-  </div>
+  </section>
 </template>
 
 <script>
@@ -90,6 +90,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  border-radius: 9px;
   div {
     font-size: 24px;
     width: 25%;

@@ -77,6 +77,14 @@ $ff: 'Open Sans';
 $fs: 14px;
 $fsp: 16px;
 
+h1 {
+  font-size: 40px;
+  margin: 30px 0 10px 0;
+  @include phone {
+    font-size: 34px;
+  }
+}
+
 $colorRose:#b2b2d5;
 
 .no-spinners {
@@ -93,7 +101,3 @@ input[type=text], input[type=number], input[type=password] {
   font-family: $ff;
 }
 
-// USAGE
-	// @include desktop {
-	//   font-size: 20px;
-	// }

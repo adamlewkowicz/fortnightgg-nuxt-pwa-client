@@ -45,6 +45,10 @@ $shadows:
   user-select: none;
   position: relative;
   transition: all .3s ease;
+  @include small {
+    width: 125px;
+    height: 125px;
+  }
 }
 
 @for $index from 1 through 5 {

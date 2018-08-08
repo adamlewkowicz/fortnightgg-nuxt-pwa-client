@@ -96,7 +96,7 @@ export default {
   box-sizing: border-box;
   @include phone {
     position: fixed;
-    top: calc(100vh - 70px);
+    top: calc(100% - 70px);
     z-index: 201;
   }
 }
@@ -106,7 +106,7 @@ export default {
     width: 0;
   }
   60% {
-    background-color: linear-gradient(to right, #1cb1ef 0%, #1aa1eb 26%, #490cbd 61%, #4d0dbf 100%);
+    background: linear-gradient(to right, #1cb1ef 0%, #1aa1eb 26%, #490cbd 61%, #4d0dbf 100%);
   }
   100% {
     width: 100vw;

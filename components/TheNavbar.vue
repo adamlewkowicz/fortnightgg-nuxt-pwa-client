@@ -13,7 +13,7 @@
         </ul>
       </nav>
 
-      <div id="user_finder">
+      <div id="user-finder">
         <input type="text" v-model="nickname" placeholder="Nickname..." @keyup.enter="findUser">
         <button type="button" @click="findUser">.GG</button>
       </div>
@@ -115,7 +115,7 @@ li {
   }
 }
 
-#user_finder {
+#user-finder {
   display: flex;
   margin-left: auto;
   @include small {
@@ -123,7 +123,7 @@ li {
   }
 }
 
-#user_finder input {
+#user-finder input {
   max-width: 200px;
   height: 30px;
   width: 100%;
@@ -138,7 +138,7 @@ li {
   outline: none;
   float: right;
   &::placeholder {
-    color: rgba(199, 201, 255, 0.5);
+    color: rgba(216, 186, 253, 0.349);
   }
   &:hover, &:focus {
     background-color: #444798;
@@ -146,7 +146,7 @@ li {
   }
 }
 
-#user_finder button {
+#user-finder button {
   text-decoration: none;
   border: none;
   background-color: transparent;

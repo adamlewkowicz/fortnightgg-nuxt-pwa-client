@@ -1,13 +1,15 @@
 <template>
-  <ul>
-    <li v-for="link in links" :key="link.value">
-      <a href="#"
-        :class="{ 'active' : active === link.value  }"
-        @click.prevent="$emit('clicked', link.value)">
-        {{ link.text }}
-      </a>
-    </li>
-  </ul>
+  <nav>
+    <ul>
+      <li v-for="link in links" :key="link.value">
+        <a href="#"
+          :class="{ 'active' : active === link.value  }"
+          @click.prevent="$emit('clicked', link.value)">
+          {{ link.text }}
+        </a>
+      </li>
+    </ul>
+  </nav>
 </template>
 
 <script>

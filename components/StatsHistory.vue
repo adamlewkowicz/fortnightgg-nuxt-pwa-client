@@ -1,12 +1,12 @@
 <template>
-  <article>
+  <section>
     <h2>MATCH HISTORY:
       <button :class="{ active: showLiveStats }" @click="showLiveStats = true">Live</button>
       <button :class="{ active: !showLiveStats }" @click="showLiveStats = false">Daily</button>
     </h2>
 
     <div class="history-components">
-      <section :style="transitionStyle">
+      <div :style="transitionStyle" class="history-comp">
         <transition-group tag="ul" name="match">
           <li v-for="(match, matchKey) in limitedStats"
             :key="matchKey*2"
@@ -15,9 +15,9 @@
             <div>{{ match.timeAgo }}</div>
           </li>
         </transition-group>
-      </section>
+      </div>
 
-      <section :style="transitionStyle">
+      <div :style="transitionStyle" class="history-comp">
         <table>
           <thead>
             <tr>
@@ -36,10 +36,10 @@
             </tr>
           </tbody>
         </table>
-      </section>
+      </div>
     </div>
 
-  </article>
+  </section>
 </template>
 
 <script>
@@ -105,6 +105,7 @@ export default {
 
 <style lang="scss" scoped>
 h2 {
+  font-size: 13px;
   margin-bottom: 25px;
   display: flex;
   align-items: center;
@@ -113,13 +114,14 @@ h2 {
 .history-components {
   display: flex;
   overflow: hidden;
-  section {
-    flex-basis: 100%;
-    flex-shrink: 0;
-    transition: transform .3s ease;
-    &:first-child {
-      margin-right: 20px;
-    }
+}
+
+.history-comp {
+  flex-basis: 100%;
+  flex-shrink: 0;
+  transition: transform .3s ease;
+  &:first-child {
+    margin-right: 20px;
   }
 }
 
@@ -165,16 +167,7 @@ li {
     font-size: 12px;
   }
   &.defeat {
-    // color: rgb(255, 76, 76);
-    // border-image: linear-gradient(to right, #fbc2eb, transparent);
-    // background-color: rgba(251, 194, 235, .3);
-    // background-color: rgba(255, 71, 87, .1);
-    // border-bottom: 2px solid #eb3b5a;
-    // border-image: linear-gradient(to right, #b2b2d5, transparent);
-    // border-image: linear-gradient(to right, #FC427B, transparent);
-    // border-image: linear-gradient(to right, #FC427B, transparent);
     border-image-slice: 1;
-    // color: #9090af;
   }
   &.winner {
     &:before {
@@ -194,15 +187,7 @@ li {
       font-size: 20px;
     }
     padding-left: 60px;
-    // border-left-width: 5px;
-    // background-image: linear-gradient(90deg,#b4ec51,#429321);
-    // border-image: linear-gradient(to left, #d4fc79, #96e6a1);
-    // border-image: linear-gradient(90deg, #b4ec51, #429321);
     border-image-slice: 1;
-    // color: #b4ec51;
-    // color: rgb(102, 187, 106);
-    // box-shadow: 0 0 30px 0px rgba(150, 230, 161, .1);
-    // background: linear-gradient(90deg, #b4ec51, #429321) !important;
   }
 }
 

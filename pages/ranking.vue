@@ -1,59 +1,62 @@
 <template>
-  <div class="ranking-root">
-    <div class="ranking-wrapper">
-      <p class="platform-title">{{ platform.toUpperCase() }}</p>
+  <article class="ranking-page-wrapper">
+    <p class="platform-title">{{ platform.toUpperCase() }}</p>
+    <header>
       <h1>{{ categoryText }} ranking</h1>
-      <h2></h2>
-      <div class="ranking-options">
-        <div>
-          <p>Platform</p>
-          <fg-list
-            :options="platforms"
-            @selected="platform=$event; getRanking()"
-          />
-        </div>
-        <div>
-          <p>Category</p>
-          <fg-list
-            :options="categories"
-            @selected="category=$event; getRanking()"
-          />
-        </div>
+    </header>
+
+    <nav class="ranking-options">
+      <div>
+        <p>Platform</p>
+        <fg-list
+          :options="platforms"
+          @selected="platform=$event; getRanking()"
+        />
       </div>
-      <fg-menu
-        :links="modes"
-        :active="mode"
-        class="modes-menu"
-        @clicked="mode=$event; getRanking()"
-      />
-      <transition name="fade">
-        <loading-cubes v-if="isLoading"/>
-        <div v-else-if="!ranking.length">
-          <p>No rankings were found for your settings</p>
-        </div>
-        <div v-else>
-          <table class="players-table">
-            <thead>
+      <div>
+        <p>Category</p>
+        <fg-list
+          :options="categories"
+          @selected="category=$event; getRanking()"
+        />
+      </div>
+    </nav>
+
+    <fg-menu
+      :links="modes"
+      :active="mode"
+      class="modes-menu"
+      @clicked="mode=$event; getRanking()"
+    />
+
+    <transition name="fade-slide">
+      <loading-cubes v-if="isLoading"/>
+      <section v-else-if="!ranking.length">
+        <p>No rankings were found for your settings</p>
+      </section>
+      <section v-else class="ranking-table-wrapper">
+        <table class="players-table">
+          <thead>
+            <tr>
               <th>RANK</th>
               <th>PLAYER</th>
               <th>{{ categoryText.toUpperCase() }}</th>
               <th>MATCHES</th>
-            </thead>
-            <tbody>
-              <tr v-for="(record, recordKey) in ranking" :key="recordKey">
-                <td>{{ offset + recordKey + 1}} </td>
-                <td><nuxt-link :to="`/stats/${record.player}`">{{ record.player }}</nuxt-link></td>
-                <td>{{ record[category] }}</td>
-                <td>{{ record.matchesplayed }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </transition>
-    </div>
-    <div class="ad-panel">
-    </div>
-  </div>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(record, recordKey) in ranking" :key="recordKey">
+              <td>{{ offset + recordKey + 1}} </td>
+              <td><nuxt-link :to="`/stats/${record.player}`">{{ record.player }}</nuxt-link></td>
+              <td>{{ record[category] }}</td>
+              <td>{{ record.matchesplayed }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </transition>
+
+  </article>
 </template>
 
 <script>
@@ -115,6 +118,11 @@ export default {
   async asyncData({ app }) {
     const { ranking, offset, category } = await app.$axios.$get(`/stats/ranking/pc/solo/top1/season/5/page/1`);
     return { ranking, offset, category };
+  },
+  head() {
+    return {
+      title: 'Fortnite Players Ranking - Fortnight.gg'
+    }
   }
 }
 </script>
@@ -122,18 +130,24 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
 
-.ranking-root {
-  display: flex;
-  margin-bottom: 100px;
+.ranking-page-wrapper {
   max-width: 800px;
-  margin: 50px auto;
-}
-
-.ranking-wrapper {
-  margin-top: 150px;
+  margin: 0 auto;
   flex: 9;
   min-height: 100vh;
   position: relative;
+  overflow: hidden;
+  @include small {
+    font-size: 12px;
+  }
+}
+
+.ranking-table-wrapper {
+  overflow-x: auto;
+}
+
+.players-table {
+  table-layout: fixed;
 }
 
 p {
