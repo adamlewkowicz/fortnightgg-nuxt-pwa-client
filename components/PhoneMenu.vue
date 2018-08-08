@@ -2,10 +2,10 @@
   <header>
     <nav>
       <ul>
-        <li><nuxt-link to="/" exact></nuxt-link></li>
-        <li><nuxt-link to="/ranking"></nuxt-link></li>
-        <li><nuxt-link to="/items"></nuxt-link></li>
-        <li><nuxt-link to="/stats"></nuxt-link></li>
+        <li><nuxt-link to="/" exact title="Go to Homepage"></nuxt-link></li>
+        <li><nuxt-link to="/ranking" title="Go to Ranking"></nuxt-link></li>
+        <li><nuxt-link to="/items" title="Go to Items"></nuxt-link></li>
+        <li><nuxt-link to="/stats" title="Go to Stats"></nuxt-link></li>
       </ul>
     </nav>
   </header>

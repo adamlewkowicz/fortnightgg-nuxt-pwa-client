@@ -1,15 +1,15 @@
 <template>
   <div id="header-wrapper">
     <header>
-      <nuxt-link to="/" id="logo">
+      <nuxt-link to="/" id="logo" title="Go to Homepage">
         <img src="@/assets/img/logo.svg" alt="Fortnight website logo"/>
       </nuxt-link>
 
       <nav>
         <ul>
-          <li><nuxt-link to="/items">Items</nuxt-link></li>
-          <li><nuxt-link to="/stats">Stats</nuxt-link></li>
-          <li><nuxt-link to="/ranking">Ranking</nuxt-link></li>
+          <li><nuxt-link to="/ranking" title="Go to Ranking">Ranking</nuxt-link></li>
+          <li><nuxt-link to="/items" title="Go to Items">Items</nuxt-link></li>
+          <li><nuxt-link to="/stats" title="Go to Stats">Stats</nuxt-link></li>
         </ul>
       </nav>
 

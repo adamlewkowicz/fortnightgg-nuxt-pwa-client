@@ -14,8 +14,7 @@ module.exports = {
       { name: 'ogDescription', content: siteDesc }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,600,700' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
 
