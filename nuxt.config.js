@@ -1,16 +1,17 @@
 require('dotenv').config();
 const cdnURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space';
+const siteDesc = 'Fortnite stats, rankings, interactive and detailed items explorer. Quick updates, live and daily matches tracking.';
 
 module.exports = {
   head: {
-    title: 'Fortnite stats, rankings, items - Fortnight.gg',
+    title: 'Fortnite Stats & Rankings & Items explorer',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: 'Fortnite stats, rankings, items explorer - Fortnight.gg' },
+      { hid: 'description', name: 'description', content: siteDesc },
       { name: 'theme_color', content: '#20213A' },
       { name: 'author', content: 'Fortnight.gg' },
-      { name: 'ogDescription', content: 'Fortnite stats, rankings, items explorer - Fortnight.gg' }
+      { name: 'ogDescription', content: siteDesc }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
@@ -23,7 +24,7 @@ module.exports = {
     short_name: 'Fortnight.gg',
     lang: 'en',
     background_color: '#20213A',
-    description: 'Fortnite statistics, items, rankings - Fortnight.gg'
+    description: siteDesc
   },
 
   workbox: {

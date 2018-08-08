@@ -1,51 +1,54 @@
 <template>
-  <div class="items-page-wrapper">
+  <article>
 
-    <items-nav
-      class="items-nav"
-      :itemsTypes="itemsTypes"
-      :filters="filters"
-    />
+    <header>
+      <h1>Items explorer</h1>
+    </header>
 
+    <section class="items-root-wrapper">
+      <items-nav
+        class="items-nav"
+        :itemsTypes="itemsTypes"
+        :filters="filters"
+      />
+      <div class="items-filters-container">
+        <!-- <items-filters :filters="filters"/> -->
+        <nav>
+          <h2>SORT BY:</h2>
+          <div class="sort-wrapper">
+            <fg-list
+              :options="sortCategories"
+              @selected="SORT_ITEMS_BY($event)"
+            />
+            <checkbox-arrow
+              :value="sortOptions.desc"
+              @checkboxClick="SORT_ITEMS_DIRECTION"
+            />
+          </div>
+        </nav>
 
-
-    <div class="items-filters-container">
-      <!-- <items-filters :filters="filters"/> -->
-      <h3>SORT BY:</h3>
-      <div class="sort-wrapper">
-        <fg-list
-          :options="sortCategories"
-          @selected="SORT_ITEMS_BY($event)"
-        />
-        <checkbox-arrow
-          :value="sortOptions.desc"
-          @checkboxClick="SORT_ITEMS_DIRECTION"
-        />
+        <transition-group name="item" tag="ul" class="items-wrapper">
+          <item
+            v-for="item in filteredItems"
+            :key="item.id"
+            :item="item"
+            @choosenItem="choosenItem = $event">
+          </item>
+        </transition-group>
+        <div v-show="!filteredItems.length" class="filters-fail">
+          <p>No items were found for your filters</p>
+          <button @click="CLEAR_ITEMS_FILTERS">Clear filters</button>
+        </div>
       </div>
 
-      <!-- {{ indexes }} -->
-      <transition-group name="item" tag="ul" class="items-wrapper">
-        <item
-          v-for="item in filteredItems"
-          :key="item.id"
-          :item="item"
-          @choosenItem="choosenItem = $event">
-        </item>
-      </transition-group>
-      <div v-show="!filteredItems.length" class="filters-fail">
-        <p>No items were found for your filters</p>
-        <button @click="CLEAR_ITEMS_FILTERS">Clear filters</button>
-      </div>
+      <item-details
+        v-if="choosenItem"
+        :item="choosenItem"
+        @closeDetails="choosenItem = null"
+      />
 
-    </div>
-
-    <item-details
-      v-if="choosenItem"
-      :item="choosenItem"
-      @closeDetails="choosenItem = null"
-    />
-
-  </div>
+    </section>
+  </article>
 </template>
 
 
@@ -155,15 +158,15 @@ select {
   margin-right: 5px;
 }
 
-h3 {
+h2 {
   font-size: 13px;
   margin: 0 0 5px 0;
 }
 
-.items-page-wrapper {
-  margin-top: 300px;
+.items-root-wrapper {
   display: flex;
   min-height: 80vh;
+  margin-top: 20px;
   @include tablet {
     flex-direction: column;
   }

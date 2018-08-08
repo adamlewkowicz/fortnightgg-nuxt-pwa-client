@@ -1,5 +1,5 @@
 <template>
-  <div class="wrapper">
+  <section>
     <platform-switch
       :availablePlatforms="availablePlatforms"
       @switchPlatform="pickedPlatform=$event"
@@ -18,7 +18,7 @@
       </div>
     </transition-group>
 
-  </div>
+  </section>
 </template>
 
 <script>

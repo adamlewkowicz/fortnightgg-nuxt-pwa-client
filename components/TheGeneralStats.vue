@@ -4,7 +4,9 @@
     <!-- <button @click="updateStats()">Update</button> -->
 
     <p class="next-update">Next update in: {{ nextUpdateIn }}</p>
-    <h2>GENERAL STATS:</h2>
+    <header>
+      <h2>GENERAL STATS:</h2>
+    </header>
 
     <table class="general-stats">
       <tbody>

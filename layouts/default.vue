@@ -1,11 +1,11 @@
 <template>
   <div>
     <the-navbar/>
-    <section class="page-wrapper">
+    <main class="page-wrapper">
       <transition name="fade-scale">
         <nuxt/>
       </transition>
-    </section>
+    </main>
     <phone-menu />
   </div>
 </template>
@@ -47,7 +47,7 @@ body {
 
 .page-wrapper {
   box-sizing: border-box;
-  margin: 100px auto;
+  margin: 250px auto 100px auto;
   @extend %rwd-sizing;
 }
 </style>

@@ -1,8 +1,9 @@
 <template>
-  <div class="searcher-main-wrapper">
-    <p v-if="error.length" class="error-message">
-      {{ error }}
-    </p>
+  <section class="searcher-main-wrapper">
+    <header>
+      <h1>Fortnite stats</h1>
+      <p>Track your stats and progress in Fortnite Battle Royale</p>
+    </header>
     <div class="searcher-wrapper">
       <input type="text"
         v-model="nickname"
@@ -24,7 +25,10 @@
         </li>
       </ul>
     </div>
-  </div>
+    <p v-if="error.length" class="error-message">
+      {{ error }}
+    </p>
+  </section>
 </template>
 
 <script>
@@ -66,8 +70,6 @@ export default {
 }
 </script>
 
-
-
 <style lang="scss" scoped>
 .nickname-title {
   font-size: 20px;
@@ -76,9 +78,8 @@ export default {
 
 .searcher-main-wrapper {
   max-width: 700px;
-  margin: 200px auto;
-  margin-top: 300px;
   position: relative;
+  margin: 0 auto;
 }
 
 .searcher-wrapper {

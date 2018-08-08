@@ -1,33 +1,41 @@
 <template>
-  <div>
+  <article>
 
     <player-searcher />
 
-    <h3>Recently updated players</h3>
-    <div class="table-wrapper">
-      <table class="players-table">
-        <thead>
-          <th>Nickname:</th>
-          <th>Kills:</th>
-          <th>Matches played:</th>
-          <th>Updated:</th>
-        </thead>
-        <transition-group tag="tbody" name="slide-left" appear>
-          <tr v-for="(record, recordKey) in normalizedRecords"
-            :key="recordKey"
-            :style="recordsStyle[recordKey]"
-          >
-            <td>
-              <nuxt-link :to="`/stats/${record.name}`">{{ record.name }}</nuxt-link>
-            </td>
-            <td>{{ record.kills }}</td>
-            <td>{{ record.matchesplayed }}</td>
-            <td>{{ record.updatedAt }}</td>
-          </tr>
-        </transition-group>
-      </table>
-    </div>
-  </div>
+    <section>
+      <header>
+        <h2>Recently updated players</h2>
+      </header>
+      <article class="table-wrapper">
+        <table class="players-table">
+          <thead>
+            <tr>
+              <th>Nickname:</th>
+              <th>Kills:</th>
+              <th>Matches played:</th>
+              <th>Updated:</th>
+            </tr>
+          </thead>
+          <transition-group tag="tbody" name="slide-left" appear>
+            <tr v-for="(record, recordKey) in normalizedRecords"
+              :key="recordKey"
+              :style="recordsStyle[recordKey]"
+            >
+              <td>
+                <nuxt-link :to="`/stats/${record.name}`">{{ record.name }}</nuxt-link>
+              </td>
+              <td>{{ record.kills }}</td>
+              <td>{{ record.matchesplayed }}</td>
+              <td>{{ record.updatedAt }}</td>
+            </tr>
+          </transition-group>
+        </table>
+      </article>
+    </section>
+
+
+  </article>
 </template>
 
 <script>
@@ -74,10 +82,11 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
 
-h3 {
+h2 {
   text-align: center;
   margin-top: 250px;
   margin-bottom: 40px;
+  font-size: 15px;
 }
 
 .table-wrapper {

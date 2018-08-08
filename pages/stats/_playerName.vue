@@ -1,35 +1,33 @@
 <template>
   <article class="stats-wrapper">
 
-    <template v-if="!showStats">
-      <player-searcher
-        :error="error"
-      />
-    </template>
+    <player-searcher
+      v-if="!showStats"
+      :error="error"
+    />
 
     <section v-else>
-
-      <h1>{{ stats.general.name }}</h1>
-      <div id="stats">
-        <article id="general-stats">
+      <header>
+        <h1>{{ stats.general.name }}</h1>
+      </header>
+      <article id="stats">
+        <div id="general-stats">
           <general-stats :stats="stats.general" :isUpdating="stats.isUpdating" :actualTime="actualTime"/>
           <stats-history v-if="stats.history.length" :history="stats.history" :live="stats.live"/>
           <p v-else class="track-message">Keep this page open to track your progress</p>
-        </article>
+        </div>
 
-        <article id="all-stats">
-          <div v-if="stats.history.length > 1" class="chart-wrapper">
+        <div id="all-stats">
+          <section v-if="stats.history.length > 1" class="chart-wrapper">
             <line-chart
               :chartData="lineChartData"
               :height="chartHeight"
             />
-          </div>
+          </section>
           <all-stats :stats="stats.all"/>
-        </article>
-      </div>
-
+        </div>
+      </article>
     </section>
-
 
   </article>
 </template>
@@ -119,12 +117,8 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "@/assets/css/index.scss";
-
-.stats-wrapper {
-  margin-top: 250px;
-}
 
 .chart-wrapper {
   min-height: 235px;
@@ -140,11 +134,6 @@ export default {
 
 h2 {
   font-size: 13px;
-}
-
-h1 {
-  margin: 120px 0 10px 0;
-  font-size: 40px;
 }
 
 .modes {
@@ -163,7 +152,6 @@ h1 {
 
 #general-stats {
   flex: 3.5;
-  // flex: 3;
   max-width: 300px;
   @include tablet {
     max-width: 100%;

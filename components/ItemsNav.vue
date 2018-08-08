@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <nav>
     <label for="name-searcher">
-      <h3>ITEM NAME:</h3>
+      <h2>ITEM NAME:</h2>
     </label>
 
     <fg-text
@@ -26,7 +26,7 @@
         />
       </li>
     </ul>
-  </div>
+  </nav>
 </template>
 
 <script>
@@ -65,7 +65,7 @@ export default {
   margin-bottom: 20px;
 }
 
-h3 {
+h2 {
   font-size: 13px;
   margin: 0 0 5px 0;
 }
