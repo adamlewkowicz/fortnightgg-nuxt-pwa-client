@@ -79,7 +79,7 @@ export default {
     },
     error() {
       const { playerName } = this.$route.params;
-      return playerName ? `No stats were found for ${playerName}` : ``;
+      return playerName ? { text: `No stats were found for ${playerName}`, playerName } : {}
     },
     isUpdating() {
       return this.$store.state.stats.isUpdating;

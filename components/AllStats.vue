@@ -69,11 +69,16 @@ export default {
       return string[0].toUpperCase() + string.substring(1);
     },
     addCommasToValue(val) {
-      return val
+      if (val.includes('.')) return val.replace('.', ',');
+      else if (val.length > 3) {
+        ///
+      } else {
+        return val;
+      }
     }
   },
   mounted() {
-    if (this.stats.some(stat => stat.platform === 'pc')) this.pickedPlatform = 'pc';
+    if (this.stats.some(stats => stats.platform === 'pc')) this.pickedPlatform = 'pc';
     else this.pickedPlatform = this.stats[0].platform;
   }
 }
