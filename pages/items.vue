@@ -32,7 +32,7 @@
             v-for="item in filteredItems"
             :key="item.id"
             :item="item"
-            @choosenItem="choosenItem = $event">
+            @click.native="choosenItem = item.id">
           </item>
         </transition-group>
         <div v-show="!filteredItems.length" class="filters-fail">
@@ -41,11 +41,18 @@
         </div>
       </div>
 
-      <item-details
-        v-if="choosenItem"
-        :item="choosenItem"
-        @closeDetails="choosenItem = null"
-      />
+      <article class="details-wrapper"
+        @click.self="choosenItem = null"
+        v-show="choosenItem"
+      >
+        <item-details
+          v-for="item in items"
+          v-show="item.id === choosenItem"
+          :key="item.id"
+          :item="item"
+          @closeDetails="choosenItem = null"
+        />
+      </article>
 
     </section>
   </article>
@@ -95,11 +102,17 @@ export default {
       'filteredTypes',
       'itemsTypes'
     ]),
+    itemsState() {
+      return this.$store.state.items;
+    },
+    items() {
+      return this.itemsState.items;
+    },
     sortOptions() {
-      return this.$store.state.items.sortOptions;
+      return this.itemsState.sortOptions;
     },
     filters() {
-      return this.$store.state.items.filters;
+      return this.itemsState.filters;
     }
   },
   filters: {
@@ -218,6 +231,21 @@ h2 {
 .filters-fail {
   margin-top: 50px;
   text-align: center;
+}
+
+
+.details-wrapper {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  max-height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: rgba(1,1,1,.4);
+  z-index: 250;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
 

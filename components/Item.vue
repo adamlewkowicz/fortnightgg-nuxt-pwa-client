@@ -1,8 +1,7 @@
 <template>
-  <li
-    @click="$emit('choosenItem', item)"
-    class="item"
-    :class="item.className">
+  <li class="item"
+    :class="item.className"
+  >
     <div class="damage-snippet">{{ item.damage }}</div>
     <img :src="item.imgUrl" :alt="item.imgAlt">
     <div class="overlap-set">
