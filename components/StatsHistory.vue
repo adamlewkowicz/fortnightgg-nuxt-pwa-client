@@ -7,31 +7,34 @@
 
     <div class="history-components">
       <div :style="transitionStyle" class="history-comp">
-        <transition-group tag="ul" name="match">
+        <ul>
           <li v-for="(match, matchKey) in limitedStats"
             :key="matchKey*2"
             :class="match.place.toLowerCase()">
             {{ match.place }}
-            <div>{{ match.timeAgo }}</div>
+            <span v-if="match.matchesplayed > 1" class="matches-played">
+              {{ match.matchesplayed }} games
+            </span>
+            <span>{{ match.timeAgo }}</span>
           </li>
-        </transition-group>
+        </ul>
       </div>
 
       <div :style="transitionStyle" class="history-comp">
         <table>
           <thead>
             <tr>
-              <th>Matches:</th>
-              <th>Wins:</th>
+              <th>Wins / Matches</th>
               <th>Kills:</th>
+              <th>Score:</th>
               <th>Date:</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(record, recordKey) in dailyStats" :key="recordKey">
-              <td>{{ record.matchesplayed }}</td>
-              <td>{{ record.score }}</td>
+              <td>{{ record.top1 }} / {{ record.matchesplayed }}</td>
               <td>{{ record.kills }}</td>
+              <td>+{{ record.score }}</td>
               <td>{{ record.date }}</td>
             </tr>
           </tbody>
@@ -104,6 +107,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/css/index.scss";
+
 h2 {
   font-size: 13px;
   margin-bottom: 25px;
@@ -146,6 +151,7 @@ button {
   }
 }
 
+
 ul {
   list-style-type: none;
   margin: 0;
@@ -161,10 +167,10 @@ li {
   border: 2px solid transparent;
   transition: transform 1s;
   position: relative;
-  div {
-    display: inline-block;
-    margin-left: auto;
+  justify-content: space-between;
+  span {
     font-size: 12px;
+    &.matches-played { color: $colorRose; }
   }
   &.defeat {
     border-image-slice: 1;
