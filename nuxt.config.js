@@ -1,4 +1,5 @@
 require('dotenv').config();
+const sitemapPlayers = require('./plugins/sitemap-players');
 const cdnURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space';
 const siteDesc = 'Fortnite stats, rankings, interactive and detailed items explorer. Quick updates, live and daily matches tracking.';
 
@@ -63,7 +64,8 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/sitemap'
   ],
 
   'google-analytics': {
@@ -77,6 +79,10 @@ module.exports = {
 
   axios: {
     baseURL: cdnURL
+  },
+
+  sitemap: {
+    routes: sitemapPlayers
   },
 
 
