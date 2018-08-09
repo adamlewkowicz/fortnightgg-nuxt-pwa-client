@@ -27,7 +27,7 @@
         </li>
       </ul>
     </div>
-    <p v-if="error" class="error-message">
+    <p v-if="Object.keys(error).length" class="error-message">
       {{ error.text }}
     </p>
   </section>
@@ -40,7 +40,7 @@ export default {
   props:{
     error: {
       type: Object,
-      default: null
+      default: {}
     }
   },
   data() {
