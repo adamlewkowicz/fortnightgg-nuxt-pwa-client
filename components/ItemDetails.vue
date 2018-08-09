@@ -1,24 +1,26 @@
 <template>
-  <div class="details-wrapper" @click.self="$emit('closeDetails')">
-    <div class="item-details">
-      <button @click="$emit('closeDetails')">
-      </button>
+  <section class="item-details">
+    <header>
       <h2>{{ item.name }}</h2>
-      <p>{{ item.type }}</p>
-      <img
-        :src="item.imgUrl"
-        :class="item.className"
-        :alt="item.imgAlt">
-      <table>
-        <tbody>
-          <tr v-for="(itemProp, itemPropKey) in itemsProps" :key="itemPropKey">
-            <td>{{ itemProp[0] }}</td>
-            <td>{{ item[itemProp[1]] }}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+      <figcaption><p>{{ item.type }}</p></figcaption>
+      <figure>
+        <img
+          :src="item.imgUrl"
+          :class="item.className"
+          :alt="item.imgAlt">
+      </figure>
+    </header>
+    <button @click="$emit('closeDetails')">
+    </button>
+    <table>
+      <tbody>
+        <tr v-for="(itemProp, itemPropKey) in itemsProps" :key="itemPropKey">
+          <td>{{ itemProp[0] }}</td>
+          <td>{{ item[itemProp[1]] }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
 </template>
 
 <script>
@@ -44,20 +46,7 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
 
-.details-wrapper {
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  max-height: 100vh;
-  left: 0;
-  top: 0;
-  background-color: rgba(1,1,1,.4);
-  // overflow-y: hidden;
-  z-index: 250;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+
 
 h2 {
   text-align: center;
@@ -71,6 +60,9 @@ h2 {
   background-color: #373971;
   position: relative;
   animation: popIn .4s;
+  @include phone {
+    animation-duration: .6s;
+  }
 }
 
 img {

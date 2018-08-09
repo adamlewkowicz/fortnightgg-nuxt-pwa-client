@@ -8,7 +8,7 @@
       id="name-searcher"
       placeholder="Item name..."
       :value="filters.name"
-      @input="FILTER_BY_NAME($event)"
+      @input="filterByName"
     />
 
     <ul class="items-types-filters-wrapper">
@@ -40,7 +40,8 @@ export default {
   data() {
     return {
       itemName: '',
-      checkedItemsTypes: []
+      checkedItemsTypes: [],
+      timeout: null
     }
   },
   methods: {
@@ -48,6 +49,10 @@ export default {
     filerItemsTypes(itemType) {
       const mutate = mutation => this.$store.commit(mutation, itemType);
       this.filters.types.some(type => type === itemType) ? mutate('DELETE_ITEM_TYPE') : mutate('ADD_ITEM_TYPE');
+    },
+    filterByName(event) {
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(() => this.FILTER_BY_NAME(event), 300);
     }
   },
   filters: {

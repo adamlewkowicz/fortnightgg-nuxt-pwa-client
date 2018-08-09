@@ -79,7 +79,7 @@ export default {
     },
     error() {
       const { playerName } = this.$route.params;
-      return playerName ? `No stats were found for ${playerName}` : ``;
+      return playerName ? { text: `No stats were found for ${playerName}`, playerName } : {}
     },
     isUpdating() {
       return this.$store.state.stats.isUpdating;
@@ -111,7 +111,7 @@ export default {
     const { playerName } = this.$route.params;
     const player = playerName ? `${playerName} - ` : '';
     return {
-      title: `${player}Fortnite Stats and Ranking - Fortnight.gg`
+      title: `${player}Fortnite Player Stats - Fortnight.gg`
     }
   }
 }

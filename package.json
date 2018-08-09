@@ -16,6 +16,7 @@
     "@nuxtjs/axios": "^5.3.1",
     "@nuxtjs/google-analytics": "^2.0.2",
     "@nuxtjs/pwa": "^2.0.8",
+    "@nuxtjs/sitemap": "^0.1.1",
     "axios": "^0.18.0",
     "c3": "^0.6.2",
     "chart.js": "^2.7.2",
@@ -27,7 +28,8 @@
     "sass-loader": "^7.0.3",
     "vue-c3": "^1.2.8",
     "vue-chartjs": "^3.3.2",
-    "vue-cli": "^2.9.6"
+    "vue-cli": "^2.9.6",
+    "vue-scrollto": "^2.11.0"
   },
   "devDependencies": {
     "@nuxtjs/dotenv": "^1.1.1",

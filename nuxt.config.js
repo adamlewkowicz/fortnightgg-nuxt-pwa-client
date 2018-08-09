@@ -1,4 +1,5 @@
 require('dotenv').config();
+const sitemapPlayers = require('./plugins/sitemap-players');
 const cdnURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : 'https://fortnite-api.space';
 const siteDesc = 'Fortnite stats, rankings, interactive and detailed items explorer. Quick updates, live and daily matches tracking.';
 
@@ -9,9 +10,10 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: siteDesc },
-      { name: 'theme_color', content: '#20213A' },
+      { name: 'theme-color', content: '#20213A' },
       { name: 'author', content: 'Fortnight.gg' },
-      { name: 'ogDescription', content: siteDesc }
+      { name: 'ogDescription', content: siteDesc },
+      { name: 'google-site-verification', content: 'cPS_vRDKbaV3wHF5Va5xUGl-onRkUYhcf5e1VIYEXFk' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
@@ -62,7 +64,8 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
     '@nuxtjs/pwa',
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
+    '@nuxtjs/sitemap'
   ],
 
   'google-analytics': {
@@ -70,17 +73,23 @@ module.exports = {
   },
 
   plugins: [
-    '~/plugins/global.js'
+    '~/plugins/global.js',
+    '@/plugins/vue-scrollto'
   ],
 
   axios: {
     baseURL: cdnURL
   },
 
+  sitemap: {
+    routes: sitemapPlayers
+  },
+
 
   build: {
     vendor: [
-      'vue-c3'
+      'vue-c3',
+      'vue-scrollto'
     ],
     /*
     ** Run ESLint on save

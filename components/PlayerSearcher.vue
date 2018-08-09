@@ -6,6 +6,8 @@
     </header>
     <div class="searcher-wrapper">
       <input type="text"
+        id="player-searcher"
+        v-scroll-to="'#player-searcher'"
         v-model="nickname"
         placeholder="Fortnite nickname"
         @input="findPlayers()"
@@ -25,8 +27,8 @@
         </li>
       </ul>
     </div>
-    <p v-if="error.length" class="error-message">
-      {{ error }}
+    <p v-if="error" class="error-message">
+      {{ error.text }}
     </p>
   </section>
 </template>
@@ -37,8 +39,8 @@ import axios from 'axios';
 export default {
   props:{
     error: {
-      type: String,
-      default: ''
+      type: Object,
+      default: null
     }
   },
   data() {
@@ -66,6 +68,9 @@ export default {
         this.$router.push(`/stats/${nickname}`);
       }
     }
+  },
+  mounted() {
+    if (this.error) this.nickname = this.error.playerName;
   }
 }
 </script>

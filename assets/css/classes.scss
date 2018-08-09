@@ -11,11 +11,12 @@
     transition: all .12s ease;
     overflow: hidden;
     border-left: 3px solid transparent;
-    &:hover {
-      box-shadow: 0px 0px 40px 6px rgba(28, 30, 83, 0.8);
-      background: linear-gradient(to right, rgba(26, 161, 235, .2), transparent);
-      background-color: #373971;
-    }
+  }
+
+  tbody tr:hover {
+    box-shadow: 0px 0px 40px 6px rgba(28, 30, 83, 0.8);
+    background: linear-gradient(to right, rgba(26, 161, 235, .2), transparent);
+    background-color: #373971;
   }
 
   tr:nth-child(even) td {

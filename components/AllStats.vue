@@ -69,11 +69,16 @@ export default {
       return string[0].toUpperCase() + string.substring(1);
     },
     addCommasToValue(val) {
-      return val
+      if (val.includes('.')) return val.replace('.', ',');
+      else if (val.length > 3) {
+        ///
+      } else {
+        return val;
+      }
     }
   },
   mounted() {
-    if (this.stats.some(stat => stat.platform === 'pc')) this.pickedPlatform = 'pc';
+    if (this.stats.some(stats => stats.platform === 'pc')) this.pickedPlatform = 'pc';
     else this.pickedPlatform = this.stats[0].platform;
   }
 }
@@ -97,17 +102,23 @@ export default {
     &:not(:nth-child(n+9)) {
       margin-bottom: 20px;
     }
+    @include phone {
+      width: 33%;
+      font-size: 19px !important;
+    }
   }
   p {
     color: #b2b2d5;
     margin: 3px 0 0 0;
     font-size: 12px;
+    @include small {
+      font-size: 11px;
+    }
   }
   i {
     font-style: normal;
     color: rgba(255,255,255,0.2);
     color: #4b4d71;
-    // color: #525372;
   }
 }
 
