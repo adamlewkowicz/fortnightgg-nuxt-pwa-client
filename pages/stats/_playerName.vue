@@ -111,7 +111,7 @@ export default {
     const { playerName } = this.$route.params;
     const player = playerName ? `${playerName} - ` : '';
     return {
-      title: `${player}Fortnite Stats and Ranking - Fortnight.gg`
+      title: `${player}Fortnite Player Stats - Fortnight.gg`
     }
   }
 }

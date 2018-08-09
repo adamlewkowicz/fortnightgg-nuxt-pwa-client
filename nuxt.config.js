@@ -70,7 +70,8 @@ module.exports = {
   },
 
   plugins: [
-    '~/plugins/global.js'
+    '~/plugins/global.js',
+    '@/plugins/vue-scrollto'
   ],
 
   axios: {
@@ -80,7 +81,8 @@ module.exports = {
 
   build: {
     vendor: [
-      'vue-c3'
+      'vue-c3',
+      'vue-scrollto'
     ],
     /*
     ** Run ESLint on save

@@ -6,6 +6,8 @@
     </header>
     <div class="searcher-wrapper">
       <input type="text"
+        id="player-searcher"
+        v-scroll-to="'#player-searcher'"
         v-model="nickname"
         placeholder="Fortnite nickname"
         @input="findPlayers()"

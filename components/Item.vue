@@ -56,7 +56,6 @@ $shadows:
     background: radial-gradient(ellipse at center, #{nth($backgrounds, $index)});
     border: 2px solid #{nth($rarityColors, $index)};
     &:hover {
-    //  transition-delay: .5s;
       position: relative;
       z-index: 10;
       box-shadow: 0px 0px 35px -4px #{nth($shadows, $index)};

@@ -71,6 +71,9 @@ h2 {
   background-color: #373971;
   position: relative;
   animation: popIn .4s;
+  @include phone {
+    animation-duration: .6s;
+  }
 }
 
 img {
