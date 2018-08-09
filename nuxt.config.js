@@ -9,9 +9,10 @@ module.exports = {
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: siteDesc },
-      { name: 'theme_color', content: '#20213A' },
+      { name: 'theme-color', content: '#20213A' },
       { name: 'author', content: 'Fortnight.gg' },
-      { name: 'ogDescription', content: siteDesc }
+      { name: 'ogDescription', content: siteDesc },
+      { name: 'google-site-verification', content: 'cPS_vRDKbaV3wHF5Va5xUGl-onRkUYhcf5e1VIYEXFk' }
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
