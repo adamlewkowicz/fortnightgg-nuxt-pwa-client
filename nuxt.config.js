@@ -31,9 +31,21 @@ module.exports = {
   workbox: {
     runtimeCaching: [
       {
-        urlPattern: 'https://fortnite-api.space/.*',
-        handler: 'cacheFirst',
-        method: 'GET'
+        urlPattern: cdnURL + '/items/.*',
+        handler: 'cacheFirst'
+      },
+      {
+        urlPattern: cdnURL + '/ranking/.*',
+        strategyOptions: {
+          cacheName: 'ranking-cache',
+          cacheExpiration: {
+            maxEntries: 10,
+            maxAgeSeconds: 60 * 60
+          }
+        }
+      },
+      {
+        urlPattern: cdnURL + '/.*'
       }
     ]
   },
