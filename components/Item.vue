@@ -66,7 +66,7 @@ $shadows:
         opacity: 1;
       }
       img {
-      transform: scale(1.5) rotate(20deg);
+        transform: scale(1.5) rotate(20deg);
       }
       .overlap-set {
         transform: translateY(calc(100% + 2px));
@@ -109,7 +109,7 @@ img {
 }
 
 @include phone {
-  .item, .damage-snippet, img, .overlap-set {
+  .damage-snippet, img, .overlap-set {
     transform: none !important;
   }
 }
