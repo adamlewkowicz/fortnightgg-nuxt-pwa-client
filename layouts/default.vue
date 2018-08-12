@@ -2,7 +2,7 @@
   <div>
     <the-navbar/>
     <main class="page-wrapper">
-      <transition name="fade-scale">
+      <transition name="page-transition">
         <nuxt/>
       </transition>
     </main>
@@ -25,6 +25,19 @@ export default {
 
 <style lang="scss">
 @import "@/assets/css/index.scss";
+
+.page-transition-enter-active, .page-transition-leave-active {
+  transition: transform .7s ease, opacity .7s ease;
+}
+
+.page-transition-enter {
+  position: absolute;
+  transform: scale(.9);
+  opacity: 0;
+  @include phone {
+    transform: translateY(-40px);
+  }
+}
 
 html {
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;

@@ -1,13 +1,3 @@
-.fade-scale-enter-active, .fade-scale-leave-active {
-  transition: transform .7s ease, opacity .7s ease;
-}
-
-.fade-scale-enter {
-  position: absolute;
-  transform: scale(.9);
-  opacity: 0;
-}
-
 .fade-abs-enter-active, .fade-abs-leave-active {
   opacity: 1;
   transition: opacity .5s ease;
