@@ -46,8 +46,6 @@ export default {
 <style lang="scss" scoped>
 @import "@/assets/css/index.scss";
 
-
-
 h2 {
   text-align: center;
   font-size: 18px;
@@ -61,7 +59,7 @@ h2 {
   position: relative;
   animation: popIn .4s;
   @include phone {
-    animation-duration: .6s;
+    animation: easyScale .6s ease;
   }
 }
 
@@ -116,20 +114,5 @@ td {
 tr:nth-child(even) {
   background-color: rgba(255,255,255,.05);
 }
-
-@keyframes popIn {
-  0% {
-    opacity: 0;
-    transform: scale(.3);
-  }
-  60% {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
 </style>
 
