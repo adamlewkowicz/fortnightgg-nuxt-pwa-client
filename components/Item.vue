@@ -44,6 +44,7 @@ $shadows:
   user-select: none;
   position: relative;
   transition: all .3s ease;
+  outline: none;
   @include small {
     width: 125px;
     height: 125px;
@@ -81,6 +82,10 @@ $shadows:
   top: -10px;
   opacity: 0;
   transition: opacity .3s ease, transform .3s ease;
+  @include phone {
+    top: 10px;
+    // opacity: 1;
+  }
 }
 
 img {
@@ -101,6 +106,12 @@ img {
   padding: 7px;
   box-sizing: border-box;
   font-weight: bold;
+}
+
+@include phone {
+  .item, .damage-snippet, img, .overlap-set {
+    transform: none !important;
+  }
 }
 </style>
 
