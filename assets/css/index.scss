@@ -1,7 +1,7 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 @import "./elements.scss";
 @import "./animations.scss";
 @import "./classes.scss";
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,600,700");
 
 @mixin desktop {
 	@media (max-width: 1200px) {
