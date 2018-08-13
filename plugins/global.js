@@ -12,4 +12,3 @@ Vue.component('fg-text', FgText);
 Vue.component('fg-checkbox', FgCheckbox);
 
 Vue.filter('addCommasToValue', addCommasToValue);
-

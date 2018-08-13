@@ -1,4 +1,4 @@
-exports.addCommasToValue = val => {
+export const addCommasToValue = val => {
   const stringVal = val.toString();
 
   if (stringVal.includes('.')) {

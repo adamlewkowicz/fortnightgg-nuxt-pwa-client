@@ -2,7 +2,6 @@
   <article>
 
     <player-searcher />
-
     <section>
       <header>
         <h2>Recently updated players</h2>
@@ -65,6 +64,11 @@ export default {
           updatedAt: moment(record.updatedAt).fromNow()
         })
       );
+    }
+  },
+  methods: {
+    someFunc() {
+      alert(123)
     }
   },
   async asyncData({ app }) {

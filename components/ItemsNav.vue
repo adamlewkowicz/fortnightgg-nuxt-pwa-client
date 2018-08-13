@@ -50,9 +50,9 @@ export default {
       const mutate = mutation => this.$store.commit(mutation, itemType);
       this.filters.types.includes(itemType) ? mutate('DELETE_ITEM_TYPE') : mutate('ADD_ITEM_TYPE');
     },
-    filterByName(event) {
+    filterByName(itemName) {
       clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => this.FILTER_ITEMS_BY_NAME(event), 300);
+      this.timeout = setTimeout(() => this.FILTER_ITEMS_BY_NAME(itemName), 300);
     }
   },
   filters: {
