@@ -12,23 +12,23 @@
       <tbody>
         <tr>
           <td class="sword">Matches:</td>
-          <td>{{ stats.matchesplayed }}</td>
+          <td>{{ stats.matchesplayed | addCommasToValue }}</td>
         </tr>
-        <tr class="gradi">
+        <tr>
           <td class="clock">{{ timePlayed.text }}:</td>
-          <td>{{ timePlayed.time }}</td>
+          <td>{{ timePlayed.time | addCommasToValue }}</td>
         </tr>
-        <tr class="gradi2">
-          <td class="sword">K/D ratio:</td>
-          <td>{{ stats.kdratio }}</td>
+        <tr>
+          <td class="sword">Wins:</td>
+          <td>{{ stats.top1 | addCommasToValue }}</td>
         </tr>
-        <tr class="gradi3">
+        <tr>
           <td class="sword">Winratio:</td>
-          <td>{{ stats.winratio }}%</td>
+          <td>{{ stats.winratio | addCommasToValue }}%</td>
         </tr>
         <tr>
           <td class="sword">Kills:</td>
-          <td>{{ stats.kills }}</td>
+          <td>{{ stats.kills | addCommasToValue }}</td>
         </tr>
       </tbody>
     </table>

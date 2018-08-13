@@ -32,7 +32,7 @@ const items = {
     CLEAR_ITEMS_TYPES_FILTERS (state) {
       state.filters.types = [];
     },
-    FILTER_BY_NAME (state, name) {
+    FILTER_ITEMS_BY_NAME (state, name) {
       state.filters.name = name;
     },
     ADD_ITEM_TYPE (state, itemType) {

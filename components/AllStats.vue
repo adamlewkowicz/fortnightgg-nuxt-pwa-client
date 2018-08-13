@@ -2,8 +2,8 @@
   <section>
     <platform-switch
       :availablePlatforms="availablePlatforms"
-      @switchPlatform="pickedPlatform=$event"
       :active="pickedPlatform"
+      @switchPlatform="pickedPlatform=$event"
     />
 
     <transition-group name="fade">
@@ -11,7 +11,7 @@
         <h3>{{ stats.mode.toUpperCase() }}</h3>
         <div class="all-stats">
           <div v-for="(statProp, statPropKey) in orderedStatsProps" :key="statPropKey">
-            <b>{{ stats[statProp.name] }}</b>
+            <b>{{ stats[statProp.name] | addCommasToValue }}</b>
             <p>{{ statProp.title }}</p>
           </div>
         </div>
@@ -31,7 +31,7 @@ export default {
   props: ['stats'],
   data() {
     return {
-      pickedPlatform: '',
+      pickedPlatform: 'pc',
       orderedStatsProps: [
         { name: 'matchesplayed', title: 'Matches' },
         { name: 'kills', title: 'Kills' },
@@ -51,7 +51,11 @@ export default {
   computed: {
     filteredStats() {
       return this.stats
-        .map(stats => ({ ...stats, hoursplayed: Math.floor(stats.minutesplayed / 60) }))
+        .map(stats => ({
+          ...stats,
+          hoursplayed: Math.floor(stats.minutesplayed / 60),
+          winratio: stats.winratio + ' %'
+        }))
         .filter(stats => stats.platform == this.pickedPlatform)
     },
     availablePlatforms() {
@@ -67,14 +71,6 @@ export default {
   filters: {
     upperCaseFirstChar(string) {
       return string[0].toUpperCase() + string.substring(1);
-    },
-    addCommasToValue(val) {
-      if (val.includes('.')) return val.replace('.', ',');
-      else if (val.length > 3) {
-        ///
-      } else {
-        return val;
-      }
     }
   },
   mounted() {
@@ -97,7 +93,7 @@ export default {
   justify-content: space-between;
   border-radius: 9px;
   div {
-    font-size: 24px;
+    font-size: 22px;
     width: 25%;
     &:not(:nth-child(n+9)) {
       margin-bottom: 20px;
