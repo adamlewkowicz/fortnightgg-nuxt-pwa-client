@@ -23,7 +23,7 @@
               :style="recordsStyle[recordKey]"
             >
               <td>
-                <nuxt-link :to="`/stats/${record.name}`">{{ record.name }}</nuxt-link>
+                <nuxt-link :to="`/stats/${encodeURI(record.name)}`">{{ record.name }}</nuxt-link>
               </td>
               <td>{{ record.kills }}</td>
               <td>{{ record.matchesplayed }}</td>

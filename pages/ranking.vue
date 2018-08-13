@@ -47,7 +47,7 @@
           <tbody>
             <tr v-for="(record, recordKey) in ranking" :key="recordKey">
               <td>{{ offset + recordKey + 1}}</td>
-              <td><nuxt-link :to="`/stats/${record.player}`">{{ record.player }}</nuxt-link></td>
+              <td><nuxt-link :to="`/stats/${encodeURI(record.player)}`">{{ record.player }}</nuxt-link></td>
               <td>{{ record[category] }}</td>
               <td>{{ record.matchesplayed }}</td>
             </tr>
