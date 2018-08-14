@@ -10,14 +10,14 @@
         <p>Platform</p>
         <fg-list
           :options="platforms"
-          @selected="platform=$event; getRanking()"
+          @selected="updateRankingOpts('platform', $event)"
         />
       </div>
       <div>
         <p>Category</p>
         <fg-list
           :options="categories"
-          @selected="category=$event; getRanking()"
+          @selected="updateRankingOpts('category', $event)"
         />
       </div>
     </nav>
@@ -26,7 +26,7 @@
       :links="modes"
       :active="mode"
       class="modes-menu"
-      @clicked="mode=$event; getRanking()"
+      @clicked="updateRankingOpts('mode', $event)"
     />
 
     <transition name="fade-slide">
@@ -46,8 +46,8 @@
           </thead>
           <tbody>
             <tr v-for="(record, recordKey) in ranking" :key="recordKey">
-              <td>{{ offset + recordKey + 1}} </td>
-              <td><nuxt-link :to="`/stats/${record.player}`">{{ record.player }}</nuxt-link></td>
+              <td>{{ offset + recordKey + 1}}</td>
+              <td><nuxt-link :to="`/stats/${encodeURI(record.player)}`">{{ record.player }}</nuxt-link></td>
               <td>{{ record[category] }}</td>
               <td>{{ record.matchesplayed }}</td>
             </tr>
@@ -102,6 +102,12 @@ export default {
     }
   },
   methods: {
+    updateRankingOpts(optionName, value) {
+      if (!this.isLoading) {
+        this[optionName] = value;
+        this.getRanking();
+      }
+    },
     async getRanking() {
       this.isLoading = true;
       const { platform, mode, category, season, page } = this;

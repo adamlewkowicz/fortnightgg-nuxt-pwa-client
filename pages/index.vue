@@ -2,7 +2,6 @@
   <article>
 
     <player-searcher />
-
     <section>
       <header>
         <h2>Recently updated players</h2>
@@ -23,7 +22,7 @@
               :style="recordsStyle[recordKey]"
             >
               <td>
-                <nuxt-link :to="`/stats/${record.name}`">{{ record.name }}</nuxt-link>
+                <nuxt-link :to="`/stats/${encodeURI(record.name)}`">{{ record.name }}</nuxt-link>
               </td>
               <td>{{ record.kills }}</td>
               <td>{{ record.matchesplayed }}</td>
@@ -65,6 +64,11 @@ export default {
           updatedAt: moment(record.updatedAt).fromNow()
         })
       );
+    }
+  },
+  methods: {
+    someFunc() {
+      alert(123)
     }
   },
   async asyncData({ app }) {

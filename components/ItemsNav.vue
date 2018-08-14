@@ -17,13 +17,13 @@
         class="items-types">
         <label :for="itemType | htmlTag">
           {{ itemType }}
+          <fg-checkbox
+            :id="itemType | htmlTag"
+            :value="itemType"
+            :checked="!!filters.types.find(type => type === itemType)"
+            @change="filerItemsTypes(itemType)"
+          />
         </label>
-        <input type="checkbox"
-          :id="itemType | htmlTag"
-          :value="itemType"
-          :checked="!!filters.types.find(type => type === itemType)"
-          @change="filerItemsTypes(itemType)"
-        />
       </li>
     </ul>
   </nav>
@@ -45,14 +45,14 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['FILTER_BY_NAME']),
+    ...mapMutations(['FILTER_ITEMS_BY_NAME']),
     filerItemsTypes(itemType) {
       const mutate = mutation => this.$store.commit(mutation, itemType);
-      this.filters.types.some(type => type === itemType) ? mutate('DELETE_ITEM_TYPE') : mutate('ADD_ITEM_TYPE');
+      this.filters.types.includes(itemType) ? mutate('DELETE_ITEM_TYPE') : mutate('ADD_ITEM_TYPE');
     },
-    filterByName(event) {
+    filterByName(itemName) {
       clearTimeout(this.timeout);
-      this.timeout = setTimeout(() => this.FILTER_BY_NAME(event), 300);
+      this.timeout = setTimeout(() => this.FILTER_ITEMS_BY_NAME(itemName), 300);
     }
   },
   filters: {

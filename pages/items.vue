@@ -32,8 +32,8 @@
             v-for="item in filteredItems"
             :key="item.id"
             :item="item"
-            @click.native="choosenItem = item.id">
-          </item>
+            @click.native="choosenItem = item.id"
+          />
         </transition-group>
         <div v-show="!filteredItems.length" class="filters-fail">
           <p>No items were found for your filters</p>
@@ -99,14 +99,16 @@ export default {
   computed: {
     ...mapGetters([
       'filteredItems',
-      'filteredTypes',
-      'itemsTypes'
+      'filteredTypes'
     ]),
     itemsState() {
       return this.$store.state.items;
     },
     items() {
       return this.itemsState.items;
+    },
+    itemsTypes() {
+      return this.itemsState.itemsTypes;
     },
     sortOptions() {
       return this.itemsState.sortOptions;

@@ -8,6 +8,7 @@ const items = {
       prop: 'name',
       desc: false
     },
+    itemsTypes: [],
     items: []
   },
   mutations: {
@@ -20,6 +21,9 @@ const items = {
         imgUrl: process.env.baseURL + '/static/' + item.img,
         imgAlt: 'Fortnite ' + item.rarity + ' ' + item.name + ' - ' + item.type
       }));
+
+      state.itemsTypes = payload.items
+        .reduce((types, item) => types.includes(item.type) ? types : [...types, item.type], []);
     },
     CLEAR_ITEMS_FILTERS (state) {
       state.filters.name = '';
@@ -28,7 +32,7 @@ const items = {
     CLEAR_ITEMS_TYPES_FILTERS (state) {
       state.filters.types = [];
     },
-    FILTER_BY_NAME (state, name) {
+    FILTER_ITEMS_BY_NAME (state, name) {
       state.filters.name = name;
     },
     ADD_ITEM_TYPE (state, itemType) {
@@ -56,12 +60,8 @@ const items = {
     }
   },
   getters: {
-    itemsTypes: state => {
-      return state.items
-        .reduce((types, item) => types.some(type => type === item.type) ? types : [...types, item.type], []);
-    },
-    filteredTypes: (state, getters) => {
-      return !state.filters.types.length ? getters.itemsTypes : state.filters.types
+    filteredTypes: state => {
+      return state.filters.types.length ? state.filters.types : state.itemsTypes;
     },
     filteredItems: (state, getters) => {
       const { prop: sortProp, desc } = state.sortOptions;
@@ -75,9 +75,8 @@ const items = {
       ];
 
       return state.items
-        .map(item => ({...item, dps: parseFloat(item.dps) }))
-        .filter(item => item.name.toLowerCase().indexOf(state.filters.name.toLowerCase()) !== -1)
-        .filter(item => getters.filteredTypes.some(type => item.type === type))
+        .filter(item => item.name.toLowerCase().includes(state.filters.name.toLowerCase()))
+        .filter(item => getters.filteredTypes.includes(item.type))
         .sort((a, b) => {
           if (sortProp === 'rarity') {
             const aIndex = rarityOrder.indexOf(a.rarity);
