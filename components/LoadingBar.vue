@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="bar" :style="styled"></div>
+    <div class="bar" :style="styled" :class="{ 'top-only': barOnTop }"></div>
     <transition name="fade">
       <div class="spinner-wrapper" v-if="loading">
         <!-- <div v-if="playerName && !statsPath" class="playername">
@@ -24,7 +24,8 @@ export default {
       finished: false,
       width: '0',
       styled: { width: '100%' },
-      transition: false
+      transition: false,
+      barOnTop: false
     }
   },
   computed: {
@@ -75,8 +76,10 @@ export default {
     }
   },
   watch: {
-    routePath(val) {
-      // console.log(val)
+    routePath(path) {
+      // const { styled } = this.style
+      // this.styled = path.includes('/dashboard/') ? {}
+      this.barOnTop = path.includes('/dashboard/') ? true : false;
     }
   }
 }
@@ -100,6 +103,11 @@ export default {
     bottom: 70px;
     z-index: 201;
   }
+}
+
+.top-only {
+  bottom: auto !important;
+  top: 0px !important;
 }
 
 @keyframes loading {

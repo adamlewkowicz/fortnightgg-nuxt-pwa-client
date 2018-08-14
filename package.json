@@ -29,6 +29,7 @@
     "vue-c3": "^1.2.8",
     "vue-chartjs": "^3.3.2",
     "vue-cli": "^2.9.6",
+    "vue-quill-editor": "^3.0.6",
     "vue-scrollto": "^2.11.0"
   },
   "devDependencies": {

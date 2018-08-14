@@ -63,7 +63,10 @@ module.exports = {
   },
 
   css: [
-    '@/assets/css/index.scss'
+    '@/assets/css/index.scss',
+    'quill/dist/quill.snow.css',
+    'quill/dist/quill.bubble.css',
+    'quill/dist/quill.core.css'
   ],
 
   env: {
@@ -85,8 +88,9 @@ module.exports = {
   },
 
   plugins: [
-    '~/plugins/global.js',
-    '@/plugins/vue-scrollto'
+    '@/plugins/global.js',
+    '@/plugins/vue-scrollto',
+    { src: '@/plugins/vue-editor.js', ssr: false }
   ],
 
   axios: {
