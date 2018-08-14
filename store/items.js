@@ -18,7 +18,7 @@ const items = {
         dps: parseFloat(item.dps),
         fireRate: parseFloat(item.fireRate),
         className: item.rarity.toLowerCase(),
-        imgUrl: process.env.baseURL + '/static/' + item.img,
+        imgUrl: process.env.baseURL + '/static/img/items/weapons/' + item.name.replace(/ /g, '-').toLowerCase() + '.png',
         imgAlt: 'Fortnite ' + item.rarity + ' ' + item.name + ' - ' + item.type
       }));
 

@@ -13,13 +13,14 @@ input[type=checkbox] {
     background-color: #444798;
     background-color: #7173b0;
     position: absolute;
-    width: 16px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
     vertical-align: middle;
     border-radius: 7px;
     z-index: 5;
     transition: background-color .3s ease;
     visibility: visible;
+    font-size: 12px;
     border: 1px solid transparent;
   }
   &:hover {

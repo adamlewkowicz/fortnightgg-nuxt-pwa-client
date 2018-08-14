@@ -46,7 +46,7 @@ const stats = {
       else await dispatch('updateStats', playerName);
 		},
 		async updateStats ({ commit,state }, playerName) {
-      console.log('CALLED UPDATE STATS: ', playerName)
+      // console.log('CALLED UPDATE STATS: ', playerName)
       commit('CHANGE_UPDATING_STATUS', true);
       const { stats } = await this.$axios.$patch(`/stats/${encodeURI(playerName)}`);
       commit('CHANGE_UPDATING_STATUS', false);
